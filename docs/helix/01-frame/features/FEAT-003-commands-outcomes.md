@@ -48,6 +48,16 @@ The implementation must satisfy each requirement below.
 Zero silent semantic coercions or cross-context authority leaks in the scoped
 corpus. Mandatory finite host bounds. No passing implementation evidence is claimed.
 
+## Detailed Behavior
+
+Derive command arguments from upstream metadata, preserve omission/null, dispatch through the host and expose authoritative uncertainty/recovery outcomes.
+
+Retain a new invocation key and the exact task/note arguments before completing t-001. Pass the current host permission and any required confirmation; unauthorized attempts produce no effect. Lose a response after native commit and use the observation query with the original inputs/key. Recover the effect receipt and refetch current status; a second field failure never rewrites the first field's commit fact.
+
+See [SD-003](../../02-design/solution-designs/SD-003-commands-outcomes.md)
+for the selected approach and business rules BR-5, BR-6.
+Shared shapes and failure rules live in CONTRACT-002, CONTRACT-003.
+
 ## User Stories
 
 - [US-003: Invoke a declared task command](../user-stories/US-003-commands-outcomes.md).
@@ -61,8 +71,9 @@ Only applicable cases are exercised by this feature's story.
 ## Constraints and Assumptions
 
 Python/FastAPI, GraphQL/Relay and Batten are selected. Architecture and upstream
-change inventory govern ownership. Exact interface details require contracts
-following their named spikes; this feature does not freeze those signatures.
+change inventory govern ownership. Exact target surfaces are specified in CONTRACT-002, CONTRACT-003.
+The corresponding solution/story designs apply them. Framework/native/toolchain
+compatibility still requires the named interoperability proofs.
 
 ## Dependencies
 

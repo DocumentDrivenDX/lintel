@@ -1,0 +1,94 @@
+{
+  "format": "lintel.reference-cases/1",
+  "principals": [
+    "alice",
+    "bob"
+  ],
+  "persons": [
+    {
+      "key": "p-1",
+      "displayName": "Ren\u00e9e",
+      "visibleTo": [
+        "alice"
+      ]
+    },
+    {
+      "key": "p-2",
+      "displayName": "Morgan",
+      "visibleTo": [
+        "bob"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "key": "t-001",
+      "title": "Same",
+      "status": "OPEN",
+      "estimate": {
+        "decimalToken": "9007199254740993.01"
+      },
+      "assignee": "p-1",
+      "visibleTo": [
+        "alice"
+      ]
+    },
+    {
+      "key": "t-002",
+      "title": "Same",
+      "status": "OPEN",
+      "estimate": {
+        "decimalToken": "0.01"
+      },
+      "assignee": "p-1",
+      "visibleTo": [
+        "alice"
+      ]
+    },
+    {
+      "key": "t-003",
+      "title": "Same",
+      "status": "OPEN",
+      "estimate": {
+        "decimalToken": "10.00"
+      },
+      "assignee": "p-2",
+      "visibleTo": [
+        "alice"
+      ]
+    },
+    {
+      "key": "t-004",
+      "title": "Same",
+      "status": "OPEN",
+      "estimate": {
+        "decimalToken": "20.00"
+      },
+      "assignee": "p-2",
+      "visibleTo": [
+        "bob"
+      ]
+    }
+  ],
+  "controls": {
+    "pageSize": 2,
+    "stableOrder": [
+      "title:asc",
+      "taskKey:asc"
+    ],
+    "batchParents": 50,
+    "batchTarget": "p-1",
+    "absentNote": {},
+    "nullNote": {
+      "note": {
+        "null": true
+      }
+    },
+    "valueNote": {
+      "note": {
+        "string": "finished"
+      }
+    },
+    "secondApplication": "other-board-demo"
+  }
+}

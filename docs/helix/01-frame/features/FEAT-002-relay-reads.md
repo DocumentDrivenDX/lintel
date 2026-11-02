@@ -48,6 +48,16 @@ The implementation must satisfy each requirement below.
 Zero silent semantic coercions or cross-context authority leaks in the scoped
 corpus. Mandatory finite host bounds. No passing implementation evidence is claimed.
 
+## Detailed Behavior
+
+Collect qualified field selections, use a request-consistent session and batch related/key reads; map runtime positions into Relay connections without offset emulation.
+
+Compile the task list query and request Alice's first two visible tasks. Resume after the first returned edge and inspect t-002/t-003 and exact PageInfo. Expand assignees: p-1 is visible and shared; p-2 remains unavailable even from a visible task. Refetch the same Node through fragments/aliases during a concurrent update and verify one request view.
+
+See [SD-002](../../02-design/solution-designs/SD-002-relay-reads.md)
+for the selected approach and business rules BR-3, BR-4.
+Shared shapes and failure rules live in CONTRACT-002, CONTRACT-003.
+
 ## User Stories
 
 - [US-002: Page tasks and expand their assignees](../user-stories/US-002-relay-reads.md).
@@ -61,8 +71,9 @@ Only applicable cases are exercised by this feature's story.
 ## Constraints and Assumptions
 
 Python/FastAPI, GraphQL/Relay and Batten are selected. Architecture and upstream
-change inventory govern ownership. Exact interface details require contracts
-following their named spikes; this feature does not freeze those signatures.
+change inventory govern ownership. Exact target surfaces are specified in CONTRACT-002, CONTRACT-003.
+The corresponding solution/story designs apply them. Framework/native/toolchain
+compatibility still requires the named interoperability proofs.
 
 ## Dependencies
 

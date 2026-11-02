@@ -48,6 +48,16 @@ The implementation must satisfy each requirement below.
 Zero silent semantic coercions or cross-context authority leaks in the scoped
 corpus. Mandatory finite host bounds. No passing implementation evidence is claimed.
 
+## Detailed Behavior
+
+Package installed server and supplied client/tool assets as one qualified cohort; keep static family documentation separate from executable hosting.
+
+Build the platform server/client cohort with exact versions and source/artifact inventories. Admit the fabricated app with package-registry access disabled and start local ASGI without installation. Check the separate Databricks packaging profile without claiming unexecuted workspace behavior. Publish checked family/source links and support limits; mismatched schema/client/runtime artifacts refuse admission.
+
+See [SD-006](../../02-design/solution-designs/SD-006-delivery-family.md)
+for the selected approach and business rules BR-11, BR-12.
+Shared shapes and failure rules live in CONTRACT-004, CONTRACT-005.
+
 ## User Stories
 
 - [US-006: Distribute lintel with qualified documentation](../user-stories/US-006-delivery-family.md).
@@ -61,8 +71,9 @@ Only applicable cases are exercised by this feature's story.
 ## Constraints and Assumptions
 
 Python/FastAPI, GraphQL/Relay and Batten are selected. Architecture and upstream
-change inventory govern ownership. Exact interface details require contracts
-following their named spikes; this feature does not freeze those signatures.
+change inventory govern ownership. Exact target surfaces are specified in CONTRACT-004, CONTRACT-005.
+The corresponding solution/story designs apply them. Framework/native/toolchain
+compatibility still requires the named interoperability proofs.
 
 ## Dependencies
 

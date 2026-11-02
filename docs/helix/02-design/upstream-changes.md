@@ -14,7 +14,8 @@ ddx:
 
 # Required upstream changes and qualification gates
 
-This is a planning inventory, not an accepted upstream API contract. No source
+This is an upstream planning inventory; CONTRACT-001–005 now define Lintel target
+interfaces, not accepted or implemented upstream APIs. No source
 change or release is performed by this packet. Each row names its actual owner;
 Lintel does not take ownership merely because it is the first consumer.
 
@@ -46,7 +47,7 @@ require the whole migration to finish before a bounded compatible delivery.
 | B-02 | Batten table/provider boundary | Local candidate TablePort.execute carries operation, inputs, phase, key and mutation | Public capability/description and bounded connection/batch/selection metadata seam. Current port does not expose page size/cursor context explicitly; resolve through a versioned owning contract, not private/native calls. |
 | B-03 | Batten identity/provider boundary | Native adapter's local source constructs a person SessionIdentity | Preserve authenticated person versus explicit batch/service authority. Do not relabel all callers as people or infer batch authority from request shape. Required before claiming non-person API execution. |
 | B-04 | Batten platform build | Complete runtime and TypeScript app direction | Include installed Lintel Python dependencies, Relay runtime/compiler build assets, exported SDL and exact manifests in the qualified cohort. No per-app pip/npm installation or startup tool download. |
-| L-01 | Lintel | New project | Exposure selection, dynamic GraphQL schema/resolvers, Node IDs, connections/scalars, complexity limits, schema export and Relay build/check/network integration. Exact contracts follow bounded spikes. |
+| L-01 | Lintel | New project | Exposure selection, dynamic GraphQL schema/resolvers, Node IDs, connections/scalars, complexity limits, schema export and Relay build/check/network integration. Target Contracts 001–005 govern behavior; bounded spikes prove selected seams. |
 | F-01 | Family site maintainer + Lintel | Existing Batten project Pages configuration; owner requests family membership | Identify actual landing-page/catalog owner; add project entry and reciprocal UMF/Batten links with design-stage status. Intended project path `/lintel/`; no existing catalog payload is invented. |
 
 ## Bounded spikes before implementation contracts
@@ -73,8 +74,11 @@ require the whole migration to finish before a bounded compatible delivery.
    native connectivity. Local packaging checks and actual workspace execution
    remain separate results.
 
-These spikes close public interface uncertainty before exact exposure/projection,
-GraphQL/Relay, host-binding, client-manifest and diagnostics contracts are frozen.
+The target exposure/projection, runtime, GraphQL, client and host contracts are
+now specified. These spikes qualify their realizability and exact upstream/tool
+versions before implementation. A failed spike requires an explicit contract
+revision; it cannot silently remove required behavior. Host diagnostic wire
+mapping/version pins remain owned by the embedding cohort.
 Their names are scope allocations, not fabricated completed work items.
 
 ## Delivery sequence and cut lines

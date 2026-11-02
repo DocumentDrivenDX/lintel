@@ -29,10 +29,10 @@ These criteria govern future implementation; they are not passed tests.
 
 ## Walkthrough
 
-1. The author or maintainer supplies the approved task-board model and runtime context.
-2. They expose a selected UMF model through the public application boundary.
-3. The system checks declared meaning, capabilities and authority.
-4. The user obtains the expected result or an explicit unsupported/refusal outcome.
+1. Supply the approved task-board logical source, exact description/capability profile and explicit exposure.
+2. Prepare the API and inspect the sorted SDL, identity digests and safe diagnostics.
+3. Repeat preparation with identical bytes, then select an unknown constraint or a colliding Relay name.
+4. Receive byte-identical output or a non-mutating preparation refusal; no dependency record gains an implicit list.
 
 ## Acceptance Criteria
 
@@ -48,26 +48,18 @@ exhaustion fail explicitly. The command path preserves possible commitment.
 
 ## Test Scenarios
 
-All tests below are planned, absent and unrun. The case preconditions above are
-concrete fixture requirements. Add the listed citation to each exercising test.
-Story Test Plans and exact protocol contracts precede implementation handoff.
-
-| AC ID | Planned Test | Primary Layer | Asserted Behavior | Required Citation |
-| --- | --- | --- | --- | --- |
-| US-001-AC1 | `schema_is_deterministic` | Contract | the exported schema and semantic projection identity agree | Planned `@covers US-001-AC1` |
-| US-001-AC2 | `unknown_selected_meaning_refuses` | Contract | activation refuses without discarding the extension | Planned `@covers US-001-AC2` |
-| US-001-AC3 | `dependency_type_grants_no_access` | Integration | the dependency acquires no query capability | Planned `@covers US-001-AC3` |
-| US-001-AC4 | `relay_name_collision_is_explicit` | Contract | a deterministic explicit mapping or collision diagnostic preserves both meanings | Planned `@covers US-001-AC4` |
-
-Proposed test module: `tests/model_projection/test_model_projection.py`;
-client/browser build tests may live in `tests/client/` instead. The test owner
-must choose one primary executable assertion location and avoid duplicate suites.
+[STP-001](../../03-test/test-plans/STP-001-model-projection.md) owns the detailed
+AC/test/assertion/citation mapping. Concrete fabricated inputs are in the
+[task-board cases](../../02-design/examples/task-board.cases.json).
+All product tests remain planned, absent and unrun.
 
 ## Dependencies
 
 FEAT-001; PROJ-01, PROJ-02; FR-1, FR-2; upstream changes and architecture.
-Exact GraphQL, exposure, host and client contract work is explicitly pending;
-no absent Contract or Technical Design is represented as an implemented interface.
+Target surfaces are governed by CONTRACT-001, CONTRACT-005;
+[TD-001](../../02-design/technical-designs/TD-001-model-projection.md) applies them.
+Upstream compatibility, real boundary checks and native/browser proof remain
+required; specification detail does not claim delivered support.
 
 ## Out of Scope
 

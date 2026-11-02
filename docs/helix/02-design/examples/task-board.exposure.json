@@ -1,0 +1,123 @@
+{
+  "format": "lintel.exposure/1",
+  "application": "task-board-demo",
+  "identityNamespace": "demo.task-board.identity-v1",
+  "records": [
+    {
+      "record": {
+        "module": "board",
+        "element": "Task"
+      },
+      "key": "primary",
+      "typeName": "Task",
+      "lookup": {
+        "module": "board",
+        "id": "lookupTasks",
+        "kind": "table"
+      },
+      "fields": [
+        {
+          "field": {
+            "module": "board",
+            "element": "taskKey"
+          },
+          "name": "nativeId"
+        },
+        {
+          "field": {
+            "module": "board",
+            "element": "title"
+          },
+          "name": "title"
+        },
+        {
+          "field": {
+            "module": "board",
+            "element": "status"
+          },
+          "name": "status"
+        },
+        {
+          "field": {
+            "module": "board",
+            "element": "estimate"
+          },
+          "name": "estimate"
+        }
+      ],
+      "relationships": [
+        {
+          "name": "assignee",
+          "relationship": {
+            "module": "board",
+            "id": "taskAssignee",
+            "direction": "forward"
+          },
+          "target": {
+            "module": "board",
+            "element": "Person"
+          },
+          "operation": {
+            "module": "board",
+            "id": "readAssignees",
+            "kind": "table"
+          }
+        }
+      ]
+    },
+    {
+      "record": {
+        "module": "board",
+        "element": "Person"
+      },
+      "key": "primary",
+      "typeName": "Person",
+      "lookup": {
+        "module": "board",
+        "id": "lookupPeople",
+        "kind": "table"
+      },
+      "fields": [
+        {
+          "field": {
+            "module": "board",
+            "element": "personKey"
+          },
+          "name": "nativeId"
+        },
+        {
+          "field": {
+            "module": "board",
+            "element": "displayName"
+          },
+          "name": "displayName"
+        }
+      ],
+      "relationships": []
+    }
+  ],
+  "connections": [
+    {
+      "name": "tasks",
+      "record": {
+        "module": "board",
+        "element": "Task"
+      },
+      "operation": {
+        "module": "board",
+        "id": "listTasks",
+        "kind": "table"
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "name": "completeTask",
+      "operation": {
+        "module": "board",
+        "id": "completeTask",
+        "kind": "table"
+      }
+    }
+  ]
+}

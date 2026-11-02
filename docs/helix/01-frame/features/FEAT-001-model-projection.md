@@ -48,6 +48,16 @@ The implementation must satisfy each requirement below.
 Zero silent semantic coercions or cross-context authority leaks in the scoped
 corpus. Mandatory finite host bounds. No passing implementation evidence is claimed.
 
+## Detailed Behavior
+
+Resolve explicit model identities through the supported upstream description; build one immutable exposure plan and deterministic schema without interpreting unknown rules.
+
+Supply the approved task-board logical source, exact description/capability profile and explicit exposure. Prepare the API and inspect the sorted SDL, identity digests and safe diagnostics. Repeat preparation with identical bytes, then select an unknown constraint or a colliding Relay name. Receive byte-identical output or a non-mutating preparation refusal; no dependency record gains an implicit list.
+
+See [SD-001](../../02-design/solution-designs/SD-001-model-projection.md)
+for the selected approach and business rules BR-1, BR-2.
+Shared shapes and failure rules live in CONTRACT-001, CONTRACT-005.
+
 ## User Stories
 
 - [US-001: Expose a selected umf model](../user-stories/US-001-model-projection.md).
@@ -61,8 +71,9 @@ Only applicable cases are exercised by this feature's story.
 ## Constraints and Assumptions
 
 Python/FastAPI, GraphQL/Relay and Batten are selected. Architecture and upstream
-change inventory govern ownership. Exact interface details require contracts
-following their named spikes; this feature does not freeze those signatures.
+change inventory govern ownership. Exact target surfaces are specified in CONTRACT-001, CONTRACT-005.
+The corresponding solution/story designs apply them. Framework/native/toolchain
+compatibility still requires the named interoperability proofs.
 
 ## Dependencies
 

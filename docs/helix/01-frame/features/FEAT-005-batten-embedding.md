@@ -48,6 +48,16 @@ The implementation must satisfy each requirement below.
 Zero silent semantic coercions or cross-context authority leaks in the scoped
 corpus. Mandatory finite host bounds. No passing implementation evidence is claimed.
 
+## Detailed Behavior
+
+Supply neutral Python protocols and pure router factories; Batten owns its optional adapter and embedding composition owns trusted context and borrowed resources.
+
+The Batten composition root prepares public providers and constructs Batten's optional Lintel adapter. Supply its neutral execution port, Node codec and trusted asynchronous context resolver to Lintel. Mount the router and invoke through the public host gates under two applications. Cancel requests and close one binding; scoped leases return while the other app's borrowed provider remains usable.
+
+See [SD-005](../../02-design/solution-designs/SD-005-batten-embedding.md)
+for the selected approach and business rules BR-9, BR-10.
+Shared shapes and failure rules live in CONTRACT-002, CONTRACT-005.
+
 ## User Stories
 
 - [US-005: Include lintel in the supplied runtime](../user-stories/US-005-batten-embedding.md).
@@ -61,8 +71,9 @@ Only applicable cases are exercised by this feature's story.
 ## Constraints and Assumptions
 
 Python/FastAPI, GraphQL/Relay and Batten are selected. Architecture and upstream
-change inventory govern ownership. Exact interface details require contracts
-following their named spikes; this feature does not freeze those signatures.
+change inventory govern ownership. Exact target surfaces are specified in CONTRACT-002, CONTRACT-005.
+The corresponding solution/story designs apply them. Framework/native/toolchain
+compatibility still requires the named interoperability proofs.
 
 ## Dependencies
 

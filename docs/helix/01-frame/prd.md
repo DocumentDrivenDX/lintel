@@ -129,8 +129,8 @@ federation and optional future API protocols. No commitment to REST/OpenAPI.
 Python/FastAPI is owner-selected. Strawberry is the proposed GraphQL adapter;
 Relay compiler/runtime provide TypeScript artifacts and normalization. UMF models,
 Weft compilation and existing access runtimes remain upstream authorities.
-Architecture owns module/deployment choices; exact shared surfaces require
-contracts following the bounded interoperability spikes.
+Architecture owns module/deployment choices; target shared surfaces are specified in CONTRACT-001–005. Native/library
+interoperability still requires the bounded spikes before implementation claims.
 
 ## Constraints, Assumptions, Dependencies
 
@@ -153,11 +153,11 @@ relationship and a declared task command. Broader meaning refuses explicitly.
 
 ## Open Questions
 
-Bounded spikes must settle: Python shared description access; dynamic Strawberry
-construction; complete per-edge cursor/PageInfo mapping; batched relationship
-execution; node stability under concurrency; action outcome mapping; Relay compiler
-compatibility under Bun; Batten's public table/provider seam; Databricks host identity
-mapping. These are implementation prerequisites, not reasons to leave scope vague.
+Contracts now select explicit exposure, request-snapshot consistency, exact
+forward PageInfo, batched to-one expansion and typed command outcomes. Bounded
+spikes must establish whether the selected Python metadata/framework/runtime
+seams and Relay public compiler integration can implement those targets, pin the
+cohort, and qualify Batten/Databricks identity and resource ownership. These are implementation prerequisites, not reasons to leave scope vague.
 Family landing-page/catalog source and final project name remain unconfirmed.
 
 ## Success Criteria

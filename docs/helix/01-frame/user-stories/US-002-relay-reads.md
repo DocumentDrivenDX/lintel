@@ -29,10 +29,10 @@ These criteria govern future implementation; they are not passed tests.
 
 ## Walkthrough
 
-1. The author or maintainer supplies the approved task-board model and runtime context.
-2. They page tasks and expand their assignees through the public application boundary.
-3. The system checks declared meaning, capabilities and authority.
-4. The user obtains the expected result or an explicit unsupported/refusal outcome.
+1. Compile the task list query and request Alice's first two visible tasks.
+2. Resume after the first returned edge and inspect t-002/t-003 and exact PageInfo.
+3. Expand assignees: p-1 is visible and shared; p-2 remains unavailable even from a visible task.
+4. Refetch the same Node through fragments/aliases during a concurrent update and verify one request view.
 
 ## Acceptance Criteria
 
@@ -48,26 +48,18 @@ exhaustion fail explicitly. The command path preserves possible commitment.
 
 ## Test Scenarios
 
-All tests below are planned, absent and unrun. The case preconditions above are
-concrete fixture requirements. Add the listed citation to each exercising test.
-Story Test Plans and exact protocol contracts precede implementation handoff.
-
-| AC ID | Planned Test | Primary Layer | Asserted Behavior | Required Citation |
-| --- | --- | --- | --- | --- |
-| US-002-AC1 | `connection_resumes_from_any_edge` | Native E2E | the returned sequence has the declared stable order without duplicates or skipped authorized tasks | Planned `@covers US-002-AC1` |
-| US-002-AC2 | `node_and_store_scopes_are_isolated` | Browser E2E | no cross-app or cross-principal data appears | Planned `@covers US-002-AC2` |
-| US-002-AC3 | `relationships_are_batched` | Native integration | native read count is bounded by relationship batches rather than parent count | Planned `@covers US-002-AC3` |
-| US-002-AC4 | `node_fields_are_stable_within_request` | Native integration | shared selected fields satisfy the declared request consistency profile | Planned `@covers US-002-AC4` |
-
-Proposed test module: `tests/relay_reads/test_relay_reads.py`;
-client/browser build tests may live in `tests/client/` instead. The test owner
-must choose one primary executable assertion location and avoid duplicate suites.
+[STP-002](../../03-test/test-plans/STP-002-relay-reads.md) owns the detailed
+AC/test/assertion/citation mapping. Concrete fabricated inputs are in the
+[task-board cases](../../02-design/examples/task-board.cases.json).
+All product tests remain planned, absent and unrun.
 
 ## Dependencies
 
 FEAT-002; READ-01, READ-02; FR-3, FR-4; upstream changes and architecture.
-Exact GraphQL, exposure, host and client contract work is explicitly pending;
-no absent Contract or Technical Design is represented as an implemented interface.
+Target surfaces are governed by CONTRACT-002, CONTRACT-003;
+[TD-002](../../02-design/technical-designs/TD-002-relay-reads.md) applies them.
+Upstream compatibility, real boundary checks and native/browser proof remain
+required; specification detail does not claim delivered support.
 
 ## Out of Scope
 

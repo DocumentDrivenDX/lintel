@@ -47,10 +47,10 @@ measured costs; add a layer only for a distinct observable boundary.
 
 ## Acceptance Criteria Layer Allocation
 
-The concrete acceptance IDs, test names, assertions and required citations live
-in each linked story's Test Scenarios. Future story test plans retain those IDs
-and allocate actual files after Technical Designs; they must not claim nonexistent
-tests as coverage. All 24 P0 criteria currently have planned primary layers.
+STP-001–006 now own all concrete acceptance IDs, named assertions, primary
+files/layers and required citations. TD-001–006 apply the shared contracts to
+each story. All 24 P0 criteria have planned primary assertions; none has executed
+product evidence.
 
 | Criterion class / source | Primary Layer | Why this layer |
 | --- | --- | --- |
@@ -78,8 +78,8 @@ semantic faker for broader generated data; never fetch or copy business datasets
 
 ## Known Gaps
 
-No product implementation, frozen dependency lock, executed spikes, Technical
-Designs or exact integration contracts exist yet. These block implementation
+Target contracts and story designs/test plans exist. Product implementation,
+a frozen dependency lock, executed spikes and qualified upstream integration do not. These block implementation
 readiness and support claims, not the framing deliverable. Databricks workspace
 and family catalog are unavailable in this session. Full backward paging,
 subscription delivery and distributed/fleet capacity are outside the MVP.
@@ -108,3 +108,13 @@ future diagnostic Contract. A framing run has no runtime trace to fabricate.
 An implementation diagnostic pilot uses the known denied/stale/lost-response
 scenarios and records diagnosis accuracy, time/calls and safe evidence references;
 no unsupported performance budget is claimed.
+
+
+## Story proof plans
+
+- [STP-001](test-plans/STP-001-model-projection.md): projection and admission.
+- [STP-002](test-plans/STP-002-relay-reads.md): Node/cursor/relationship consistency.
+- [STP-003](test-plans/STP-003-commands-outcomes.md): authoritative commands and uncertainty.
+- [STP-004](test-plans/STP-004-typescript-clients.md): Relay build and browser isolation.
+- [STP-005](test-plans/STP-005-batten-embedding.md): host lifecycle and custody.
+- [STP-006](test-plans/STP-006-delivery-family.md): installed cohort and publication boundaries.

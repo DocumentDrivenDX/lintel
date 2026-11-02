@@ -1,0 +1,10 @@
+query BoardQuery($first: Int = 25, $after: String) {
+  tasks(first: $first, after: $after) @connection(key: "BoardQuery_tasks") {
+    edges { cursor node { id ...TaskRow_task } }
+    pageInfo { hasNextPage endCursor }
+  }
+}
+fragment TaskRow_task on Task @refetchable(queryName: "TaskRowRefetchQuery") {
+  id title status estimate
+  assignee { id displayName }
+}

@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lintel:client-manifest:1",
+  "title": "Lintel Relay client manifest 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "application",
+    "identityNamespace",
+    "apiDigest",
+    "schemaDigest",
+    "toolchain",
+    "profiles",
+    "operations",
+    "files"
+  ],
+  "properties": {
+    "format": {
+      "const": "lintel.client/1"
+    },
+    "application": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identityNamespace": {
+      "type": "string",
+      "minLength": 1
+    },
+    "apiDigest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "schemaDigest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relay",
+        "typescript",
+        "bun"
+      ],
+      "properties": {
+        "relay": {
+          "type": "string",
+          "minLength": 1
+        },
+        "typescript": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bun": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "profiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "graphql",
+        "execution",
+        "scalars"
+      ],
+      "properties": {
+        "graphql": {
+          "const": "lintel.graphql/1"
+        },
+        "execution": {
+          "const": "lintel.execution/1"
+        },
+        "scalars": {
+          "const": "lintel.scalars/1"
+        }
+      }
+    },
+    "operations": {
+      "type": "array",
+      "maxItems": 4096,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "kind",
+          "documentSha256",
+          "artifact"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^(?!__)[_A-Za-z][_0-9A-Za-z]*$"
+          },
+          "kind": {
+            "enum": [
+              "query",
+              "mutation"
+            ]
+          },
+          "documentSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "artifact": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[A-Za-z0-9_@+.-]+(?:/[A-Za-z0-9_@+.-]+)*$"
+          }
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "maxItems": 16384,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[A-Za-z0-9_@+.-]+(?:/[A-Za-z0-9_@+.-]+)*$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    }
+  }
+}

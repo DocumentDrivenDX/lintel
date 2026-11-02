@@ -29,10 +29,10 @@ These criteria govern future implementation; they are not passed tests.
 
 ## Walkthrough
 
-1. The author or maintainer supplies the approved task-board model and runtime context.
-2. They include Lintel in the supplied runtime through the public application boundary.
-3. The system checks declared meaning, capabilities and authority.
-4. The user obtains the expected result or an explicit unsupported/refusal outcome.
+1. The Batten composition root prepares public providers and constructs Batten's optional Lintel adapter.
+2. Supply its neutral execution port, Node codec and trusted asynchronous context resolver to Lintel.
+3. Mount the router and invoke through the public host gates under two applications.
+4. Cancel requests and close one binding; scoped leases return while the other app's borrowed provider remains usable.
 
 ## Acceptance Criteria
 
@@ -48,26 +48,18 @@ exhaustion fail explicitly. The command path preserves possible commitment.
 
 ## Test Scenarios
 
-All tests below are planned, absent and unrun. The case preconditions above are
-concrete fixture requirements. Add the listed citation to each exercising test.
-Story Test Plans and exact protocol contracts precede implementation handoff.
-
-| AC ID | Planned Test | Primary Layer | Asserted Behavior | Required Citation |
-| --- | --- | --- | --- | --- |
-| US-005-AC1 | `batten_admission_is_not_bypassed` | Integration | only declared app capabilities execute with current actor attribution | Planned `@covers US-005-AC1` |
-| US-005-AC2 | `shutdown_preserves_borrowed_provider` | Integration | the borrowed provider and other app remain usable | Planned `@covers US-005-AC2` |
-| US-005-AC3 | `startup_is_effect_free_and_fails_closed` | Installed integration | readiness refuses with no schema migration or package download | Planned `@covers US-005-AC3` |
-| US-005-AC4 | `cancellation_preserves_custody_and_outcome` | Native integration | resources return and the mutation retains possible-commit semantics | Planned `@covers US-005-AC4` |
-
-Proposed test module: `tests/batten_embedding/test_batten_embedding.py`;
-client/browser build tests may live in `tests/client/` instead. The test owner
-must choose one primary executable assertion location and avoid duplicate suites.
+[STP-005](../../03-test/test-plans/STP-005-batten-embedding.md) owns the detailed
+AC/test/assertion/citation mapping. Concrete fabricated inputs are in the
+[task-board cases](../../02-design/examples/task-board.cases.json).
+All product tests remain planned, absent and unrun.
 
 ## Dependencies
 
 FEAT-005; HOST-01, HOST-02; FR-9, FR-10; upstream changes and architecture.
-Exact GraphQL, exposure, host and client contract work is explicitly pending;
-no absent Contract or Technical Design is represented as an implemented interface.
+Target surfaces are governed by CONTRACT-002, CONTRACT-005;
+[TD-005](../../02-design/technical-designs/TD-005-batten-embedding.md) applies them.
+Upstream compatibility, real boundary checks and native/browser proof remain
+required; specification detail does not claim delivered support.
 
 ## Out of Scope
 

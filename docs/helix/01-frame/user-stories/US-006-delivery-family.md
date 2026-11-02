@@ -29,10 +29,10 @@ These criteria govern future implementation; they are not passed tests.
 
 ## Walkthrough
 
-1. The author or maintainer supplies the approved task-board model and runtime context.
-2. They distribute Lintel with qualified documentation through the public application boundary.
-3. The system checks declared meaning, capabilities and authority.
-4. The user obtains the expected result or an explicit unsupported/refusal outcome.
+1. Build the platform server/client cohort with exact versions and source/artifact inventories.
+2. Admit the fabricated app with package-registry access disabled and start local ASGI without installation.
+3. Check the separate Databricks packaging profile without claiming unexecuted workspace behavior.
+4. Publish checked family/source links and support limits; mismatched schema/client/runtime artifacts refuse admission.
 
 ## Acceptance Criteria
 
@@ -48,26 +48,18 @@ exhaustion fail explicitly. The command path preserves possible commitment.
 
 ## Test Scenarios
 
-All tests below are planned, absent and unrun. The case preconditions above are
-concrete fixture requirements. Add the listed citation to each exercising test.
-Story Test Plans and exact protocol contracts precede implementation handoff.
-
-| AC ID | Planned Test | Primary Layer | Asserted Behavior | Required Citation |
-| --- | --- | --- | --- | --- |
-| US-006-AC1 | `cohort_is_complete_offline` | Installed integration | no application dependency installation or undeclared provider occurs | Planned `@covers US-006-AC1` |
-| US-006-AC2 | `databricks_profile_is_explicit` | Packaging integration | framework/interpreter/dependency and actor mapping requirements are explicit; unqualified workspace execution remains labeled | Planned `@covers US-006-AC2` |
-| US-006-AC3 | `family_entry_and_claims_are_consistent` | Docs integration | links, parent family, intended status and qualified claims agree without invented live deployment | Planned `@covers US-006-AC3` |
-| US-006-AC4 | `cohort_artifacts_cannot_be_mixed` | Installed integration | the mismatch refuses before affected effects | Planned `@covers US-006-AC4` |
-
-Proposed test module: `tests/delivery_family/test_delivery_family.py`;
-client/browser build tests may live in `tests/client/` instead. The test owner
-must choose one primary executable assertion location and avoid duplicate suites.
+[STP-006](../../03-test/test-plans/STP-006-delivery-family.md) owns the detailed
+AC/test/assertion/citation mapping. Concrete fabricated inputs are in the
+[task-board cases](../../02-design/examples/task-board.cases.json).
+All product tests remain planned, absent and unrun.
 
 ## Dependencies
 
 FEAT-006; DELIV-01, DELIV-02; FR-11, FR-12; upstream changes and architecture.
-Exact GraphQL, exposure, host and client contract work is explicitly pending;
-no absent Contract or Technical Design is represented as an implemented interface.
+Target surfaces are governed by CONTRACT-004, CONTRACT-005;
+[TD-006](../../02-design/technical-designs/TD-006-delivery-family.md) applies them.
+Upstream compatibility, real boundary checks and native/browser proof remain
+required; specification detail does not claim delivered support.
 
 ## Out of Scope
 

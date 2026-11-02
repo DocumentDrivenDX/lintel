@@ -1,0 +1,681 @@
+[
+  {
+    "path": "01-frame/prd.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/prd.md",
+      "type": "prd",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "84bb4b4ed4e97fac2914ed762cdd978c364171c711fa1d69b05c6aa5bace584b"
+  },
+  {
+    "path": "01-frame/concerns.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/concerns.md",
+      "type": "concerns",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "1e7d4b61c3c7d254b7653d351aaca2b273be395e30d92ff4b99f81eb5f3f6366"
+  },
+  {
+    "path": "01-frame/features/FEAT-006-delivery-family.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/features/FEAT-006-delivery-family.md",
+      "type": "feature-specification",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "a4f62e64d477389f877f911d4dcae1632a2d7692f5c42ad2a5da11e354c4d895"
+  },
+  {
+    "path": "01-frame/features/FEAT-002-relay-reads.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/features/FEAT-002-relay-reads.md",
+      "type": "feature-specification",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "f8b632155667058f5e49bf9d94e6ac0a07a9770958a125b52064660980d14c81"
+  },
+  {
+    "path": "01-frame/features/FEAT-005-batten-embedding.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/features/FEAT-005-batten-embedding.md",
+      "type": "feature-specification",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "7e8b9f17d673e26428fedd31f68c7caaeeccbf7c4db09be81438bffb52c4094b"
+  },
+  {
+    "path": "01-frame/features/FEAT-003-commands-outcomes.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/features/FEAT-003-commands-outcomes.md",
+      "type": "feature-specification",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "bf5f69cccc56c4166ba78bae8e94959375d7b44e5acefffc9d76339f045b5e1c"
+  },
+  {
+    "path": "01-frame/features/FEAT-004-typescript-clients.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/features/FEAT-004-typescript-clients.md",
+      "type": "feature-specification",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "df009ab456a40c32a82f898027758f6a2fbad58bd7bcd16991517fa420a22e64"
+  },
+  {
+    "path": "01-frame/features/FEAT-001-model-projection.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/features/FEAT-001-model-projection.md",
+      "type": "feature-specification",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "3d5560562ca56fb6aca7b74a8783141ab2f2ba13552bbbb71acaff455d60ad9f"
+  },
+  {
+    "path": "01-frame/user-stories/US-006-delivery-family.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/user-stories/US-006-delivery-family.md",
+      "type": "user-stories",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "8783768e0569cfaceeb8840c1aa8141d5ac4006430bff7b3aa3566839ae203dc"
+  },
+  {
+    "path": "01-frame/user-stories/US-004-typescript-clients.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/user-stories/US-004-typescript-clients.md",
+      "type": "user-stories",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "2437ba1ee68c99276aa6e8185b8603d9f922046c98f91c30c544e78316be3631"
+  },
+  {
+    "path": "01-frame/user-stories/US-005-batten-embedding.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/user-stories/US-005-batten-embedding.md",
+      "type": "user-stories",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "8e76e6cf0ccf508c9b4ed90d54df9cddd628010ed2a1dd476866779d7c56aade"
+  },
+  {
+    "path": "01-frame/user-stories/US-001-model-projection.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/user-stories/US-001-model-projection.md",
+      "type": "user-stories",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "fffadae2e956d4d2eef57b2e4166fb590b16b69154c426d0ed13b93786ed9fdf"
+  },
+  {
+    "path": "01-frame/user-stories/US-003-commands-outcomes.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/user-stories/US-003-commands-outcomes.md",
+      "type": "user-stories",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "3a2adb1d9c0d11f1a7e58c434e37ac16671c2b99abc0d49590e374d54f24ed46"
+  },
+  {
+    "path": "01-frame/user-stories/US-002-relay-reads.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/01-frame/user-stories/US-002-relay-reads.md",
+      "type": "user-stories",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "606cc7b979dac33b2ca87cd59fd65e2e2a4f06ac9f4a7567e321ec7c3e17268e"
+  },
+  {
+    "path": "03-test/test-plan.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/03-test/test-plan.md",
+      "type": "test-plan",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "6be6b85805e37b59926e2f805dd413ca8ea1274b6ebf019d974a9d46112bd4d4"
+  },
+  {
+    "path": "03-test/test-plans/STP-002-relay-reads.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/03-test/test-plans/STP-002-relay-reads.md",
+      "type": "story-test-plan",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "847a3ad262ef47b2766e5b10c06e8e5ab6c320a123d2f69a9ad65ac10bdbaeb5"
+  },
+  {
+    "path": "03-test/test-plans/STP-004-typescript-clients.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/03-test/test-plans/STP-004-typescript-clients.md",
+      "type": "story-test-plan",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "a040869999786308803dec5d2127d87c5076bec995f852b341538373822511ab"
+  },
+  {
+    "path": "03-test/test-plans/STP-001-model-projection.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/03-test/test-plans/STP-001-model-projection.md",
+      "type": "story-test-plan",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "4efca923c719601a5271b3e8ae879c23d43f7c45d6b90bd87e17f7923344687b"
+  },
+  {
+    "path": "03-test/test-plans/STP-003-commands-outcomes.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/03-test/test-plans/STP-003-commands-outcomes.md",
+      "type": "story-test-plan",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "83b2368badf895c608be12aa38c0176b89928be00be1ce90fa9ed6d68223c5c9"
+  },
+  {
+    "path": "03-test/test-plans/STP-006-delivery-family.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/03-test/test-plans/STP-006-delivery-family.md",
+      "type": "story-test-plan",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "3bfc629f2bb6471058c26c8260e2bbf6ee8c4c1fa1f37a71f9936e748a114f5e"
+  },
+  {
+    "path": "03-test/test-plans/STP-005-batten-embedding.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/03-test/test-plans/STP-005-batten-embedding.md",
+      "type": "story-test-plan",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "ee088212b7433d8ad1889dcf882cadb25d49eed7a34d0f378408e3a07267a808"
+  },
+  {
+    "path": "00-discover/product-vision.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/00-discover/product-vision.md",
+      "type": "product-vision",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "45a3e13761610afcf1ae5d96ba87691be780aef64be7939a6030bf88dd161e01"
+  },
+  {
+    "path": "02-design/architecture.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/architecture.md",
+      "type": "architecture",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "b636bab3c49addd92c70916b5721d119cad06f4a21994bb6b1f0cf184354e028"
+  },
+  {
+    "path": "02-design/adr/ADR-002-graphql-relay-client.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/adr/ADR-002-graphql-relay-client.md",
+      "type": "adr",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "0b89f2a36139d0b881a323ad21cede7d5cafeb5d4f74c5a408032e5e80afc887"
+  },
+  {
+    "path": "02-design/adr/ADR-001-embedded-python-runtime.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/adr/ADR-001-embedded-python-runtime.md",
+      "type": "adr",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "3d6be426843babced767e7b1efaae999495c9ca9eb1b5d148b7b61ad01e8418e"
+  },
+  {
+    "path": "02-design/contracts/CONTRACT-002-neutral-execution-port.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/contracts/CONTRACT-002-neutral-execution-port.md",
+      "type": "contract",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "05d1c29d590ed8eefe07c667d504e0cd5caa9059a18e8d50f5b4eaf00b66c59b"
+  },
+  {
+    "path": "02-design/contracts/CONTRACT-003-graphql-relay-profile.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/contracts/CONTRACT-003-graphql-relay-profile.md",
+      "type": "contract",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [
+        {
+          "severity": "warning",
+          "check": "placeholder.bracket_token",
+          "message": "possible template token '[Node]'",
+          "line": 46
+        }
+      ],
+      "summary": {
+        "blocking": 0,
+        "warning": 1,
+        "info": 0
+      }
+    },
+    "sourceSha256": "4ac28cd84b6f693da6127601bdc6e82967eea0cc14697ef9bbcc622047a0966e"
+  },
+  {
+    "path": "02-design/contracts/CONTRACT-001-exposure-and-projection.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/contracts/CONTRACT-001-exposure-and-projection.md",
+      "type": "contract",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "23ef70eb2a8a5cb0f6abd00bab74e1434591248ac326a1a0bca0ed1cb26f20e1"
+  },
+  {
+    "path": "02-design/contracts/CONTRACT-005-hosting-and-resource-bounds.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/contracts/CONTRACT-005-hosting-and-resource-bounds.md",
+      "type": "contract",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "b48512e26b916b530072e0297f7905115f0de1f43e521683e8cfa7faf272790b"
+  },
+  {
+    "path": "02-design/contracts/CONTRACT-004-typescript-relay-clients.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/contracts/CONTRACT-004-typescript-relay-clients.md",
+      "type": "contract",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "e1072be7cd6371e96debadd2468146a6f67ddc6a84d33aa7d2021c44ab7b82b1"
+  },
+  {
+    "path": "02-design/solution-designs/SD-005-batten-embedding.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/solution-designs/SD-005-batten-embedding.md",
+      "type": "solution-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "28f5e2bc1954577c9042f2c0820d4f14e3df530e25b83e1e57ee360bf74440aa"
+  },
+  {
+    "path": "02-design/solution-designs/SD-006-delivery-family.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/solution-designs/SD-006-delivery-family.md",
+      "type": "solution-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "3d1f53e852d60d93983abb32c7285e563f65ae98dcb5effd1a716b1760420f7b"
+  },
+  {
+    "path": "02-design/solution-designs/SD-001-model-projection.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/solution-designs/SD-001-model-projection.md",
+      "type": "solution-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "9aaa32de15fe2bdc309a62a5e03761236830549e758084800bd722fc04ceb204"
+  },
+  {
+    "path": "02-design/solution-designs/SD-004-typescript-clients.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/solution-designs/SD-004-typescript-clients.md",
+      "type": "solution-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "8a17329c8b8d4b178d1918f96a0491b36fbbf0c3e70c3b8c5f897c8752397361"
+  },
+  {
+    "path": "02-design/solution-designs/SD-002-relay-reads.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/solution-designs/SD-002-relay-reads.md",
+      "type": "solution-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "18bfcaea4187dc8fd70668cee910ed1fcf636e79ce90cf49ca2509e255dbbf8b"
+  },
+  {
+    "path": "02-design/solution-designs/SD-003-commands-outcomes.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/solution-designs/SD-003-commands-outcomes.md",
+      "type": "solution-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "927f6279dc7f3f95282fcb86a702340aa07622ef2d436675809d3ffd8fc2acae"
+  },
+  {
+    "path": "02-design/technical-designs/TD-001-model-projection.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/technical-designs/TD-001-model-projection.md",
+      "type": "technical-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "ae1e84484bb7f483b02c25efec026c2009c971220dfaf743acdbdb9803d12c48"
+  },
+  {
+    "path": "02-design/technical-designs/TD-006-delivery-family.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/technical-designs/TD-006-delivery-family.md",
+      "type": "technical-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "df00093b0ac67b23cfa188b4eb1e063e03492291fc151b8ebc00e06b59f90009"
+  },
+  {
+    "path": "02-design/technical-designs/TD-005-batten-embedding.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/technical-designs/TD-005-batten-embedding.md",
+      "type": "technical-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "215294e6394718f571d990764918a4fa3e0aa1b1c67e51640d2ae01a7c92a2c8"
+  },
+  {
+    "path": "02-design/technical-designs/TD-003-commands-outcomes.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/technical-designs/TD-003-commands-outcomes.md",
+      "type": "technical-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "aee94c2942c0faf394e17bfefd42749c947725a5f30aa105cc2e02b77df41d56"
+  },
+  {
+    "path": "02-design/technical-designs/TD-002-relay-reads.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/technical-designs/TD-002-relay-reads.md",
+      "type": "technical-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "64455a73fb14ef7a5c0b7df66c6908c1b82452792035cac5bc8db9b859f02c03"
+  },
+  {
+    "path": "02-design/technical-designs/TD-004-typescript-clients.md",
+    "exitCode": 0,
+    "result": {
+      "instance": "/private/tmp/lintel-spec-expansion/helix/02-design/technical-designs/TD-004-typescript-clients.md",
+      "type": "technical-design",
+      "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+      "findings": [],
+      "summary": {
+        "blocking": 0,
+        "warning": 0,
+        "info": 0
+      }
+    },
+    "sourceSha256": "1adddf3d5b427b4465febadd1446ccccf501342e145cc24b08378355e146399a"
+  }
+]

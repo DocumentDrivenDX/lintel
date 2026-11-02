@@ -1,0 +1,56 @@
+# Illustrative target SDL; requires the host obligations described alongside it.
+scalar Decimal
+interface Node { id: ID! }
+type Task implements Node {
+  id: ID!
+  nativeId: String!
+  title: String!
+  status: String!
+  estimate: Decimal!
+  assignee: Person
+}
+type Person implements Node { id: ID!, nativeId: String!, displayName: String! }
+type TaskEdge { cursor: String!, node: Task! }
+type TaskConnection { edges: [TaskEdge!]!, pageInfo: PageInfo! }
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+enum CommandDurability { COMMITTED PENDING_CALLER_COMMIT UNKNOWN NONE }
+enum AccessFailureCode {
+  INVALID DENIED CONFLICT PRECONDITION_FAILED CONFIRMATION_REQUIRED
+  UNSUPPORTED API_MISMATCH INVALID_CURSOR TOO_MANY_ROWS LIMIT_EXCEEDED
+  BUSY NOT_YET_CURRENT
+}
+type CommandApplied {
+  invocationKey: ID!
+  durability: CommandDurability!
+  receipt: String!
+  affectedIds: [ID!]!
+}
+type CommandRecovered { invocationKey: ID!, durability: CommandDurability!, receipt: String! }
+type CommandNotObserved { invocationKey: ID! }
+type CommandUnknown { invocationKey: ID! }
+type CommandRejected {
+  invocationKey: ID!
+  code: AccessFailureCode!
+  confirmation: String
+}
+union CommandOutcome = CommandApplied | CommandRecovered | CommandUnknown | CommandRejected
+union CommandObservation = CommandRecovered | CommandNotObserved | CommandRejected
+input CompleteTaskInput {
+  task: ID!
+  note: String
+  invocationKey: ID!
+  confirmation: String
+}
+input ObserveCompleteTaskInput { task: ID!, note: String, invocationKey: ID! }
+type Query {
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+  tasks(first: Int = 25, after: String): TaskConnection!
+  observeCompleteTask(input: ObserveCompleteTaskInput!): CommandObservation!
+}
+type Mutation { completeTask(input: CompleteTaskInput!): CommandOutcome! }

@@ -48,6 +48,16 @@ The implementation must satisfy each requirement below.
 Zero silent semantic coercions or cross-context authority leaks in the scoped
 corpus. Mandatory finite host bounds. No passing implementation evidence is claimed.
 
+## Detailed Behavior
+
+Use exported SDL and selected documents with Relay public tooling; produce exact manifests and scope browser stores to the active host context.
+
+Export the admitted SDL/api manifest and author the TaskRow fragment plus BoardQuery. Build through the supplied Relay toolchain and typecheck its generated TypeScript artifacts. Run the actual browser environment against Batten, page/refetch/complete and reconcile the result. Remove a selected field or switch actor/app context; stale builds fail and old store data is unavailable.
+
+See [SD-004](../../02-design/solution-designs/SD-004-typescript-clients.md)
+for the selected approach and business rules BR-7, BR-8.
+Shared shapes and failure rules live in CONTRACT-003, CONTRACT-004.
+
 ## User Stories
 
 - [US-004: Compile and run typescript operations and fragments](../user-stories/US-004-typescript-clients.md).
@@ -61,8 +71,9 @@ Only applicable cases are exercised by this feature's story.
 ## Constraints and Assumptions
 
 Python/FastAPI, GraphQL/Relay and Batten are selected. Architecture and upstream
-change inventory govern ownership. Exact interface details require contracts
-following their named spikes; this feature does not freeze those signatures.
+change inventory govern ownership. Exact target surfaces are specified in CONTRACT-003, CONTRACT-004.
+The corresponding solution/story designs apply them. Framework/native/toolchain
+compatibility still requires the named interoperability proofs.
 
 ## Dependencies
 

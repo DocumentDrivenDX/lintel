@@ -74,11 +74,11 @@ integration. The paths below are proposed modules, not existing implementation.
 
 | Module | Responsibility / Owned Types | Public API | Allowed Dependencies | Forbidden Dependencies |
 | --- | --- | --- | --- | --- |
-| `src/lintel/projection/` | Immutable exposed API plan and diagnostics | Projection/export facade; exact contract after spike | UMF public description; neutral value types | FastAPI, Strawberry, Batten, drivers, duplicated UMF semantics |
+| `src/lintel/projection/` | Immutable exposed API plan and diagnostics | Projection/export facade; CONTRACT-001 | UMF public description; neutral value types | FastAPI, Strawberry, Batten, drivers, duplicated UMF semantics |
 | `src/lintel/relay/` | Node identity and connection/selection mapping | Relay adaptation facade | Projection and public runtime capability values | SQL, drivers, global actor caches, offset fallback |
-| `src/lintel/graphql/` | Executable dynamic schema, scalar coercion, async resolvers, cost validation | Schema factory | Projection, Relay, Strawberry; injected dispatch | Concrete runtime construction, private Batten/UMF internals |
-| `src/lintel/asgi/` | FastAPI router, trusted request context and readiness | Router/app factories | GraphQL facade, FastAPI/Starlette | Native drivers, policy engines, engine discovery |
-| `src/lintel/ports.py` | Framework-neutral execution/context/capability protocols | Public host-binding protocols; exact contract after spike | Python stdlib and neutral projection values | Batten packages, FastAPI/Strawberry, drivers, concrete executors |
+| `src/lintel/graphql/` | Executable dynamic schema, scalar coercion, async resolvers, cost validation | prepare_api; CONTRACT-005 | Projection, Relay, public ports, Strawberry; injected dispatch | Concrete runtime construction, private Batten/UMF internals |
+| `src/lintel/asgi/` | FastAPI router, trusted request context and readiness | create_router / create_app; CONTRACT-005 | GraphQL facade, FastAPI/Starlette | Native drivers, policy engines, engine discovery |
+| `src/lintel/ports.py` | Framework-neutral execution/context/capability protocols | ExecutionPort / RequestSession / NodeCodec; CONTRACT-002 | Python stdlib and neutral projection values | Batten packages, FastAPI/Strawberry, drivers, concrete executors |
 | `src/lintel/hosting/` | Standalone/embedded composition and typed settings | Composition factories | Selected public adapters; host-injected resources | Startup installs, schema-selected imports, implicit migrations |
 | `tools/relay/` | SDL export consumption, pinned compiler invocation, manifests | Build/check workflow | Relay compiler, TypeScript/Bun | Server semantic implementation, startup installation |
 | `packages/client/` | Host-configured network and exact scalar helpers | Relay environment/network factory | Browser APIs and Relay public runtime | Python, native engines, provider credentials, Bun/Node at runtime |
@@ -155,7 +155,7 @@ sequenceDiagram
 | Mutation safety | Zero automatic mutation retries | Preserve invocation key and upstream observation semantics | Commit/lost-response/cancellation controls |
 | Lifecycle | Zero startup DDL or dependency downloads | Prepared artifacts; explicit admin deployment | Denied network/install and native-DDL observation |
 
-Numeric limit defaults require the protocol contract after the spike; no latency,
+CONTRACT-005 defines explicit initial numeric limits. No latency,
 availability, fleet size or disaster recovery SLO has been measured for Lintel.
 
 ## Decisions and Tradeoffs
@@ -179,7 +179,7 @@ Reads map selections to admitted operations. Resolvers batch selected relationsh
 loads and never fetch an unbounded iterable to let a library slice it in memory.
 Every fetched node is authorized, including refetch and relationships. Request
 consistency must satisfy Relay field stability; request caches alone do not prove
-snapshot semantics under concurrent updates. A capability spike settles the profile.
+snapshot semantics under concurrent updates. CONTRACT-002 selects request-snapshot-1; the native spike must qualify it.
 
 Node identity namespaces the stable app/model type and exact key tuple. It is
 opaque, never a credential and never contains secret key material. Mutable source
@@ -210,3 +210,17 @@ Browser types come from selected operation/fragment documents plus exported SDL,
 not from enumerating every possible query. Custom scalars use documented wire
 carriers and TypeScript mappings; a type alias does not perform runtime decoding.
 Client/schema manifests and Relay stores bind to the application/cohort context.
+
+
+## Shared contract map
+
+- [CONTRACT-001](contracts/CONTRACT-001-exposure-and-projection.md): exposure and deterministic projection.
+- [CONTRACT-002](contracts/CONTRACT-002-neutral-execution-port.md): neutral async runtime and identity boundary.
+- [CONTRACT-003](contracts/CONTRACT-003-graphql-relay-profile.md): GraphQL/Relay server, exact values and outcomes.
+- [CONTRACT-004](contracts/CONTRACT-004-typescript-relay-clients.md): TypeScript artifact and network lifecycle.
+- [CONTRACT-005](contracts/CONTRACT-005-hosting-and-resource-bounds.md): ASGI/HTTP/lifecycle and finite limits.
+
+These define desired versioned interfaces, not a claim that an upstream provider
+or the candidate Strawberry/Relay toolchain already implements them. In
+particular, the public Python description seam, native edge cursors/snapshot and
+operation-aware response scalar validation remain bounded interoperability work.

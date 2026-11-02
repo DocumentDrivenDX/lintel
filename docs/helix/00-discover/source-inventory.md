@@ -49,3 +49,14 @@ The requested root `https://documentdrivendx.github.io/` could not be retrieved,
 and `DocumentDrivenDX/DocumentDrivenDX.github.io` returned 404. This does not prove
 the site/catalog does not exist. Batten's local public configuration identifies
 its project site at `/batten/`; family registry ownership remains unresolved.
+
+
+## Specification expansion references
+
+The 2026-11-02 expansion rechecked the public Python UMF exports, current core
+0.10 schema and Batten TablePort; its minimal existing operation shape does not
+claim the newly specified neutral execution protocol.
+[GraphQL over HTTP working draft](https://http-spec.graphql.org/draft/) was consulted
+on 2026-11-02; CONTRACT-005 defines a selected finite profile rather than claiming
+full draft conformance. Relay/GraphQL references above informed the target profile.
+No live provider or compiler execution was performed as research.

@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lintel:host-profile:1",
+  "title": "Lintel bounded host profile 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "mount",
+    "introspection",
+    "limits"
+  ],
+  "properties": {
+    "format": {
+      "const": "lintel.host/1"
+    },
+    "mount": {
+      "type": "string",
+      "pattern": "^/(?:[a-zA-Z0-9_-]+/)*graphql$"
+    },
+    "introspection": {
+      "type": "boolean"
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "defaultPage",
+        "maxPage",
+        "maxLookup",
+        "relationshipBatch",
+        "maxRelationshipHops",
+        "maxDepth",
+        "maxFieldOccurrences",
+        "maxAliases",
+        "maxCost",
+        "maxMutationFields",
+        "maxConcurrentDispatch",
+        "requestBytes",
+        "responseBytes",
+        "documentBytes",
+        "deadlineMs",
+        "nodeIdBytes",
+        "cursorBytes",
+        "invocationKeyBytes"
+      ],
+      "properties": {
+        "defaultPage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 25,
+          "default": 25
+        },
+        "maxPage": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 100
+        },
+        "maxLookup": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 100
+        },
+        "relationshipBatch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 100
+        },
+        "maxRelationshipHops": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1,
+          "default": 1
+        },
+        "maxDepth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8,
+          "default": 8
+        },
+        "maxFieldOccurrences": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256,
+          "default": 256
+        },
+        "maxAliases": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32,
+          "default": 32
+        },
+        "maxCost": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000,
+          "default": 10000
+        },
+        "maxMutationFields": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "default": 4
+        },
+        "maxConcurrentDispatch": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8,
+          "default": 8
+        },
+        "requestBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576,
+          "default": 1048576
+        },
+        "responseBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8388608,
+          "default": 8388608
+        },
+        "documentBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 262144,
+          "default": 262144
+        },
+        "deadlineMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30000,
+          "default": 30000
+        },
+        "nodeIdBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2048,
+          "default": 2048
+        },
+        "cursorBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4096,
+          "default": 4096
+        },
+        "invocationKeyBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128,
+          "default": 128
+        }
+      }
+    }
+  }
+}

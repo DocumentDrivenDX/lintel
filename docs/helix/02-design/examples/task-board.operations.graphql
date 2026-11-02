@@ -1,0 +1,26 @@
+query TaskListQuery($first: Int = 25, $after: String) {
+  tasks(first: $first, after: $after) {
+    edges { cursor node { id title status estimate assignee { id displayName } } }
+    pageInfo { hasNextPage hasPreviousPage startCursor endCursor }
+  }
+}
+query TaskRefetchQuery($id: ID!) {
+  node(id: $id) { id ... on Task { title status estimate } }
+}
+mutation CompleteTaskMutation($input: CompleteTaskInput!) {
+  completeTask(input: $input) {
+    __typename
+    ... on CommandApplied { invocationKey durability receipt affectedIds }
+    ... on CommandRecovered { invocationKey durability receipt }
+    ... on CommandUnknown { invocationKey }
+    ... on CommandRejected { invocationKey code confirmation }
+  }
+}
+query ObserveCompleteTaskQuery($input: ObserveCompleteTaskInput!) {
+  observeCompleteTask(input: $input) {
+    __typename
+    ... on CommandRecovered { invocationKey durability receipt }
+    ... on CommandNotObserved { invocationKey }
+    ... on CommandRejected { invocationKey code confirmation }
+  }
+}
