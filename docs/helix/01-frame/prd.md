@@ -1,0 +1,170 @@
+---
+ddx:
+  id: lintel.prd
+  type: prd
+  activity: frame
+  authoring:
+    home: repo
+  links:
+    - id: lintel.product-vision
+      kind: informed_by
+    - id: lintel.concerns
+      kind: informed_by
+---
+
+# Lintel product requirements
+
+## Summary
+
+Lintel is a separately packaged Python GraphQL/Relay API runtime embedded in
+Batten. It constructs an executable schema from current UMF declarations,
+explicit exposure choices and qualified runtime capabilities. Relay tooling
+builds TypeScript operation and fragment artifacts from that same exported schema.
+The MVP is one complete fabricated task-board journey over PostgreSQL 18:
+list/page, refetch, expand an assignee, execute a declared command, reconcile
+an uncertain response and continue under Batten authority.
+
+## Problem and Goals
+
+### Problem
+
+Handwritten API schemas/resolvers and TypeScript types can disagree with UMF
+identity, constraints and declared mutations. Schema-only generation does not
+prove executable access, correct pagination or host authorization.
+
+### Goals
+
+1. Authors expose a selected model through one supported GraphQL/Relay surface.
+2. Batten supplies Lintel in its complete qualified runtime cohort.
+3. Browser clients compile against the exact published schema and preserve values.
+
+### Success Metrics
+
+Measure duplicate definitions removed, time to connect the reference app, and
+client/server mismatches encountered during upgrades. Baselines and targets are
+unknown; these are learning measures, not release gates.
+
+### Non-Goals
+
+REST/OpenAPI product APIs; a new ORM/compiler/policy engine; automatic unrestricted
+CRUD; subscriptions/federation; arbitrary nested analytics; live schema hot swaps;
+an admin UI; a new UI framework; production capacity or hostile-plugin isolation.
+Databricks hosting does not imply Databricks SQL/Lakebase support.
+
+## Users and Scope
+
+### Primary Persona: Batten application author
+
+Defines native UMF models, declared commands and TypeScript browser operations.
+Needs a typed endpoint without maintaining duplicate resolvers and interfaces.
+
+### Secondary Persona: Batten platform maintainer
+
+Builds/adopts runtime cohorts and verifies application authority, lifecycle and
+upgrades. Needs explicit capability limits and installed/native/browser evidence.
+
+## Requirements
+
+### Must Have (P0)
+
+All FR-1–FR-12 below form the bounded MVP. Both server runtime and TypeScript
+client artifacts are required. Local Batten integration is required.
+
+### Should Have (P1)
+
+Actual Databricks Apps deployment qualification, additional exact scalar profiles,
+and broader qualified graph bindings after the local MVP. Configuration and
+packaging for Databricks Apps are P0 under FR-11; a live workspace is a separate gate.
+
+### Nice to Have (P2)
+
+Live schema replacement, persisted-operation distribution, subscriptions,
+federation and optional future API protocols. No commitment to REST/OpenAPI.
+
+## Functional Requirements
+
+### Subsystem: Model admission and API projection
+
+- **FR-1** — Derive a deterministic executable API from selected UMF declarations, with source/projection identity and explicit unknown-meaning diagnostics.
+- **FR-2** — Activate only explicitly exposed, runtime-supported fields/relationships/operations; prevent dependency types from acquiring access rights.
+
+### Subsystem: Relay reads and identity
+
+- **FR-3** — Support authorized Node refetch and bounded forward connection pagination with stable identity and declared consistency.
+- **FR-4** — Expand selected one-hop relationships through bounded batched reads without cross-principal cache reuse or concealed endpoint leakage.
+
+### Subsystem: Commands and outcomes
+
+- **FR-5** — Invoke declared mutations through Batten and the authoritative runtime, retaining validation, confirmation and current authorization.
+- **FR-6** — Preserve exact values, typed business failures, replay and uncertain-write outcomes across GraphQL; never automatically retry mutations.
+
+### Subsystem: TypeScript client builds
+
+- **FR-7** — Export the active GraphQL schema and build typed Relay operations/fragments plus a host-configured network integration.
+- **FR-8** — Detect stale/breaking schema-client combinations and preserve exact custom scalar values and actor/application cache isolation.
+
+### Subsystem: Batten embedding
+
+- **FR-9** — Embed Lintel through public asynchronous Batten composition/lifecycle APIs, including per-application admission, authority and attribution.
+- **FR-10** — Preserve borrowed resources, cancellation, scoped limits and deterministic startup refusal without runtime dependency installation or schema deployment.
+
+### Subsystem: Delivery and family integration
+
+- **FR-11** — Package the Python runtime and client build assets for the qualified Batten cohort, with local FastAPI and Databricks Apps hosting configuration.
+- **FR-12** — Publish version/subset/evidence-qualified documentation and register Lintel in the DocumentDrivenDX family alongside UMF and Batten.
+
+## Acceptance Test Sketches
+
+| Journey | Observable outcome | Story |
+| --- | --- | --- |
+| Admit task-board model | Unsupported selected policy blocks activation; hidden fields stay absent | US-001 |
+| Read tasks and assignee | Node refetch agrees; page continuation and batched expansion retain authorized scope | US-002 |
+| Complete a task | Host checks command authority; lost response remains uncertain until observation | US-003 |
+| Build browser operations | Relay compilation rejects a removed field; exact Decimal survives transport | US-004 |
+| Mount in Batten | Same actor/app admission path; borrowed runtime survives API shutdown | US-005 |
+| Deliver cohort and family entry | Installed artifacts and schema/client hashes match; public claims state limits | US-006 |
+
+## Technical Context
+
+Python/FastAPI is owner-selected. Strawberry is the proposed GraphQL adapter;
+Relay compiler/runtime provide TypeScript artifacts and normalization. UMF models,
+Weft compilation and existing access runtimes remain upstream authorities.
+Architecture owns module/deployment choices; exact shared surfaces require
+contracts following the bounded interoperability spikes.
+
+## Constraints, Assumptions, Dependencies
+
+Python 3.11 consumer floor and PostgreSQL 18 match Batten. Exact Databricks Apps
+Python/framework versions require qualification. Runtime dependencies are supplied
+at platform build time. Typed file settings are resolved once; no new environment
+variables. No credentials, private application material or actual business data.
+The initial profile covers two keyed records, scalar fields, one monomorphic
+relationship and a declared task command. Broader meaning refuses explicitly.
+
+## Risks
+
+| Risk | Effect | Mitigation |
+| --- | --- | --- |
+| Existing page API only returns a next-page cursor | Cannot honestly supply per-edge Relay cursors | Runtime-owned connection capability; no Lintel offset emulation |
+| Relay identity ignores application/authority boundaries | Normalized cache can mix data | Stable application-scoped IDs; separate/clear stores per actor/context |
+| Python introspection diverges from upstream semantics | Misleading API | Shared upstream description/qualified binding; no independent semantic engine |
+| GraphQL null bubbling or scalar conversion weakens meaning | Wrong client results | Explicit projection rules and browser exact-value tests |
+| Runtime query snapshots disagree within a request | Node field stability fails | Request-scoped consistency/reuse capability; qualify before claim |
+
+## Open Questions
+
+Bounded spikes must settle: Python shared description access; dynamic Strawberry
+construction; complete per-edge cursor/PageInfo mapping; batched relationship
+execution; node stability under concurrency; action outcome mapping; Relay compiler
+compatibility under Bun; Batten's public table/provider seam; Databricks host identity
+mapping. These are implementation prerequisites, not reasons to leave scope vague.
+Family landing-page/catalog source and final project name remain unconfirmed.
+
+## Success Criteria
+
+The six stories have passing observed evidence at their allocated layers. One
+installed Batten app exercises a real GraphQL endpoint from compiled Relay
+TypeScript in Chromium, backed by PostgreSQL 18, with denial, exact values,
+paging, refetch, expansion and uncertain-mutation recovery. Documentation names
+the exact qualified cohort and limits. Framing completion does not claim these
+implementation gates have passed. Live Databricks qualification remains explicit.

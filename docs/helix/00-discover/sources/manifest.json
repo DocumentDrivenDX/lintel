@@ -1,0 +1,140 @@
+{
+  "recorded": "2026-11-02",
+  "sources": [
+    {
+      "project": "umf",
+      "checkout": "/Users/erik/.codex/worktrees/7076/umf",
+      "path": "docs/helix/02-design/contracts/CONTRACT-079-unified-python-access.md",
+      "sha256": "250cda75996506a5a51f0f6029fbeae39b399e2571e8a2d0b08dee7c20e61239",
+      "checkoutHead": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "umf",
+      "checkout": "/Users/erik/Projects/umf",
+      "path": "docs/helix/05-deploy/sdk-release-notes-0.5.2.md",
+      "sha256": "61c939601595a1efe6b1b00be32e5fd846a8429c4534c8753c993e71d809c9fe",
+      "checkoutHead": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "umf",
+      "checkout": "/Users/erik/Projects/umf",
+      "path": "docs/helix/02-design/contracts/CONTRACT-081-table-lifecycle.md",
+      "sha256": "067b46a609a238886acd990ca0e84cb6100af6c87479c23b04eb20b8cc2ecd12",
+      "checkoutHead": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "umf",
+      "checkout": "/Users/erik/Projects/umf",
+      "path": "docs/helix/02-design/adr/ADR-006-shared-rust-implementation.md",
+      "sha256": "0e483f2b040560daf9c91b35e5ffaefbee2faad90fa7b8ade148b9c1b02f63ee",
+      "checkoutHead": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "umf",
+      "checkout": "/Users/erik/.codex/worktrees/7076/umf",
+      "path": "src/access/index.ts",
+      "sha256": "f3befb035ddc935d8b52192666aff3e64d65d1314fb28765762e35c07e6f5422",
+      "checkoutHead": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "umf",
+      "checkout": "/Users/erik/.codex/worktrees/7076/umf",
+      "path": "python/src/umf/__init__.py",
+      "sha256": "e9dca8a080364f76a1c370caabd95f35e36c011c6b27fd58a487cadf320aee9d",
+      "checkoutHead": "b12a489844f29947ee52115b90f4ccc5c8bc5032",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "weft",
+      "checkout": "/Users/erik/Projects/weft",
+      "path": "README.md",
+      "sha256": "685506b3b4c1ccdcfb15fbdd7e287cc801d6edc584d67346393e18dedb416e2d",
+      "checkoutHead": "ca86d095d4c362903a3461900dada0157efbdc63",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "docs/helix/00-discover/product-vision.md",
+      "sha256": "5947546f62df8de6732834053e7c35ff465ef9631233e992b44fc08281245b28",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "docs/helix/01-frame/prd.md",
+      "sha256": "9402ac744ac3f54ad8d40055dfda7a8a2a3081cbc863961c7bb01e65d994b10f",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "docs/helix/01-frame/concerns.md",
+      "sha256": "10b3a8e99b65252eb01251cb99b2f9c60deb9112514090ec4b66df868bd837f8",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "docs/helix/02-design/architecture.md",
+      "sha256": "1ecc1e3dcf243283a1bf776b0726fad1223dbdafcd378d32d1defddf832cee24",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "docs/helix/02-design/contracts/CONTRACT-001-public-host-api.md",
+      "sha256": "f257b5ff98326667ebac7ece53a4f42cacc74576e55473bdea3b19c25f023eb2",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "docs/helix/02-design/adr/ADR-015-typescript-app-ui-delivery.md",
+      "sha256": "67ff514c2189bc6d7db0b7d1e0569b0bb6267cc8cffc68a005ab897171478b2e",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "packages/batten-tables/src/batten/tables/__init__.py",
+      "sha256": "776914618c7d88b40470df52b6704052c24391b23b7292d07f994fdcbdf43d69",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "packages/batten-umf-postgres/src/batten/umf_postgres/__init__.py",
+      "sha256": "0d755c2288e342d149e8c5389fca6cb606f0efbf3f6b7387a4bacb9f70764869",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    },
+    {
+      "project": "batten",
+      "checkout": "/Users/erik/Projects/batten",
+      "path": "packages/batten-umf-postgres/pyproject.toml",
+      "sha256": "946b9163ce6324064eb178e2552bcad6ee3cce46028998d470765028b4af1a52",
+      "checkoutHead": "27f087666a56b3136e39cd5c471b954ceb5630ae",
+      "qualification": "Read-only source inspection; working-tree bytes may be uncommitted; not runtime evidence"
+    }
+  ],
+  "pinnedExamples": [
+    {
+      "path": "docs/helix/00-discover/sources/umf-commerce.json",
+      "sha256": "19c018888066d391599d4bc8079ec8f3479266e6ecc55237c57825bc33c3003d",
+      "origin": "/Users/erik/.codex/worktrees/7076/umf/tests/unified/commerce.json"
+    }
+  ]
+}
