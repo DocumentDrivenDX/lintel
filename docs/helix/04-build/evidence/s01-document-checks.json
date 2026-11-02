@@ -1,0 +1,7 @@
+{
+  "scope": "current Markdown links, artifact IDs, existing frontmatter retention",
+  "localLinks": 190,
+  "artifactIds": 50,
+  "preservedFrontmatter": 13,
+  "errors": []
+}

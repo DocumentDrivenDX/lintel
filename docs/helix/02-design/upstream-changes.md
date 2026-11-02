@@ -12,7 +12,7 @@ ddx:
       kind: informed_by
 ---
 
-# Required upstream changes and qualification gates
+# Upstream gap inventory and qualification gates
 
 This is an upstream planning inventory; CONTRACT-001–005 now define Lintel target
 interfaces, not accepted or implemented upstream APIs. No source
@@ -28,16 +28,18 @@ shipping Lintel. Older narrative entries saying seeds/evolution are wholly absen
 are superseded by the scoped 0.5.2 release record; broader support is still bounded.
 
 The UMF primary checkout has an uncommitted ADR-006/shared-Rust migration proposal.
-Lintel should consume the shared engine's public Python descriptions as available;
+Lintel consumes admitted UMF JSON directly through its existing public Python
+reader and validator; no new schema-description API is required. Existing UMF
+declarations carry model and operation meaning;
 it must not introduce an independent Python implementation of UMF semantics or
 require the whole migration to finish before a bounded compatible delivery.
 
-## Change inventory
+## Candidate gaps (verify before changing upstream)
 
 | ID | Owner | Existing foundation | Required change / acceptance boundary |
 | --- | --- | --- | --- |
-| U-01 | UMF | Current core Fields/Records/Keys/Relationships/actions; Python reader | Supported language-neutral access-description API/schema available to Python; exact source/dependency identity, interpretation completeness, selectable operations and qualified capabilities. Remove Python-generator naming from semantic metadata. |
-| U-02 | UMF | TypeScript Python-client generator returns a JSON description | Make description derivation independently callable without generating/importing Python code; expose through the shared engine/binding or a pinned build artifact. Dynamic runtime construction cannot scrape TS internals or run schema-selected templates. |
+| U-01 | UMF | Current core Fields/Records/Keys/Relationships/actions; Python reader | Reuse admitted UMF JSON and public read_document/validate_document. No new access-description schema or API. Prove source retention and exact qualified reference resolution in S-01. |
+| U-02 | ORM/runtime, only if needed | Underlying UMF document already defines the schema | Expose that existing document unchanged through a public accessor or JSON transport only if the consumer cannot already obtain it. No generated-client metadata extraction or new schema service. S-01 determines whether any change is necessary. |
 | U-03 | UMF | Exact literals, facets, unknown-preserving model | Reuse exact scalar/presence/identity metadata and operation input/output derivation. Add only demonstrated general metadata gaps upstream; keep GraphQL names/Relay cursors out of core. Semantic vocabulary references remain reference-only unless enforced. |
 | R-01 | UMF access/runtime | Bounded pages and opaque next-page tokens | Versioned Relay-capable connection evidence: per-edge typed positions, stable ordering/key tie breaks, honest PageInfo, identity/query/order/source scope and explicit consistency. Interior-edge continuation must work; never synthesize offset paging. |
 | R-02 | UMF access/runtime; Weft where lowering needs it | Keyed/related reads and declared native operations | Qualified batched key/relationship access with ordered missing slots, native policy enforcement, finite chunks and cancellation. No per-parent resolver query loop. |
@@ -53,8 +55,9 @@ require the whole migration to finish before a bounded compatible delivery.
 ## Bounded spikes before implementation contracts
 
 1. **S-01: Python projection and dynamic schema.** Feed the pinned current-core
-   task/commerce model through upstream public metadata. Build/query/export a
-   dynamic Strawberry schema, including key collisions, absent/null and exact
+   task/commerce UMF JSON directly through the existing public UMF reader and
+   validator; do not introduce an intermediate schema API. Build/query/export a
+   dynamic Strawberry schema, including qualified-reference/name collisions, absent/null and exact
    decimal/UUID scalars. Pin compatible Python/FastAPI/Strawberry/Pydantic wheels.
    Pass means deterministic SDL and faithful requests without code generation,
    engine duplication or private imports.
@@ -79,7 +82,11 @@ now specified. These spikes qualify their realizability and exact upstream/tool
 versions before implementation. A failed spike requires an explicit contract
 revision; it cannot silently remove required behavior. Host diagnostic wire
 mapping/version pins remain owned by the embedding cohort.
-Their names are scope allocations, not fabricated completed work items.
+Their names are scope allocations, not fabricated completed work items. U/R/B
+rows are hypotheses to test, not blanket authorization to expand upstream APIs.
+Only a failing interoperability probe with a demonstrated owning-boundary gap
+justifies a UMF/runtime change. The first bounded S-01 probe is recorded in
+[SPIKE-001](spikes/SPIKE-001-direct-umf.md).
 
 ## Delivery sequence and cut lines
 

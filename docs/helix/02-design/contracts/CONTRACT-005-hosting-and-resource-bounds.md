@@ -55,14 +55,17 @@ relationshipBatch must not exceed maxLookup. Invalid combinations refuse prepara
 ### Construction and lifecycle
 
 Target library entrypoints:
-`lintel.graphql.prepare_api(description, exposure, capabilities, host_profile)`
+`lintel.graphql.prepare_api(umf_source, exposure, capabilities, host_profile)`
 returns an immutable prepared artifact or safe preparation diagnostics;
 `lintel.asgi.create_router(prepared, executor, node_codec, resolve_context)`
 constructs a router after comparing the executor capability snapshot and Node
 codec profile with the prepared artifact; `lintel.asgi.create_app(router, *, owned_closers=())` constructs
 a standalone FastAPI app. Factories do no native I/O, dependency installation,
-provider discovery or schema deployment. `description` must be a qualified
-upstream public description under CONTRACT-001, not an arbitrary Python model.
+provider discovery or schema deployment. `umf_source` is the admitted UMF JSON
+source and its exact dependency closure under CONTRACT-001. Read and validate it
+through public UMF facilities; no generated Python client or separate schema
+description is an input. Capabilities describe execution support, not a second
+definition of modeled fields, relationships or operation signatures.
 
 `resolve_context` is an injected asynchronous host function for the ASGI request.
 It returns the trusted CONTRACT-002 authority/application/request/deadline scope

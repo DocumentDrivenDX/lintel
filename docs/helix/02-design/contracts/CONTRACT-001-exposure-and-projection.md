@@ -36,8 +36,10 @@ without adding a second model, policy language or query compiler.
 ## Scope and Boundaries
 
 Lintel owns API selection/naming. UMF owns meaning and constraint interpretation;
-the trusted host supplies a qualified access description, operation inventory
-and capabilities. Configuration cannot install a provider, select executable
+the trusted host supplies the admitted UMF JSON source/dependency closure and
+qualified execution capabilities. Types, keys, relationships and declared
+operations are read from UMF itself, using public UMF parsing/validation. No
+intermediate schema-description service or alternate semantic model is required. Configuration cannot install a provider, select executable
 Python, supply a role, or grant access. The JSON Schema owns configuration shape;
 this Contract owns reference resolution and behavior.
 
@@ -84,6 +86,7 @@ refetch. This cannot silently discard an authored action business-result contrac
 
 Preparation MUST intersect explicit exposure with required runtime capabilities.
 A selected unsupported feature blocks activation; silently removing it is forbidden.
+The original UMF source remains retained without rewriting unknown content.
 Unselected unfamiliar metadata remains retained upstream. A constraint affecting
 selected meaning cannot be ignored because its metadata field is hidden.
 
@@ -139,4 +142,6 @@ Inspected core 0.10.0, current Records/Fields/Keys/Relationships, `umf.actions`
 API names, exposure and operation bindings. JSON Schema Draft 2020-12 fits a small
 closed transport configuration; putting GraphQL naming in UMF core would couple
 modeling to this consumer. The pinned logical example has no physical binding or
-action implementation. Upstream U-01/U-02 and native spikes remain required.
+action implementation. Direct document consumption needs no new schema API.
+Native execution spikes qualify capabilities separately; only demonstrated gaps
+justify upstream changes.

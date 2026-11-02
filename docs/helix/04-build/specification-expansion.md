@@ -50,7 +50,7 @@ snapshot, edge cursor, host confirmation/recovery, installed cohort, Relay compi
 browser Store, Databricks deployment or family-site update is established.
 GraphQL-core's syntax/validation result is not GraphQL September 2025 conformance.
 
-S-01–04 must qualify the upstream description and typed key-argument metadata,
+S-01–04 must qualify direct UMF consumption and typed key-argument declarations,
 dynamic framework construction, native request-consistent batching/paging, Batten
 public invocation and Relay public compiler/scalar-validation integration. A failed
 spike requires an explicit contract revision, never silent scope reduction.

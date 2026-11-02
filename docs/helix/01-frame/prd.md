@@ -18,7 +18,10 @@ ddx:
 
 Lintel is a separately packaged Python GraphQL/Relay API runtime embedded in
 Batten. It constructs an executable schema from current UMF declarations,
-explicit exposure choices and qualified runtime capabilities. Relay tooling
+explicit exposure choices and qualified runtime capabilities. The admitted UMF
+JSON document is the model input; Lintel requires no intermediate schema or
+access-description API. An ORM may expose its underlying UMF unchanged through
+a JSON accessor or transport when needed. Relay tooling
 builds TypeScript operation and fragment artifacts from that same exported schema.
 The MVP is one complete fabricated task-board journey over PostgreSQL 18:
 list/page, refetch, expand an assignee, execute a declared command, reconcile
@@ -147,7 +150,7 @@ relationship and a declared task command. Broader meaning refuses explicitly.
 | --- | --- | --- |
 | Existing page API only returns a next-page cursor | Cannot honestly supply per-edge Relay cursors | Runtime-owned connection capability; no Lintel offset emulation |
 | Relay identity ignores application/authority boundaries | Normalized cache can mix data | Stable application-scoped IDs; separate/clear stores per actor/context |
-| Python introspection diverges from upstream semantics | Misleading API | Shared upstream description/qualified binding; no independent semantic engine |
+| Python introspection diverges from upstream semantics | Misleading API | Read UMF directly using its public reader/validator; no independent semantic engine |
 | GraphQL null bubbling or scalar conversion weakens meaning | Wrong client results | Explicit projection rules and browser exact-value tests |
 | Runtime query snapshots disagree within a request | Node field stability fails | Request-scoped consistency/reuse capability; qualify before claim |
 
@@ -155,7 +158,7 @@ relationship and a declared task command. Broader meaning refuses explicitly.
 
 Contracts now select explicit exposure, request-snapshot consistency, exact
 forward PageInfo, batched to-one expansion and typed command outcomes. Bounded
-spikes must establish whether the selected Python metadata/framework/runtime
+spikes must establish whether the existing UMF document reader, Python framework/runtime
 seams and Relay public compiler integration can implement those targets, pin the
 cohort, and qualify Batten/Databricks identity and resource ownership. These are implementation prerequisites, not reasons to leave scope vague.
 Family landing-page/catalog source and final project name remain unconfirmed.

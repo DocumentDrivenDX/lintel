@@ -38,8 +38,10 @@ The separate runtime is part of the UMF family. REST/OpenAPI is outside the MVP.
 
 ## Delivery boundary
 
-This packet defines requirements and the target architecture. It implements no
-API server, client compiler or upstream engine changes. The five target public contracts, six solution designs and six story designs/test
+This packet defines requirements and the target architecture.
+[SPIKE-001](02-design/spikes/SPIKE-001-direct-umf.md) exercises direct UMF JSON
+input and a bounded dynamic scalar schema; [results and limits](04-build/direct-umf-spike.md)
+record its evidence. It is not a production API server, client compiler or upstream engine change. The five target public contracts, six solution designs and six story designs/test
 plans now specify the intended interfaces and assertions. Interoperability spikes
 and real boundary checks still precede dependent product implementation.
 No native/browser/deployed support follows from document validation.

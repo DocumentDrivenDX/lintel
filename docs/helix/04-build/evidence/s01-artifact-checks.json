@@ -1,0 +1,156 @@
+{
+  "catalog": "HELIX 0.20.0",
+  "checks": [
+    {
+      "path": "docs/helix/01-frame/features/FEAT-001-model-projection.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/01-frame/features/FEAT-001-model-projection.md",
+        "type": "feature-specification",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/prd.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/01-frame/prd.md",
+        "type": "prd",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/01-frame/user-stories/US-001-model-projection.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/01-frame/user-stories/US-001-model-projection.md",
+        "type": "user-stories",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-embedded-python-runtime.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/02-design/adr/ADR-001-embedded-python-runtime.md",
+        "type": "adr",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/02-design/architecture.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/02-design/architecture.md",
+        "type": "architecture",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-001-exposure-and-projection.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/02-design/contracts/CONTRACT-001-exposure-and-projection.md",
+        "type": "contract",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-005-hosting-and-resource-bounds.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/02-design/contracts/CONTRACT-005-hosting-and-resource-bounds.md",
+        "type": "contract",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/02-design/solution-designs/SD-001-model-projection.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/02-design/solution-designs/SD-001-model-projection.md",
+        "type": "solution-design",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/02-design/technical-designs/TD-001-model-projection.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/02-design/technical-designs/TD-001-model-projection.md",
+        "type": "technical-design",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    },
+    {
+      "path": "docs/helix/02-design/spikes/SPIKE-001-direct-umf.md",
+      "exitCode": 0,
+      "result": {
+        "instance": "docs/helix/02-design/spikes/SPIKE-001-direct-umf.md",
+        "type": "tech-spike",
+        "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows/activities",
+        "findings": [],
+        "summary": {
+          "blocking": 0,
+          "warning": 0,
+          "info": 0
+        }
+      }
+    }
+  ],
+  "passed": true
+}

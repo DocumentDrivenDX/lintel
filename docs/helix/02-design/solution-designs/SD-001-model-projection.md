@@ -28,11 +28,11 @@ Apply FR-1, FR-2 to the selected MVP. Shared wire/library surfaces are owned by 
 
 | Requirement | Component | Technical capability | Priority |
 | --- | --- | --- | --- |
-| FR-1, FR-2 | `src/lintel/projection/`, `src/lintel/graphql/` | Resolve explicit model identities through the supported upstream description; build one immutable exposure plan and deterministic schema without interpreting unknown rules. | P0 |
+| FR-1, FR-2 | `src/lintel/projection/`, `src/lintel/graphql/` | Resolve explicit model identities directly in admitted UMF JSON through public UMF parsing/validation; build one immutable exposure plan and deterministic schema without interpreting unknown rules. | P0 |
 
 ## Solution Approaches
 
-Select the public protocol/projection approach: Resolve explicit model identities through the supported upstream description; build one immutable exposure plan and deterministic schema without interpreting unknown rules.
+Select the public protocol/projection approach: Resolve explicit model identities directly in admitted UMF JSON through public UMF parsing/validation; build one immutable exposure plan and deterministic schema without interpreting unknown rules.
 
 Generating a schema from raw Python attributes is rejected because it bypasses qualified UMF meaning. The selected approach adds explicit capability admission and
 qualification work in return for one semantic owner and inspectable failures.

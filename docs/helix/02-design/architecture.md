@@ -28,7 +28,10 @@ An independently packaged Python GraphQL/Relay runtime, embedded in Batten's
 FastAPI host. UMF owns model meaning; Weft owns SQL compilation; existing access
 runtimes own native execution; Batten owns admission and current authority.
 Lintel owns API projection, Relay identity/connection adaptation and client build
-integration. This is the target architecture, not an implemented deployment.
+integration. This is the target architecture, not an implemented deployment. UMF remains the
+schema authority and direct input. No intermediate metadata service or second
+schema format is introduced. An ORM may return its underlying UMF JSON unchanged;
+execution capabilities remain separate from model declarations.
 
 ## Level 1: System Context
 
@@ -74,7 +77,7 @@ integration. The paths below are proposed modules, not existing implementation.
 
 | Module | Responsibility / Owned Types | Public API | Allowed Dependencies | Forbidden Dependencies |
 | --- | --- | --- | --- | --- |
-| `src/lintel/projection/` | Immutable exposed API plan and diagnostics | Projection/export facade; CONTRACT-001 | UMF public description; neutral value types | FastAPI, Strawberry, Batten, drivers, duplicated UMF semantics |
+| `src/lintel/projection/` | Immutable exposed API plan and diagnostics | Projection/export facade; CONTRACT-001 | Admitted UMF JSON; public UMF reader/validator; neutral value types | FastAPI, Strawberry, Batten, drivers, duplicated UMF semantics |
 | `src/lintel/relay/` | Node identity and connection/selection mapping | Relay adaptation facade | Projection and public runtime capability values | SQL, drivers, global actor caches, offset fallback |
 | `src/lintel/graphql/` | Executable dynamic schema, scalar coercion, async resolvers, cost validation | prepare_api; CONTRACT-005 | Projection, Relay, public ports, Strawberry; injected dispatch | Concrete runtime construction, private Batten/UMF internals |
 | `src/lintel/asgi/` | FastAPI router, trusted request context and readiness | create_router / create_app; CONTRACT-005 | GraphQL facade, FastAPI/Starlette | Native drivers, policy engines, engine discovery |
@@ -83,7 +86,7 @@ integration. The paths below are proposed modules, not existing implementation.
 | `tools/relay/` | SDL export consumption, pinned compiler invocation, manifests | Build/check workflow | Relay compiler, TypeScript/Bun | Server semantic implementation, startup installation |
 | `packages/client/` | Host-configured network and exact scalar helpers | Relay environment/network factory | Browser APIs and Relay public runtime | Python, native engines, provider credentials, Bun/Node at runtime |
 
-**Integration Owners**: UMF description -> projection; Relay protocol -> relay;
+**Integration Owners**: UMF document -> projection; Relay protocol -> relay;
 Strawberry -> graphql; FastAPI -> asgi; client compiler -> tools/relay.
 Batten owns its proposed `batten.lintel` adapter in the Batten repository. That
 adapter implements Lintel's neutral public ports using Batten's public host APIs.
@@ -96,9 +99,11 @@ explicitly. The embedding composition root constructs `batten.lintel` and inject
 its router/binding; generic Batten core and ASGI modules do not discover or import
 the optional adapter. No process-global schema registry or implicit provider construction.
 
-**Boundary Check**: planned `uv run python scripts/check_boundaries.py` plus
-`bun run check:client-boundaries`. Neither exists yet. Establish actual checks
-with allowed, forbidden, cycle and private-import controls before source handoff.
+**Boundary Check**: `uv run --group spike python scripts/check_boundaries.py`
+checks the bounded spike module graph with allowed, forbidden, reverse-import
+and private-import controls. The spike module map and limitations are in
+[the execution record](../04-build/direct-umf-spike.md). Product source and the
+planned `bun run check:client-boundaries` require their own checks before handoff.
 
 ## Deployment
 
@@ -170,7 +175,8 @@ availability, fleet size or disaster recovery SLO has been measured for Lintel.
 
 ## Architecture Walkthrough
 
-Startup validates approved source, exposure and runtime capabilities and constructs
+Startup reads the approved UMF JSON directly through public UMF parsing and
+validation, validates exposure and runtime capabilities and constructs
 one immutable schema. Export and runtime use the same plan/digest. Hidden
 constraints remain interpreted upstream; hiding their API fields never removes them.
 No API-selected meaning may be silently omitted to achieve activation.
@@ -222,5 +228,5 @@ Client/schema manifests and Relay stores bind to the application/cohort context.
 
 These define desired versioned interfaces, not a claim that an upstream provider
 or the candidate Strawberry/Relay toolchain already implements them. In
-particular, the public Python description seam, native edge cursors/snapshot and
+particular, direct UMF-to-Python projection, native edge cursors/snapshot and
 operation-aware response scalar validation remain bounded interoperability work.

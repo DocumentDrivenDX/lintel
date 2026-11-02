@@ -1,0 +1,24 @@
+scalar Decimal
+
+type Mutation {
+  echo(input: TaskInput!): PresenceProbe!
+}
+
+type PresenceProbe {
+  explicit_null: Boolean!
+  omitted: Boolean!
+}
+
+type Query {
+  probe: Task!
+}
+
+type Task {
+  estimate: Decimal!
+  title: String!
+}
+
+input TaskInput {
+  estimate: Decimal!
+  title: String!
+}

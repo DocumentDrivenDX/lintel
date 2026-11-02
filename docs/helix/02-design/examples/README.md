@@ -28,11 +28,13 @@ no executable API, native table install or Relay compiler result is supplied.
 
 The desired completeTask.task parameter is explicitly a Task Key reference.
 A native scalar Field parameter alone does not establish that role; the owning
-upstream public description/binding must declare it or the ID projection refuses.
-This may require a versioned public metadata addition and is part of S-01/S-03.
+UMF operation declaration or qualified native binding must declare it or the ID projection refuses.
+S-03 must first inspect existing UMF operation declarations and native bindings.
+A new upstream field is justified only if those cannot express the required role;
+a separate schema API is not a prerequisite.
 
 The physical mappings, native policies, declared command parameter metadata,
-snapshot/receipt storage and qualified operation descriptions must be authored
+snapshot/receipt storage and qualified operation declarations must be authored
 and admitted upstream before the example can activate. These rows are obligations
 for that work, not alternate definitions of `umf.tables` or an accepted dialect.
 

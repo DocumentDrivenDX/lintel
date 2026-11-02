@@ -27,7 +27,7 @@ Existing upstream semantics and Batten's public boundary remain authoritative.
 
 ## Technical Approach
 
-Resolve explicit model identities through the supported upstream description; build one immutable exposure plan and deterministic schema without interpreting unknown rules.
+Resolve explicit model identities directly in admitted UMF JSON through public UMF parsing/validation; build one immutable exposure plan and deterministic schema without interpreting unknown rules.
 
 Use the qualified public seam rather than the rejected alternative in SD-001.
 The tradeoff is explicit capability/spike work before dependent implementation.
@@ -113,3 +113,20 @@ schema or exporter dependency is selected here.
 CONTRACT-001, CONTRACT-005 and their local authoritative schema/example sources define the selected
 shapes. Upstream model/constraint/value semantics are reused; no semantic engine
 is recreated in a Python wrapper or client build step.
+
+
+## Bounded S-01 source gate
+
+The direct-input spike lives in `spikes/direct_umf/`, separate from the proposed
+product modules. `scripts/check_quality.py` is its quality entrypoint. Strict
+Python ceilings are complexity 10, statements 40, returns 6, branches 12, public
+methods 15; file caps are 500 source / 800 test lines. No ceiling exceptions.
+Only `scripts/`, `spikes/` and `tests/` are handwritten executable source in this
+probe. `docs/` contains specifications and illustrative protocol stubs, not runtime
+code; environments, cached bytecode and generated evidence are excluded from
+source lint/shape checks. This bounded probe installs no developer git hooks or
+application runtime instrumentation. Product source/client gates remain separate.
+
+[Observed quality controls](../../04-build/evidence/s01-quality-controls.json)
+include valid-source acceptance, over-complexity, oversize and ceiling-change
+refusal. [SPIKE-001](../spikes/SPIKE-001-direct-umf.md) owns its qualification limits.

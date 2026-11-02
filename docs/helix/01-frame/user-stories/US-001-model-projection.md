@@ -29,7 +29,7 @@ These criteria govern future implementation; they are not passed tests.
 
 ## Walkthrough
 
-1. Supply the approved task-board logical source, exact description/capability profile and explicit exposure.
+1. Supply the approved task-board logical source, exact source/dependency closure and execution capability profile and explicit exposure.
 2. Prepare the API and inspect the sorted SDL, identity digests and safe diagnostics.
 3. Repeat preparation with identical bytes, then select an unknown constraint or a colliding Relay name.
 4. Receive byte-identical output or a non-mutating preparation refusal; no dependency record gains an implicit list.

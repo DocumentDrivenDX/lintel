@@ -30,3 +30,10 @@ Planning assumptions: PostgreSQL 18 first; one-hop relationships; startup schema
 construction; request-local cache; no admin UI. These are reversible design
 choices, not additional owner statements. No delivery date, staffing, budget,
 production workspace, IdP or family-catalog source repository was specified.
+
+## Direct UMF input
+
+Owner clarification: consume UMF directly. UMF is already the model/schema; do
+not invent an intermediate schema-description API. An ORM may expose its existing
+UMF as JSON if needed. Update the specs and execute the first direct-input spike;
+make only UMF/runtime changes that its evidence demonstrates are necessary.

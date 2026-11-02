@@ -50,7 +50,7 @@ Batten's host when embedded.
 ## Consequences
 
 Batten's cohort must carry Lintel and its selected Python dependencies; applications
-install nothing at startup. Upstream public read/description gaps must be solved
+install nothing at startup. Demonstrated upstream document-access or execution gaps must be solved
 upstream or explicitly adapted, never by importing private modules.
 
 Drift signals: Lintel emits SQL or policies; pure Batten core imports GraphQL;

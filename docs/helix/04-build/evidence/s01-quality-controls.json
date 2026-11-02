@@ -1,0 +1,8 @@
+{
+  "scope": "strict greenfield quality gate controls",
+  "allowedConfiguration": true,
+  "oversizeRefused": true,
+  "raisedCeilingRefused": true,
+  "excessiveComplexityRefused": true,
+  "ruffNegativeOutput": "complex-structure: `over` is too complex (12 > 10)\n --> negative.py:1:5\n  |\n1 | def over(value):\n  |     ^^^^\n2 |     if value == 0:\n3 |         value += 1\n  |\n\nFound 1 error.\n"
+}
