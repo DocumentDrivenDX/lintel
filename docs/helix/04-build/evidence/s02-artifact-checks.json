@@ -1,0 +1,12 @@
+{
+  "instance": "docs/helix/02-design/spikes/SPIKE-002-native-reads.md",
+  "type": "tech-spike",
+  "catalog": "HELIX 0.20.0 workflows/activities",
+  "observed": {
+    "exitCode": 0,
+    "blocking": 0,
+    "warning": 0,
+    "info": 0
+  },
+  "command": "validate-instance.py docs/helix/02-design/spikes/SPIKE-002-native-reads.md --catalog /Users/erik/.codex/plugins/cache/helix/helix/0.20.0/workflows --format json"
+}

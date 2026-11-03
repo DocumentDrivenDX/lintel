@@ -21,3 +21,12 @@ The intended family documentation location is
 [documentdrivendx.github.io/lintel](https://documentdrivendx.github.io/lintel/).
 The [source repository](https://github.com/DocumentDrivenDX/lintel) is created;
 family-catalog registration and documentation-site publication remain pending.
+
+
+The [native read spike](docs/helix/02-design/spikes/SPIKE-002-native-reads.md)
+measures pagination, declared-key batching and request consistency on disposable
+PostgreSQL 18. Run `uv sync --locked --group spike --group native-spike`, then
+`uv run --locked --group spike --group native-spike python -m spikes.native_reads.run`.
+Use both dependency groups for `python scripts/check_quality.py` on the current tree.
+[Results and gaps](docs/helix/04-build/native-read-spike.md) keep unsupported
+execution guarantees explicit; no upstream schema API is introduced.

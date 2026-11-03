@@ -57,3 +57,11 @@ separate; the linked Batten integration note records only this planning directio
 [Specification checks](04-build/specification-expansion.md) record structural,
 example and traceability results with their limits. Each feature has matching
 SD/TD/STP numeric IDs; the original 24 story acceptance IDs are preserved.
+
+
+## Native read investigation
+
+[SPIKE-002](02-design/spikes/SPIKE-002-native-reads.md) measures the existing public
+runtime on disposable PostgreSQL. [Execution evidence and gaps](04-build/native-read-spike.md)
+separate bounded declared-IN batching from the unsupported Relay edge-cursor and
+native request-snapshot profiles. No full US-002 or upstream support is inferred.

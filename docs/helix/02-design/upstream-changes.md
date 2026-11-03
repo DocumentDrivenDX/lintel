@@ -102,3 +102,25 @@ justifies a UMF/runtime change. The first bounded S-01 probe is recorded in
   optional protocols only with separately selected requirements and evidence.
 
 No staffing, dates, capacity target or runtime release number is invented.
+
+
+## S-02 observed disposition
+
+[SPIKE-002](spikes/SPIKE-002-native-reads.md) qualifies the public UMF v0.5.8
+access/codegen cohort with Weft 0.4.54; it does not qualify a different latest UMF
+or Batten release by association.
+
+- R-01 remains a demonstrated gap: page-next frames lack authenticated per-edge
+  positions and exact previous-page evidence. Preserve legacy paging behavior.
+- R-02 has an existing bounded route: explicitly declared 50-key IN lookup with
+  native policy filtering; root plus lookup uses two native data statements.
+  Generic batch wire refuses, but that alone does not justify a new batch API.
+  Generic chunking and relationship parent/target enforcement remain unqualified.
+- R-03 is demonstrated: the native binding refuses a borrowed repeatable-read
+  transaction with SCHEMA_MISMATCH. PostgreSQL's independent snapshot control
+  passes, so the missing qualification is at native admission/execution. Design
+  fresh authority/generation admission plus a consistent data view; do not simply
+  remove the read-committed guard.
+
+No upstream model/schema or runtime source changes follow automatically from
+these observations. The minimal remaining changes concern execution guarantees.

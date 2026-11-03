@@ -13,6 +13,10 @@ spike = [
   "graphql-core==3.3.1",
   "httpx==0.28.1",
 ]
+native-spike = [
+  "umf-access==0.1.0.dev8", "umf-codegen==0.1.0a5", "weft-sql==0.4.54",
+  "psycopg[binary]==3.3.6", "pgserver-pg18==18.6.1",
+]
 dev = ["pytest==9.2.0", "ruff==0.17.3", "pyright==1.1.414"]
 
 [tool.pytest.ini_options]
@@ -44,3 +48,10 @@ max-public-methods = 15
 pythonVersion = "3.11"
 typeCheckingMode = "strict"
 include = ["spikes", "scripts", "tests"]
+
+[tool.uv]
+find-links = ["https://github.com/DocumentDrivenDX/pgserver/releases/expanded_assets/pg18.6-pgv0.8.6-r2"]
+
+[tool.uv.sources]
+umf-access = { url = "https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.8/umf_access-0.1.0.dev8-py3-none-any.whl" }
+umf-codegen = { url = "https://github.com/DocumentDrivenDX/umf/releases/download/umf-v0.5.8/umf_codegen-0.1.0a5-py3-none-any.whl" }

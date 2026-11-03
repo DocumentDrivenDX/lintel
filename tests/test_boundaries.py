@@ -27,3 +27,19 @@ def test_import_controls(module: str, source: str, allowed: bool) -> None:
 
 def test_source_boundaries() -> None:
     assert check(Path(__file__).resolve().parents[1]) == []
+
+
+@pytest.mark.parametrize(
+    ("module", "source", "allowed"),
+    [
+        ("native_fixture", "from umf_access.lifecycle import apply_table_migration", True),
+        ("native_probes", "from spikes.native_reads.fixture import Fixture", True),
+        ("native_probes", "from umf_access.unified import AsyncTableReader", True),
+        ("native_probes", "from umf_access.unified.operation_values import token_encode", False),
+        ("native_probes", "import batten", False),
+        ("projection", "import psycopg", False),
+        ("native_fixture", "from spikes.native_reads.probes import run_probes", False),
+    ],
+)
+def test_native_import_controls(module: str, source: str, allowed: bool) -> None:
+    assert (not violations(source, module)) is allowed
