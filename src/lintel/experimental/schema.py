@@ -15,7 +15,7 @@ import strawberry
 from graphql import lexicographic_sort_schema, print_schema
 from strawberry.schema.config import StrawberryConfig
 
-from spikes.direct_umf.projection import Projection
+from lintel.experimental.projection import Projection
 
 DecimalText = NewType("DecimalText", str)
 UUIDText = NewType("UUIDText", str)

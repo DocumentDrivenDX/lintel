@@ -6,6 +6,7 @@ import ast
 from pathlib import Path
 
 ALLOWED = {
+    "request_qualify": {"spikes.native_reads.fixture", "umf_access.unified", "psycopg"},
     "native_fixture": {
         "umf_codegen",
         "umf_access.lifecycle",
@@ -16,13 +17,13 @@ ALLOWED = {
     "native_probes": {"spikes.native_reads.fixture", "umf_access.unified", "psycopg"},
     "native_run": {"spikes.native_reads.fixture", "spikes.native_reads.probes"},
     "projection": {"umf"},
-    "schema": {"strawberry", "graphql", "spikes.direct_umf.projection"},
+    "schema": {"strawberry", "graphql", "lintel.experimental.projection"},
     "run": {
         "fastapi",
         "httpx",
         "strawberry.fastapi",
-        "spikes.direct_umf.schema",
-        "spikes.direct_umf.projection",
+        "lintel.experimental.schema",
+        "lintel.experimental.projection",
     },
 }
 STDLIB = {
@@ -83,8 +84,13 @@ def _dynamic_calls(node: ast.AST) -> list[str]:
 
 def check(root: Path) -> list[str]:
     errors: list[str] = []
-    for folder, prefix in (("direct_umf", ""), ("native_reads", "native_")):
-        for file in sorted((root / "spikes" / folder).glob("*.py")):
+    for folder, prefix in (
+        ("spikes/direct_umf", ""),
+        ("src/lintel/experimental", ""),
+        ("spikes/native_reads", "native_"),
+        ("spikes/request_reads", "request_"),
+    ):
+        for file in sorted((root / folder).glob("*.py")):
             module = prefix + file.stem
             if file.stem == "__init__":
                 if file.read_text().strip():

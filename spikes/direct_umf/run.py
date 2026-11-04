@@ -12,12 +12,12 @@ import httpx
 from fastapi import FastAPI
 from strawberry.fastapi import GraphQLRouter
 
-from spikes.direct_umf.schema import build_probe_schema, export_sdl
+from lintel.experimental.schema import build_probe_schema, export_sdl
 
 
 def main() -> None:
     # Projection import is intentionally owned by the composition root, not ASGI.
-    from spikes.direct_umf.projection import project
+    from lintel.experimental.projection import project
 
     root = Path(__file__).resolve().parents[2]
     source = (root / "docs/helix/02-design/examples/task-board.umf.json").read_text()

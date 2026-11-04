@@ -25,7 +25,7 @@ def shape_errors(root: Path) -> list[str]:
     for section, expected in CEILINGS.items():
         if config.get(section) != expected:
             errors.append("strict ceiling configuration changed: " + section)
-    for folder in ("scripts", "spikes", "tests"):
+    for folder in ("src", "scripts", "spikes", "tests"):
         for file in (root / folder).rglob("*.py"):
             limit = 800 if folder == "tests" else 500
             if len(file.read_text().splitlines()) > limit:
@@ -39,8 +39,8 @@ def main() -> int:
         print("\n".join(errors))
         return 1
     for arguments in [
-        ["-m", "ruff", "check", "scripts", "spikes", "tests"],
-        ["-m", "ruff", "format", "--check", "scripts", "spikes", "tests"],
+        ["-m", "ruff", "check", "src", "scripts", "spikes", "tests"],
+        ["-m", "ruff", "format", "--check", "src", "scripts", "spikes", "tests"],
         ["-m", "pyright", "--pythonpath", sys.executable],
         ["scripts/check_boundaries.py"],
         ["-m", "pytest", "-q", "--tb=short"],

@@ -1,0 +1,97 @@
+name: Release Lintel to PyPI
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to publish
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: lintel-pypi-${{ github.event.release.tag_name || inputs.tag }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.13.3'
+      - name: Check release identity
+        run: |
+          python3 - <<'PY'
+          import os, tomllib
+          from pathlib import Path
+          p = tomllib.loads(Path('pyproject.toml').read_text())['project']
+          assert p['name'] == 'lintel-api'
+          assert os.environ['TAG'] == 'v' + p['version']
+          PY
+      - name: Validate source and build archives
+        run: |
+          uv sync --locked --group spike --python 3.11
+          uv run --locked python -m ruff check src scripts spikes tests
+          uv run --locked python -m ruff format --check src scripts spikes tests
+          uv run --locked python scripts/check_boundaries.py
+          uv run --locked python -m pytest -q
+          uv build
+          uvx --from twine==7.0.0 twine check --strict dist/*
+          sha256sum dist/* > SHA256SUMS
+      - name: Check installed wheel outside the checkout
+        run: |
+          uv venv --python 3.11 "$RUNNER_TEMP/installed"
+          uv pip install --python "$RUNNER_TEMP/installed/bin/python" dist/*.whl
+          "$RUNNER_TEMP/installed/bin/python" -I scripts/check_installed.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lintel-distributions
+          path: |
+            dist/*
+            SHA256SUMS
+          if-no-files-found: error
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: lintel-distributions
+          path: incoming
+      - name: Verify archive hashes
+        working-directory: incoming
+        run: sha256sum --check SHA256SUMS
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: incoming/dist/
+  public-consumer:
+    needs: publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.13.3'
+      - name: Install and exercise the public package
+        env:
+          TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: |
+          uv venv --python 3.11 "$RUNNER_TEMP/public"
+          uv pip install --no-cache --index-url https://pypi.org/simple --python "$RUNNER_TEMP/public/bin/python" "lintel-api==${TAG#v}"
+          "$RUNNER_TEMP/public/bin/python" -I scripts/check_installed.py

@@ -6,8 +6,8 @@ from typing import Any
 
 import pytest
 
-from spikes.direct_umf.projection import ProjectionError, project
-from spikes.direct_umf.schema import build_probe_schema, export_sdl
+from lintel.experimental.projection import ProjectionError, project
+from lintel.experimental.schema import build_probe_schema, export_sdl
 
 SOURCE = Path(__file__).resolve().parents[1] / "docs/helix/02-design/examples/task-board.umf.json"
 FIELDS = {("board", "title"): "title", ("board", "estimate"): "estimate", ("board", "note"): "note"}

@@ -1,0 +1,60 @@
+{
+  "profile": "local-upstream-request-reads",
+  "python": "3.11.17",
+  "weftDistributionVersion": "0.4.48",
+  "native": {
+    "serverVersionNum": 180006,
+    "databaseCollation": "C.UTF-8",
+    "localeProvider": "c"
+  },
+  "observed": {
+    "pages": {
+      "hiddenEarlierRowDoesNotLeakThroughPreviousFlag": true,
+      "deletedPositionPreviousFlagExact": true,
+      "interiorEdge": true,
+      "terminalEdge": true,
+      "exactFlags": true,
+      "firstZero": true,
+      "changedSize": true,
+      "closedScopeRefused": true,
+      "foreignAndTamperedRefused": true
+    },
+    "consistency": {
+      "interleavedUpdateStable": true,
+      "concurrentDispatchSerialized": true,
+      "laterRequestFresh": true,
+      "lifecycleLockHeldUntilScopeExit": true
+    },
+    "revocation": {
+      "liveRoleRevocationRefusedBeforeDataRead": true
+    },
+    "dangerousRoles": {
+      "bypassRlsRefusedBeforeDataRead": true,
+      "superuserRefusedBeforeDataRead": true
+    },
+    "settingsDrift": {
+      "snapshotSettingsDriftRefusedBeforeDataRead": true,
+      "poisonedScopeRolledBack": true
+    },
+    "cancellation": {
+      "nativeRelationWaitWitnessed": true,
+      "repeatedCancellationPropagates": true,
+      "bothLeasesReleased": true,
+      "readerUsableAfterCancellation": true
+    },
+    "drainOnClose": {
+      "inFlightReadCancelledAndDrainedOnExit": true,
+      "noLateResult": true
+    },
+    "deadline": {
+      "requestDeadlinePropagates": true,
+      "timedOutLeasesReleased": true
+    },
+    "noUnusableLeaseReturned": true,
+    "leases": {
+      "acquired": 28,
+      "released": 28
+    }
+  },
+  "limits": "local source candidate; Psycopg3/PG18 only, not a release"
+}

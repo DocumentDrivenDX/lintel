@@ -1,0 +1,63 @@
+{
+  "scope": "unchanged S-02 legacy probes against local runtime/compiler candidate",
+  "observed": {
+    "pagination": {
+      "visiblePage": [
+        "t-001",
+        "t-002"
+      ],
+      "tieBreakOrder": "title ASC, id ASC",
+      "nextPage": [
+        "t-003"
+      ],
+      "personRls": true,
+      "foreignCursorRefusedBeforeDataRead": true,
+      "pageFrameKeys": [
+        "cursor",
+        "kind",
+        "module",
+        "operation",
+        "rows",
+        "sourceDigest",
+        "version"
+      ],
+      "perEdgeCursorsPresent": false,
+      "terminalCursorPresent": false,
+      "exactPreviousPageEvidencePresent": false,
+      "firstZero": "INVALID",
+      "changedSize": "INVALID_CURSOR",
+      "sameSizeSingleEdgeContinuation": true,
+      "gap": "page-next token is not an arbitrary-edge Relay connection"
+    },
+    "batching": {
+      "requestedSlots": 50,
+      "returnedDistinctAuthorizedRows": 2,
+      "duplicatesRetained": true,
+      "missingAndDeniedSlots": 20,
+      "nativeRootPlusInLookupReads": 2,
+      "nativeLoopLookupReads": 50,
+      "closedBatchWire": "INVALID",
+      "closedBatchWireAcquiredLeases": 0,
+      "qualifiedSubset": "declared 50-key IN lookup; caller reorders slots",
+      "unqualified": "generic batches and relationship parent/target enforcement"
+    },
+    "consistency": {
+      "defaultPerCallViewsDiffer": true,
+      "postgresRepeatableReadControlAgrees": true,
+      "runtimeRepeatableRead": "SCHEMA_MISMATCH",
+      "runtimeReadDispatchedUnderRepeatableRead": false,
+      "newRequestSeesCommittedChange": true,
+      "callerRoleRestored": true,
+      "callerTransactionPreserved": true,
+      "borrowedConnectionPreserved": true,
+      "runtimeRequestSnapshotQualified": false,
+      "gap": "native admission requires read committed; do not weaken its freshness guard",
+      "limits": "sequential borrowed read-only transaction; no cross-page snapshot"
+    },
+    "leaseBalance": {
+      "acquired": 61,
+      "released": 61
+    },
+    "measuredDataReadStatements": 60
+  }
+}

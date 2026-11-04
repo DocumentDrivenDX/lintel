@@ -190,8 +190,13 @@ wheels = [
 
 [[package]]
 name = "lintel-api"
-version = "0.0.0"
-source = { virtual = "." }
+version = "0.1.0a1"
+source = { editable = "." }
+dependencies = [
+    { name = "graphql-core" },
+    { name = "strawberry-graphql" },
+    { name = "umf-core" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -215,6 +220,11 @@ spike = [
 ]
 
 [package.metadata]
+requires-dist = [
+    { name = "graphql-core", specifier = "==3.3.1" },
+    { name = "strawberry-graphql", specifier = "==0.339.1" },
+    { name = "umf-core", specifier = "==0.10.0" },
+]
 
 [package.metadata.requires-dev]
 dev = [

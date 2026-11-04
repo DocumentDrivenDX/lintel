@@ -24,8 +24,9 @@ No runtime package installation; no schema-selected code execution; no new
 application environment variables. Configuration is typed, file-based and injected.
 Use fabricated data. Qualify every claim by cohort, subset and observed evidence.
 
-The packet specifies desired behavior; spikes/direct_umf contains a bounded
-interoperability probe, not a production runtime or full conformance claim.
+The packet specifies desired behavior; src/lintel/experimental contains the bounded
+direct-UMF projection, and spikes/direct_umf its harness. This alpha is not a
+production runtime or full conformance claim.
 Consume UMF JSON directly; do not introduce an intermediate schema API.
 Make upstream changes only for demonstrated gaps. Resolve the named spikes/contracts
 before dependent implementation. Do not commit, push or publish unless asked.

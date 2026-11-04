@@ -124,3 +124,13 @@ or Batten release by association.
 
 No upstream model/schema or runtime source changes follow automatically from
 these observations. The minimal remaining changes concern execution guarantees.
+
+
+## Local implementation of S-02 gaps
+
+[Local qualification](../04-build/request-read-implementation.md) records additive
+UMF request reads and Weft connection lowering. R-01 and R-03 have installed local
+Psycopg3/PostgreSQL18.6 evidence with current admission checks preserved. This is
+not a release/cohort promotion or a claim that Lintel's neutral adapter is built.
+The existing declared-IN route remains the batching foundation; no general batch
+API or schema-description service was added.
