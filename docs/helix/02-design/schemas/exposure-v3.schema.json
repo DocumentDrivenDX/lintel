@@ -1,0 +1,301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lintel:exposure:3",
+  "title": "Lintel generated Record-root connection exposure profile 3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "application",
+    "identityNamespace",
+    "records",
+    "connections",
+    "mutations"
+  ],
+  "properties": {
+    "format": {
+      "const": "lintel.exposure/3"
+    },
+    "application": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "identityNamespace": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "record",
+          "key",
+          "typeName",
+          "lookup",
+          "fields",
+          "relationships"
+        ],
+        "properties": {
+          "record": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "module",
+              "element"
+            ],
+            "properties": {
+              "module": {
+                "type": "string",
+                "minLength": 1
+              },
+              "element": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "typeName": {
+            "type": "string",
+            "pattern": "^(?!__)[_A-Za-z][_0-9A-Za-z]*$"
+          },
+          "lookup": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "module",
+              "id",
+              "kind"
+            ],
+            "properties": {
+              "module": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "const": "record"
+              }
+            }
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "field",
+                "name"
+              ],
+              "properties": {
+                "field": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "module",
+                    "element"
+                  ],
+                  "properties": {
+                    "module": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "element": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "name": {
+                  "type": "string",
+                  "pattern": "^(?!__)[_A-Za-z][_0-9A-Za-z]*$"
+                }
+              }
+            },
+            "maxItems": 256
+          },
+          "relationships": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "relationship",
+                "target",
+                "operation"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^(?!__)[_A-Za-z][_0-9A-Za-z]*$"
+                },
+                "relationship": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "module",
+                    "id",
+                    "direction"
+                  ],
+                  "properties": {
+                    "module": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "direction": {
+                      "enum": [
+                        "forward",
+                        "inverse"
+                      ]
+                    }
+                  }
+                },
+                "target": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "module",
+                    "element"
+                  ],
+                  "properties": {
+                    "module": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "element": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "operation": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "module",
+                    "id",
+                    "kind"
+                  ],
+                  "properties": {
+                    "module": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "kind": {
+                      "enum": [
+                        "table",
+                        "action"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "maxItems": 0
+          }
+        }
+      },
+      "maxItems": 64,
+      "minItems": 1
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "record"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^(?!__)[_A-Za-z][_0-9A-Za-z]*$"
+          },
+          "record": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "module",
+              "element"
+            ],
+            "properties": {
+              "module": {
+                "type": "string",
+                "minLength": 1
+              },
+              "element": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      },
+      "maxItems": 64,
+      "minItems": 1
+    },
+    "mutations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "operation"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^(?!__)[_A-Za-z][_0-9A-Za-z]*$"
+          },
+          "operation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "module",
+              "id",
+              "kind"
+            ],
+            "properties": {
+              "module": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "table",
+                  "action"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "maxItems": 0
+    }
+  }
+}

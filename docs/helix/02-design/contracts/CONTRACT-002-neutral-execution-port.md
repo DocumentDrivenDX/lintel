@@ -37,12 +37,13 @@ to implement these signatures. U/R/B changes and S-01–04 qualification still a
 All I/O methods MUST be asynchronous. Factories/capability snapshots/Node codecs
 are pure synchronous operations. Public import destination is `lintel.ports`.
 Only immutable/copied values cross it. No native driver, Strawberry, FastAPI or
-Batten type appears. `CoreLiteral` denotes existing upstream tagged literal
-meaning; this protocol never interprets an unknown scalar/extension itself.
+Batten type appears. `CoreLiteral` denotes the existing upstream `null` or exact
+tagged literal meaning; this protocol never interprets an unknown
+scalar/extension itself.
 
 | Value / method | Required behavior |
 | --- | --- |
-| `OperationRef` | Exact declared module/ID/profile kind; no arbitrary query, SQL or client-authored effects. |
+| `OperationRef` | Exact declared module/ID/profile kind; no arbitrary query, SQL or client-authored effects. `/2` adds `kind=record` for a source Record root proven by CONTRACT-006's generated artifact; it is not a table/action command. |
 | `NodeKey` | Exact Record/Key identity and authored ordered scalar components; no display-name lookup. |
 | `NodeValue` | Exactly requested qualified selected Fields plus internal key; unknown/unrequested data never becomes a GraphQL property. |
 | `RequestScope.authority` | Host-authenticated opaque handle, validated by the adapter; cannot be supplied by application variables or tracing headers. |
@@ -67,8 +68,10 @@ literals or NodeKey for an explicitly declared entity/key parameter. Arbitrary
 JSON objects are not accepted. A string-valued parameter that happens to look
 like an ID is not automatically a Node reference. The host adapter lowers typed
 keys through the qualified upstream binding, not a Lintel-built query. Omitted
-parameters remain absent from the mapping; explicit null uses the native tagged
-null literal. Unsupported structured/container arguments refuse in this profile.
+parameters remain absent from the mapping; explicit null is the upstream
+literal `null` (`None` on this Python port), distinct from an omitted parameter
+key. No synthetic null wrapper is introduced. Unsupported structured/container
+arguments refuse in this profile.
 
 ### Request sessions and consistency
 
@@ -119,6 +122,28 @@ Keys/types not in the prepared exposure are treated as unavailable. Renaming an
 API type cannot change native key semantics; namespace/key version changes require
 explicit client migration. Never include mutable source digests in every ID.
 
+The portable `lintel.node-id.string-key/1` codec is the first concrete profile.
+It encodes canonical UTF-8 JSON `[profile, namespace, module, record, keyId,
+[componentStrings...]]` as unpadded base64url. Namespace and qualified references
+are nonempty exact strings; there are 1–16 nonnull UMF `{string: ...}` Key
+components. Input and output are each bounded to 2048 bytes, and decoding requires
+the canonical alphabet, base64url round trip, exact JSON shape and canonical JSON
+bytes. NUL is refused because the selected PostgreSQL text Key carrier cannot
+represent it; other well-formed UTF-8 including line breaks is preserved. This
+codec only transports lookup identity. `/2` build admission selects it
+only when every original primary-Key Field is required `string`; other carriers
+remain unsupported until UMF defines a canonical identity codec for them.
+
+For `/2`, host composition injects a validator for every prepared Record/Key
+pair. Each validator closes over that root's already admitted generated executor
+and calls its pure issued `validate_get_many_key` API before a `NodeKey` can enter
+batch dispatch. The validator registry carries and must exactly match the
+prepared root's source, artifact, receipt, target binding, algebra and Key pins;
+missing or extra entries refuse router construction. This check uses the same
+issued codec as `get_many`, without opening a session or issuing SQL. It rejects
+facet-invalid IDs as individual null slots so they cannot poison other valid IDs
+in a GraphQL `nodes` batch. Lintel runtime performs no UMF source or facet parsing.
+
 ### Command results
 
 `applied`: receipt and returned affected IDs; durability may be committed or
@@ -160,7 +185,9 @@ A prepared next-page-only driver refuses `edge-cursor-1` at activation.
 ## Schema Basis
 
 Reuse core 0.10 exact references, Keys/literals and existing table/action operation
-identity; native cursor and outcome meaning stays runtime-owned. The local Python
-protocol introduces transport-neutral immutable views and opaque host authority,
+identity. The prepared API `/2` Record-root binding adds the versioned
+`OperationRef.kind=record` read identity; it does not change the `get_many`
+signature or make a source Record a command. Native cursor and outcome meaning
+stays runtime-owned. The local Python protocol introduces transport-neutral immutable views and opaque host authority,
 not storage/model rules. No JSON schema is claimed to validate a Python authority
 handle. The pinned task-board logical model and CONTRACT-001 identify source reuse.

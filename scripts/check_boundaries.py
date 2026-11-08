@@ -5,7 +5,12 @@ from __future__ import annotations
 import ast
 from pathlib import Path
 
-ALLOWED = {
+ALLOWED: dict[str, set[str]] = {
+    "root": {"lintel.ports", "lintel"},
+    "ports": {"lintel.ports"},
+    "ports_values": set(),
+    "ports_errors": set(),
+    "ports_protocols": {"lintel.ports.values"},
     "request_qualify": {"spikes.native_reads.fixture", "umf_access.unified", "psycopg"},
     "native_fixture": {
         "umf_codegen",
@@ -83,16 +88,19 @@ def _dynamic_calls(node: ast.AST) -> list[str]:
 
 
 def check(root: Path) -> list[str]:
-    errors: list[str] = []
+    errors = violations((root / "src/lintel/__init__.py").read_text(), "root")
     for folder, prefix in (
         ("spikes/direct_umf", ""),
         ("src/lintel/experimental", ""),
+        ("src/lintel/ports", "ports_"),
         ("spikes/native_reads", "native_"),
         ("spikes/request_reads", "request_"),
     ):
         for file in sorted((root / folder).glob("*.py")):
             module = prefix + file.stem
-            if file.stem == "__init__":
+            if file.stem == "__init__" and prefix == "ports_":
+                errors.extend(file.name + ": " + e for e in violations(file.read_text(), "ports"))
+            elif file.stem == "__init__":
                 if file.read_text().strip():
                     errors.append("package initializer must remain empty")
             elif module not in ALLOWED:

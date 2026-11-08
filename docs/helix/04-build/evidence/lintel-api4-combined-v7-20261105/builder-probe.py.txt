@@ -1,0 +1,131 @@
+from __future__ import annotations
+
+import base64
+import hashlib
+import importlib.metadata
+import importlib.abc
+import json
+import sys
+from pathlib import Path
+
+import umf_access_generated_executor as executor
+from lintel_build.errors import PreparationError
+from lintel_build.prepare_v3 import prepare_api_v3
+from lintel_build.prepare_v4 import prepare_api_v4
+
+FIXTURE = Path('/private/tmp/umf-page7-build27-fixture-20261105')
+ARTIFACT_DIR = FIXTURE / 'artifact'
+TEST_FIXTURE = Path('/Users/erik/Projects/lintel/tests/fixtures')
+
+
+class BlockUmfRuntime(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname: str, path: object = None, target: object = None):
+        if fullname == 'umf_access' or fullname.startswith('umf_access.'):
+            raise ModuleNotFoundError(f'unexpected UMF runtime import: {fullname}')
+        return None
+
+
+sys.meta_path.insert(0, BlockUmfRuntime())
+manifest = executor.GeneratedManifest.from_json((ARTIFACT_DIR / 'manifest.json').read_bytes())
+files = executor.GeneratedFiles.from_mapping(
+    {
+        path.relative_to(ARTIFACT_DIR).as_posix(): path.read_bytes()
+        for path in ARTIFACT_DIR.rglob('*')
+        if path.is_file() and path.name != 'manifest.json'
+    }
+)
+trusted_value = json.loads((FIXTURE / 'trusted-artifact.json').read_bytes())
+target_value = json.loads((FIXTURE / 'target.json').read_bytes())
+target = executor.TargetBinding(
+    target_value['id'], target_value['profile'], target_value['version'], target_value['bindingDigest']
+)
+trusted = executor.TrustedArtifactRef(
+    trusted_value['artifactId'], trusted_value['artifactDigest'], trusted_value['receiptDigest'],
+    trusted_value['payloadDigest'], trusted_value['sourceDigest'], trusted_value['targetBindingDigest'],
+    tuple(map(tuple, trusted_value['inventory'])), trusted_value['issuer'], trusted_value['buildId'],
+)
+binding = json.loads((FIXTURE / 'binding.json').read_bytes())
+source = binding['modelJson'].encode('utf-8')
+api3 = json.loads((TEST_FIXTURE / 'prepared-api-v3-strict5-proof.json').read_bytes())
+exposure = json.loads(base64.b64decode(api3['exposureBase64']))
+exposure['records'] = [
+    row for row in exposure['records']
+    if row['record'] == {'module': 'demo', 'element': 'Note'}
+]
+exposure['records'][0]['fields'] = [
+    {'field': {'module': 'demo', 'element': 'owner'}, 'name': 'owner'}
+]
+exposure['connections'] = [
+    {'name': 'notes', 'record': {'module': 'demo', 'element': 'Note'}}
+]
+exposure_bytes = json.dumps(
+    exposure, ensure_ascii=False, sort_keys=True, separators=(',', ':')
+).encode('utf-8')
+capabilities = dict(api3['capabilities'])
+capabilities.pop('operation.binding/demo/Task/record', None)
+host_profile = {
+    'format': 'lintel.host/1',
+    'mount': api3['hostProfile']['mount'],
+    'introspection': api3['hostProfile']['introspection'],
+    'limits': {key: int(value) for key, value in api3['hostProfile']['limits']},
+}
+
+try:
+    prepare_api_v3(
+        source, (), exposure_bytes, capabilities, host_profile,
+        api3['scalarCodecProfile'], manifest, files, trusted, target,
+    )
+except PreparationError as error:
+    if error.code != 'UNSUPPORTED':
+        raise
+    v3_result = {'status': 'refused', 'code': error.code, 'reference': error.reference}
+else:
+    raise AssertionError('strict API3 builder accepted the combined /7 artifact')
+
+prepared_bytes = prepare_api_v4(
+    source, (), exposure_bytes, capabilities, host_profile,
+    api3['scalarCodecProfile'], manifest, files, trusted, target,
+)
+parsed = json.loads(prepared_bytes)
+root_bytes = json.dumps(
+    parsed['generatedRoots'], ensure_ascii=False, sort_keys=True, separators=(',', ':')
+).encode('utf-8')
+connection_bytes = json.dumps(
+    parsed['generatedConnections'], ensure_ascii=False, sort_keys=True, separators=(',', ':')
+).encode('utf-8')
+trust_pin = {
+    'artifactSha256': hashlib.sha256(prepared_bytes).hexdigest(),
+    'artifactDigest': parsed['artifactDigest'],
+    'application': parsed['application'],
+    'apiDigest': parsed['apiDigest'],
+    'exposureSha256': parsed['exposureSha256'],
+    'sources': parsed['sources'],
+    'capabilities': parsed['capabilities'],
+    'bindingProfile': parsed['bindingProfile'],
+    'scalarCodecProfile': parsed['scalarCodecProfile'],
+    'limits': parsed['hostProfile']['limits'],
+    'generatedRootsSha256': hashlib.sha256(root_bytes).hexdigest(),
+    'generatedConnectionsSha256': hashlib.sha256(connection_bytes).hexdigest(),
+}
+(TEST_FIXTURE / 'prepared-api-v4-weft7-build27-proof.json').write_bytes(prepared_bytes)
+(TEST_FIXTURE / 'prepared-api-v4-weft7-build27-trust.json').write_text(
+    json.dumps(trust_pin, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+)
+print('python', sys.version.split()[0])
+print('umf_core_version', importlib.metadata.version('umf-core'))
+print('executor_version', importlib.metadata.version('umf-access-generated-executor'))
+print('executor_origin', executor.__file__)
+print('executor_read_profile', executor.prepare_generated(manifest, files, trusted, target).read_profile)
+print('source_sha256', hashlib.sha256(source).hexdigest())
+print('weft_algebra_sha256', hashlib.sha256(files.mapping['algebra/read.json']).hexdigest())
+print('api3_v3_builder', json.dumps(v3_result, sort_keys=True))
+print('prepared_version', parsed['version'])
+print('prepared_read_profile', parsed['generatedConnections'][0]['profile']['readProfile'])
+print('api_digest', parsed['apiDigest'])
+print('schema_digest', parsed['schemaDigest'])
+print('artifact_sha256', hashlib.sha256(prepared_bytes).hexdigest())
+print('prepared_connection', json.dumps(parsed['generatedConnections'][0], sort_keys=True))
+print('umf_access_runtime_loaded', any(
+    name == 'umf_access' or name.startswith('umf_access.') for name in sys.modules
+))
+print('weft_loaded', any(name == 'weft' or name.startswith('weft.') for name in sys.modules))

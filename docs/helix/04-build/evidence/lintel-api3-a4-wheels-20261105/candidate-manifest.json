@@ -1,0 +1,53 @@
+{
+  "capturedDate": "2026-11-05",
+  "candidateDirectory": "/private/tmp/lintel-api-a4-candidate-20261105",
+  "filesSha256": {
+    ".gitignore": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+    "lintel_api-0.1.0a4-py3-none-any.whl": "be18b65270042ff7a2798551b770b30033cd0173786818bb21306135dbdd265f",
+    "lintel_api-0.1.0a4.tar.gz": "180125619a39c38df98ca26f6100cfbdddfbfcb8409dd1f262b4e4735816c4c0",
+    "lintel_api_build-0.1.0a3-py3-none-any.whl": "1210899ea5a133fbb41fb1754d383bd708c8787b2c943349a3b66db2e9ec4c4b",
+    "lintel_api_build-0.1.0a3.tar.gz": "66ab444eec086d26256780868b0d53e0b6a09f8f50ec642de7e07cb185e060b7"
+  },
+  "payloadComparisons": [
+    {
+      "wheel": "lintel_api-0.1.0a4-py3-none-any.whl",
+      "payloadFiles": 18,
+      "mismatches": [],
+      "requiresDist": [
+        "fastapi==0.135.1",
+        "graphql-core==3.3.1",
+        "strawberry-graphql==0.339.1"
+      ]
+    },
+    {
+      "wheel": "lintel_api_build-0.1.0a3-py3-none-any.whl",
+      "payloadFiles": 8,
+      "mismatches": [],
+      "requiresDist": [
+        "graphql-core==3.3.1",
+        "lintel-api==0.1.0a4",
+        "umf-access-generated-executor==0.1.0a7",
+        "umf-core==0.10.0"
+      ]
+    }
+  ],
+  "runtimeIsolation": {
+    "site": "/private/tmp/lintel-api-a4-runtime-site-20261105",
+    "runtimeOrigin": "/private/tmp/lintel-api-a4-runtime-site-20261105/lintel/__init__.py",
+    "prohibitedModulesAbsent": [
+      "umf_access",
+      "umf_access_generated_executor",
+      "umf_access_build",
+      "weft_sql",
+      "umf_codegen",
+      "lintel_build"
+    ],
+    "admissionChecks": [
+      "API3 strict5 fixture admitted with exact Note and Task key validators",
+      "API3 bare StringKeyNodeCodec refused",
+      "API2 fixture admitted with exact registered key validators",
+      "API2 bare StringKeyNodeCodec refused"
+    ],
+    "scope": "Router creation and fixture admission; no native Host or HTTP execution."
+  }
+}

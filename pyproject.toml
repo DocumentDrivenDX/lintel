@@ -1,7 +1,7 @@
 [project]
 name = "lintel-api"
-version = "0.1.0a1"
-description = "UMF-driven GraphQL interoperability spikes (not a production runtime)"
+version = "0.1.0a5"
+description = "Prepared GraphQL APIs over UMF-qualified execution ports"
 requires-python = ">=3.11"
 readme = "README.md"
 classifiers = [
@@ -11,7 +11,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-  "umf-core==0.10.0",
+  "fastapi==0.135.1",
   "strawberry-graphql==0.339.1",
   "graphql-core==3.3.1",
 ]
@@ -26,9 +26,11 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/lintel"]
+exclude = ["src/lintel/experimental/**"]
 
 [tool.hatch.build.targets.sdist]
 include = [".github/", "src/", "spikes/", "scripts/", "tests/", "docs/", "README.md", "AGENTS.md", ".helix.yml", "pyproject.toml", "uv.lock"]
+exclude = ["src/lintel/experimental/**", "build/**"]
 
 [dependency-groups]
 spike = [
@@ -46,7 +48,7 @@ dev = ["pytest==9.2.0", "ruff==0.17.3", "pyright==1.1.414"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = [".", "src"]
+pythonpath = [".", "src", "build/src"]
 
 [tool.ruff]
 extend-exclude = ["docs"]
@@ -72,7 +74,8 @@ max-public-methods = 15
 [tool.pyright]
 pythonVersion = "3.11"
 typeCheckingMode = "strict"
-include = ["src", "spikes", "scripts", "tests"]
+include = ["src", "build/src", "spikes", "scripts", "tests"]
+extraPaths = ["build/src"]
 
 [tool.uv]
 find-links = ["https://github.com/DocumentDrivenDX/pgserver/releases/expanded_assets/pg18.6-pgv0.8.6-r2"]
