@@ -1,0 +1,37 @@
+from pathlib import Path
+from zipfile import ZipFile
+import hashlib, json
+
+root = Path('/Users/erik/Projects/lintel')
+runtime_wheel = Path('/private/tmp/lintel-api4-a5-a4-provisional2-20261105/lintel_api-0.1.0a5-py3-none-any.whl')
+build_wheel = Path('/private/tmp/lintel-api4-a5-a4-provisional2-20261105/lintel_api_build-0.1.0a4-py3-none-any.whl')
+source_specs = (
+    ('runtime', runtime_wheel, root / 'src/lintel', 'lintel/'),
+    ('build', build_wheel, root / 'build/src/lintel_build', 'lintel_build/'),
+)
+results = {}
+for label, wheel_path, source_root, package_prefix in source_specs:
+    with ZipFile(wheel_path) as archive:
+        modules = [name for name in archive.namelist() if name.startswith(package_prefix) and name.endswith('.py')]
+        rows = []
+        for module in sorted(modules):
+            relative = module[len(package_prefix):]
+            packaged = archive.read(module)
+            current = (source_root / relative).read_bytes()
+            rows.append({'module': module, 'equal': packaged == current, 'sha256': hashlib.sha256(packaged).hexdigest()})
+        results[label] = {
+            'wheel_sha256': hashlib.sha256(wheel_path.read_bytes()).hexdigest(),
+            'module_count': len(modules),
+            'all_match': all(row['equal'] for row in rows),
+            'modules': rows,
+        }
+api_out = Path('/private/tmp/lintel-api4-a5-a4-ex9-recheck-20261105/output/prepared-api-v4-weft7-build27-proof.json')
+trust_out = Path('/private/tmp/lintel-api4-a5-a4-ex9-recheck-20261105/output/prepared-api-v4-weft7-build27-trust.json')
+api_existing = root / 'tests/fixtures/prepared-api-v4-weft7-build27-proof.json'
+trust_existing = root / 'tests/fixtures/prepared-api-v4-weft7-build27-trust.json'
+results['artifact_reissue'] = {
+    'artifact_sha256': hashlib.sha256(api_out.read_bytes()).hexdigest(),
+    'artifact_byte_identical': api_out.read_bytes() == api_existing.read_bytes(),
+    'trust_pin_byte_identical': trust_out.read_bytes() == trust_existing.read_bytes(),
+}
+print(json.dumps(results, sort_keys=True, indent=2))

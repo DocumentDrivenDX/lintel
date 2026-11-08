@@ -1,0 +1,457 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lintel:prepared-api:4",
+  "title": "Build-issued combined generated Record-root connection API inventory",
+  "description": "Combined `/7` prepared generated Record-root forward connection inventory; runtime receipt and native capability checks remain required.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "artifactId",
+    "artifactDigest",
+    "application",
+    "identityNamespace",
+    "exposureBase64",
+    "exposureSha256",
+    "sources",
+    "capabilities",
+    "hostProfile",
+    "bindingProfile",
+    "scalarCodecProfile",
+    "records",
+    "sdl",
+    "schemaDigest",
+    "apiDigest",
+    "generatedRoots",
+    "generatedConnections"
+  ],
+  "properties": {
+    "version": {
+      "const": "lintel.prepared-api/4"
+    },
+    "artifactId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "artifactDigest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "application": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identityNamespace": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exposureBase64": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "exposureSha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "identity",
+          "sha256"
+        ],
+        "properties": {
+          "identity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "$ref": "#/$defs/sha256"
+          }
+        }
+      }
+    },
+    "capabilities": {
+      "$ref": "#/$defs/pairs"
+    },
+    "hostProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mount",
+        "introspection",
+        "limits"
+      ],
+      "properties": {
+        "mount": {
+          "type": "string",
+          "pattern": "^/(?:[A-Za-z0-9_-]+/)*graphql$"
+        },
+        "introspection": {
+          "type": "boolean"
+        },
+        "limits": {
+          "$ref": "#/$defs/pairs"
+        }
+      }
+    },
+    "bindingProfile": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scalarCodecProfile": {
+      "type": "string",
+      "minLength": 1
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    },
+    "sdl": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schemaDigest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "apiDigest": {
+      "$ref": "#/$defs/sha256"
+    },
+    "generatedRoots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/generatedRoot"
+      }
+    },
+    "generatedConnections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/generatedConnection"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "pair": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "pairs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pair"
+      }
+    },
+    "ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "module",
+        "element"
+      ],
+      "properties": {
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "element": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "module",
+        "id",
+        "kind"
+      ],
+      "properties": {
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "record"
+          ]
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "name",
+        "scalar",
+        "nullable"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/ref"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^(?!__)[_A-Za-z][_0-9A-Za-z]*$"
+        },
+        "scalar": {
+          "enum": [
+            "string",
+            "boolean",
+            "decimal"
+          ]
+        },
+        "nullable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "keyId",
+        "keyFields",
+        "typeName",
+        "lookup",
+        "fields"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/ref"
+        },
+        "keyId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "keyFields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "typeName": {
+          "type": "string",
+          "pattern": "^(?!__)[_A-Za-z][_0-9A-Za-z]*$"
+        },
+        "lookup": {
+          "$ref": "#/$defs/operation"
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        }
+      }
+    },
+    "generatedRoot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lookup",
+        "sourceDigest",
+        "artifactDigest",
+        "receiptDigest",
+        "bindingDigest",
+        "algebraSha256",
+        "primaryKeyId"
+      ],
+      "properties": {
+        "lookup": {
+          "$ref": "#/$defs/operation"
+        },
+        "sourceDigest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "artifactDigest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "receiptDigest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "bindingDigest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "algebraSha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "primaryKeyId": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "generatedConnection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lookup",
+        "fieldRefs",
+        "primaryKeyField",
+        "profile"
+      ],
+      "properties": {
+        "lookup": {
+          "$ref": "#/$defs/operation"
+        },
+        "fieldRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "primaryKeyField": {
+          "$ref": "#/$defs/ref"
+        },
+        "profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "connectionProfile",
+            "readProfile",
+            "allowedFieldProfile"
+          ],
+          "properties": {
+            "connectionProfile": {
+              "const": "connection.forward=edge-cursor-1"
+            },
+            "readProfile": {
+              "const": "weft.generated-read-algebra/7"
+            },
+            "allowedFieldProfile": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "version",
+                "digest",
+                "body"
+              ],
+              "properties": {
+                "version": {
+                  "const": "umf.allowed-connection-fields/1"
+                },
+                "digest": {
+                  "$ref": "#/$defs/sha256"
+                },
+                "body": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "version",
+                    "scalarCodecProfile",
+                    "fields"
+                  ],
+                  "properties": {
+                    "version": {
+                      "const": "umf.allowed-connection-fields/1"
+                    },
+                    "scalarCodecProfile": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "fields": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "fieldId",
+                          "sourceField",
+                          "output",
+                          "scalar",
+                          "nullable"
+                        ],
+                        "properties": {
+                          "fieldId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "sourceField": {
+                            "$ref": "#/$defs/ref"
+                          },
+                          "output": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "carrier",
+                              "name",
+                              "nativeType",
+                              "nullable",
+                              "oid"
+                            ],
+                            "properties": {
+                              "carrier": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "name": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "nativeType": {
+                                "type": "object"
+                              },
+                              "nullable": {
+                                "type": "boolean"
+                              },
+                              "oid": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            }
+                          },
+                          "scalar": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "nullable": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
