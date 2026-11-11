@@ -86,7 +86,7 @@ Their names are scope allocations, not fabricated completed work items. U/R/B
 rows are hypotheses to test, not blanket authorization to expand upstream APIs.
 Only a failing interoperability probe with a demonstrated owning-boundary gap
 justifies a UMF/runtime change. The first bounded S-01 probe is recorded in
-[SPIKE-001](spikes/SPIKE-001-direct-umf.md).
+SPIKE-001.
 
 ## Delivery sequence and cut lines
 
@@ -106,7 +106,7 @@ No staffing, dates, capacity target or runtime release number is invented.
 
 ## S-02 observed disposition
 
-[SPIKE-002](spikes/SPIKE-002-native-reads.md) qualifies the public UMF v0.5.8
+SPIKE-002 qualifies the public UMF v0.5.8
 access/codegen cohort with Weft 0.4.54; it does not qualify a different latest UMF
 or Batten release by association.
 
@@ -128,7 +128,7 @@ these observations. The minimal remaining changes concern execution guarantees.
 
 ## Local implementation of S-02 gaps
 
-[Local qualification](../04-build/request-read-implementation.md) records additive
+Local qualification records additive
 UMF request reads and Weft connection lowering. R-01 and R-03 have installed local
 Psycopg3/PostgreSQL18.6 evidence with current admission checks preserved. This is
 not a release/cohort promotion or a claim that Lintel's neutral adapter is built.

@@ -78,7 +78,7 @@ than infer it from mocks. No throughput/latency SLO is claimed for this unbuilt 
 
 ## Testing
 
-[STP-006](../../03-test/test-plans/STP-006-delivery-family.md) allocates all four criteria:
+STP-006 allocates all four criteria:
 - US-006-AC1: `cohort_is_complete_offline` at `tests/installed/test_cohort.py`; asserted behavior is owned by the STP.
 - US-006-AC2: `databricks_profile_is_explicit` at `tests/packaging/test_databricks_profile.py`; asserted behavior is owned by the STP.
 - US-006-AC3: `family_entry_and_claims_are_consistent` at `tests/docs/test_family_claims.py`; asserted behavior is owned by the STP.

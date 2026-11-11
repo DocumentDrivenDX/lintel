@@ -1,67 +1,75 @@
 # Lintel
 
-Dynamic GraphQL + Relay APIs from UMF, with an embeddable Python/FastAPI runtime
-and generated TypeScript operation/fragment artifacts for Batten applications.
+Lintel turns a [UMF](https://github.com/DocumentDrivenDX/umf) document plus an
+exposure file into a prepared GraphQL API and serves it with FastAPI.
 
-## Install the experimental alpha
+**Status: alpha.** It works end to end against an in-memory data port. It has no
+database-backed port yet, so it is not integrated with Truss, UMF Access or PostgreSQL.
+The PyPI project is `lintel-api` (the unrelated `lintel` project is a docstring checker).
 
-```sh
-pip install lintel-api==0.1.0a1
+## Quickstart
+
+Python 3.11 or newer. This block is executed by CI from a freshly built wheel.
+
+```sh quickstart
+pip install --pre "lintel-api[build,serve]"
+lintel example task-board demo
+lintel prepare demo/task-board.umf.json --exposure demo/exposure.json --host demo/host-profile.json -o demo/api.json
+# The server prints its x-lintel-api digest; use it as $DIGEST in a second terminal.
+lintel serve demo/api.json --records demo/records.json &
+curl -s localhost:8000/graphql -H "x-lintel-api: $DIGEST" -H 'content-type: application/json' -d '{"query":"{ node(id: \"demo.task-board.identity-v1:board.Task:task-1\") { id ... on Task { title estimate } } }"}'
 ```
 
-Import `project` from `lintel.experimental.projection` and
-`build_probe_schema` / `export_sdl` from `lintel.experimental.schema`.
-These expose the bounded S-01 scalar projection: string, boolean, exact decimal
-text and canonical UUID, with optional-field omission preserved. Supply UMF JSON
-and explicit record/field references; the example below uses the task-board model
-in the source distribution.
+The answer is `{"data":{"node":{"id":"demo.task-board.identity-v1:board.Task:task-1","title":"Write the quickstart","estimate":"3.50"}}}`.
+
+`lintel example` writes four files: the UMF model, an exposure file (which records and
+fields the API shows), a host profile (limits) and `records.json` (the demo rows).
+`lintel prepare` validates the UMF document and issues `api.json`, a pinned artifact.
+`lintel serve` admits the artifact and serves `POST /graphql` on `127.0.0.1:8000`.
+Every request must send the artifact's digest in `x-lintel-api`. `serve` applies no
+authentication; keep it on localhost.
+
+## What is tested
+
+CI (Linux, Python 3.11) tests: preparing v1 prepared APIs from UMF (`umf-core` 0.10.x),
+keyed `node` / `nodes` reads through the in-memory port, runtime admission and tamper
+checks, Node IDs, and the commands above from a built wheel in a fresh virtualenv.
+
+Not provided: a Truss/UMF Access/PostgreSQL port, mutations, Relay connections served by
+`lintel serve`, TypeScript clients, Batten embedding. Prepared-API v2 to v4 artifacts can be
+loaded by the runtime, but their builders need `umf_access_generated_executor`, which is not
+published, so they raise `UNSUPPORTED` without it.
+
+## Stack integration
+
+Lintel imports only `umf-core` (the `build` extra; UMF validation and reading). It does not
+import `umf-weft`, `umf-codegen`, `umf-access`, Truss or Ashlar. The runtime itself imports
+no UMF package.
+
+## Embedding
+
+Mount the router in your own FastAPI app with your own authenticated scope and port:
 
 ```python
-from pathlib import Path
-from lintel.experimental.projection import project
-from lintel.experimental.schema import build_probe_schema
-
-plan = project(
-    Path("docs/helix/02-design/examples/task-board.umf.json").read_text(),
-    ("board", "Task"), "Task", {("board", "title"): "title"},
-)
-schema = build_probe_schema(plan, {"title": "Fabricated task"})
-assert schema.execute_sync("{ probe { title } }").data == {
-    "probe": {"title": "Fabricated task"}
-}
+from lintel.graphql import create_router
+from lintel.projection import load_prepared_api
+router = create_router(prepared, my_execution_port, my_node_codec, resolve_scope)
 ```
 
-The alpha contains laboratory `probe` and `echo` roots. Do not mount them as a
-production API. Native execution/admission, Relay identity/pagination, TypeScript
-clients and Batten embedding are not provided by this wheel. Native qualification
-harnesses and governed specifications are included in the source archive, without
-installing PostgreSQL or its tools as library dependencies. Experimental APIs may
-change between alpha releases. Python 3.11 is the initial qualified interpreter.
+`my_execution_port` implements `lintel.ports.ExecutionPort`; `lintel.memory.MemoryPort` is a
+reference implementation. See [architecture](docs/helix/02-design/architecture.md) and the
+[contracts](docs/helix/02-design/contracts/README.md).
 
-Lintel is a provisional name. This repository currently contains the HELIX
-specifications and a bounded [direct UMF interoperability spike](docs/helix/02-design/spikes/SPIKE-001-direct-umf.md).
-The spike reads UMF JSON through the public umf-core reader/validator and builds
-a dynamic Strawberry schema. It is not a production API service.
+## Experimental
 
-Run `uv sync --locked --group spike --python 3.11`, then
-`uv run --locked --group spike python -m spikes.direct_umf.run`.
-[Verification and limits](docs/helix/04-build/direct-umf-spike.md) distinguish
-this proof from native execution, Relay clients and Batten embedding.
+`lintel.experimental` (install `lintel-api[experimental]`) is a laboratory projection with
+`probe` and `echo` roots. It is not a production API and may change or disappear.
 
-Start with [the project packet](docs/helix/README.md),
-[scope and MVP](docs/helix/01-frame/prd.md), and
-[architecture](docs/helix/02-design/architecture.md).
+## Development
 
-The intended family documentation location is
-[documentdrivendx.github.io/lintel](https://documentdrivendx.github.io/lintel/).
-The [source repository](https://github.com/DocumentDrivenDX/lintel) is created;
-family-catalog registration and documentation-site publication remain pending.
+```sh
+uv sync --locked
+uv run ruff check . && uv run pyright && uv run pytest -q
+```
 
-
-The [native read spike](docs/helix/02-design/spikes/SPIKE-002-native-reads.md)
-measures pagination, declared-key batching and request consistency on disposable
-PostgreSQL 18. Run `uv sync --locked --group spike --group native-spike`, then
-`uv run --locked --group spike --group native-spike python -m spikes.native_reads.run`.
-Use both dependency groups for `python scripts/check_quality.py` on the current tree.
-[Results and gaps](docs/helix/04-build/native-read-spike.md) keep unsupported
-execution guarantees explicit; no upstream schema API is introduced.
+[Changelog](CHANGELOG.md) · [Roadmap](ROADMAP.md)
