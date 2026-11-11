@@ -1,8 +1,0 @@
-manifest_schema_validation=passed
-manifest_sha256 01abebabb36e527200452f88b6eeda4ec51083bc6c2980e40b08d5e904bda038
-manifest_files 12
-manifest_operations ["RichCollectionsQuery", "RichNotesPaginationQuery", "RichTasksPaginationQuery", "RichNodeLookupQuery", "RichNodesLookupQuery"]
-document_sha256 aac2de7001528447d87dc3f97a175251005141d8570dfc35d218df2af7bc4892
-compiled_wire_texts=5; compiler_directives_absent=true
-generated_ts_decimal_string True
-schema_digest_matches True

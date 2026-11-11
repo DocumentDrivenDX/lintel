@@ -1,4 +1,0 @@
-[INFO] [default] compiling...
-[INFO] [default] compiled documents: 7 reader, 5 normalization, 9 operation text
-[INFO] Compilation completed.
-[INFO] Done.
