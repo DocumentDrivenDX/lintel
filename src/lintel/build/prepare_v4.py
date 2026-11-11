@@ -1,4 +1,4 @@
-"""Strict generated Record-root connection API issuer for Weft read algebra `/5`."""
+"""Strict prepared API four issuer for combined Weft read algebra `/7`."""
 
 from __future__ import annotations
 
@@ -10,14 +10,14 @@ from typing import cast
 
 from graphql import build_schema, lexicographic_sort_schema, print_schema
 
-from lintel.node_id import PROFILE as NODE_ID_PROFILE
-from lintel.ports.values import OperationRef
-from lintel.projection.prepared_v2 import PreparedGeneratedRoot, generated_roots_json
-from lintel_build.errors import PreparationError
-from lintel_build.generated_connections import verify_generated_connection_profiles
-from lintel_build.generated_roots import CONNECTION_PROFILE, verify_generated_roots
-from lintel_build.model import PreparedRecord, project_records
-from lintel_build.prepare import (
+from lintel.build.errors import PreparationError
+from lintel.build.generated_connections import verify_generated_connection_profiles
+from lintel.build.generated_roots import (
+    COMBINED_CONNECTION_PROFILE,
+    verify_generated_roots,
+)
+from lintel.build.model import PreparedRecord, project_records
+from lintel.build.prepare import (
     NAME_PATTERN,
     canonical_json,
     check_capabilities,
@@ -27,10 +27,13 @@ from lintel_build.prepare import (
     read_umf,
     record_json,
 )
-from lintel_build.prepare_v2 import check_generated_bindings
+from lintel.build.prepare_v2 import check_generated_bindings
+from lintel.node_id import PROFILE as NODE_ID_PROFILE
+from lintel.ports.values import OperationRef
+from lintel.projection.prepared_v2 import PreparedGeneratedRoot, generated_roots_json
 
 
-def prepare_api_v3(
+def prepare_api_v4(
     umf_source: bytes,
     dependencies: Sequence[tuple[str, bytes]],
     exposure: bytes,
@@ -42,7 +45,7 @@ def prepare_api_v3(
     generated_trust: object,
     generated_target: object,
 ) -> bytes:
-    """Issue a `/3` API only from strict `/5` verifier-issued connection roots."""
+    """Issue a `/4` API from one fully verified combined `/7` artifact."""
     source_bytes, exposure_bytes = bytes(umf_source), bytes(exposure)
     config = json_object(exposure_bytes, "INVALID_EXPOSURE")
     check_exposure_shape(config, "lintel.exposure/3", record_roots=True, root_connections=True)
@@ -85,7 +88,7 @@ def prepare_api_v3(
         source_digest,
         cap_map["binding.profile"],
         records,
-        expected_profile=CONNECTION_PROFILE,
+        expected_profile=COMBINED_CONNECTION_PROFILE,
     )
     connection_rows = tuple(
         sorted(
@@ -101,6 +104,7 @@ def prepare_api_v3(
                 limit_profile["maxPage"],
                 records,
                 tuple(record.source for _name, record in selected),
+                expected_profile=COMBINED_CONNECTION_PROFILE,
             ),
             key=lambda row: (
                 cast(Mapping[str, str], row["lookup"])["module"],
@@ -112,7 +116,7 @@ def prepare_api_v3(
     _check_connection_names(selected, records)
     sdl = _render_sdl(records, selected, limit_profile["defaultPage"])
     sdl = print_schema(lexicographic_sort_schema(build_schema(sdl))).rstrip() + "\n"
-    api_digest = _api_digest_v3(
+    api_digest = _api_digest_v4(
         exposure_bytes,
         source_entries,
         caps,
@@ -124,7 +128,7 @@ def prepare_api_v3(
     )
     schema_digest = hashlib.sha256(sdl.encode("utf-8")).hexdigest()
     base: dict[str, object] = {
-        "version": "lintel.prepared-api/3",
+        "version": "lintel.prepared-api/4",
         "artifactId": api_digest,
         "application": config["application"],
         "identityNamespace": config["identityNamespace"],
@@ -248,7 +252,7 @@ def _render_sdl(
     return "\n".join(defs) + "\n"
 
 
-def _api_digest_v3(
+def _api_digest_v4(
     exposure: bytes,
     sources: Sequence[tuple[str, str]],
     capabilities: Sequence[tuple[str, str]],
@@ -262,7 +266,7 @@ def _api_digest_v3(
     profile = tuple(
         sorted((*capabilities, *((f"host.limit.{key}", value) for key, value in limits)))
     )
-    frames = [b"lintel.api/3", exposure]
+    frames = [b"lintel.api/4", exposure]
     for identity, digest in sources:
         frames.extend((identity.encode("utf-8"), digest.encode("ascii")))
     frames.extend(

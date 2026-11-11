@@ -10,9 +10,9 @@ from typing import Any, cast
 
 import pytest
 from jsonschema import Draft202012Validator
-from lintel_build.errors import PreparationError
-from lintel_build.generated_connections import eligible_connection
 
+from lintel.build.errors import PreparationError
+from lintel.build.generated_connections import eligible_connection
 from lintel.graphql import create_router
 from lintel.node_id import PreparedRoots, StringKeyNodeCodec
 from lintel.ports.protocols import RequestSession

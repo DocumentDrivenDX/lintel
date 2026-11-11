@@ -16,10 +16,10 @@ import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from httpx import Response as HttpxResponse
-from lintel_build import generated_roots, prepare_api, prepare_api_v2
-from lintel_build import prepare as prepare_module
-from lintel_build.errors import PreparationError
 
+from lintel.build import generated_roots, prepare_api, prepare_api_v2
+from lintel.build import prepare as prepare_module
+from lintel.build.errors import PreparationError
 from lintel.graphql import create_router
 from lintel.node_id import PROFILE, PreparedRoots, StringKeyNodeCodec
 from lintel.ports import ElementRef, NodeKey, NodeValue, RequestScope
@@ -41,8 +41,8 @@ class _TypedTestClient(Protocol):
 
 
 ROOT = Path(__file__).parents[1]
-SOURCE = (ROOT / "docs/helix/02-design/examples/task-board.umf.json").read_bytes()
-HOST = json.loads((ROOT / "docs/helix/02-design/examples/host-profile.json").read_bytes())
+SOURCE = (ROOT / "src/lintel/examples/task-board/task-board.umf.json").read_bytes()
+HOST = json.loads((ROOT / "src/lintel/examples/task-board/host-profile.json").read_bytes())
 EXPOSURE = {
     "format": "lintel.exposure/1",
     "application": "task-board-demo",
@@ -657,11 +657,14 @@ def test_runtime_imports_without_umf_or_build_package() -> None:
 import importlib.abc, sys
 class DenyBuild(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname, path=None, target=None):
-        if fullname == 'umf' or fullname.startswith('umf.') or fullname == 'lintel_build':
+        if fullname in ('umf', 'lintel.build') or fullname.startswith(('umf.', 'lintel.build.')):
             raise ModuleNotFoundError(fullname)
 sys.meta_path.insert(0, DenyBuild())
 import lintel.graphql
 import lintel.projection
+import lintel.app
+import lintel.memory
+import lintel.trust
 """
     result = subprocess.run(
         [sys.executable, "-c", script], check=False, capture_output=True, text=True

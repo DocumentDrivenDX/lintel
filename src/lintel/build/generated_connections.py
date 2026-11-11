@@ -7,9 +7,8 @@ import json
 from collections.abc import Mapping, Sequence
 from typing import cast
 
-from lintel.ports.values import ElementRef
-from lintel_build.errors import PreparationError
-from lintel_build.generated_roots import (
+from lintel.build.errors import PreparationError
+from lintel.build.generated_roots import (
     CONNECTION_PROFILE,
     GeneratedManifestValue,
     GeneratedNativeTable,
@@ -23,7 +22,8 @@ from lintel_build.generated_roots import (
     verified_algebra,
     verify_bindings,
 )
-from lintel_build.model import PreparedRecord
+from lintel.build.model import PreparedRecord
+from lintel.ports.values import ElementRef
 
 
 def verify_generated_connection_profiles(

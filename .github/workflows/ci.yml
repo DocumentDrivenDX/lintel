@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:
 permissions:
   contents: read
 jobs:
@@ -16,9 +17,29 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           version: '0.13.3'
-      - run: uv sync --locked --group spike --python 3.11
-      - run: uv run --locked python -m ruff check src scripts spikes tests
-      - run: uv run --locked python -m ruff format --check src scripts spikes tests
+      - run: uv sync --locked --python 3.11
+      - run: uv run --locked python -m ruff check src scripts tests
+      - run: uv run --locked python -m ruff format --check src scripts tests
+      - run: uv run --locked python -m pyright
       - run: uv run --locked python scripts/check_boundaries.py
       - run: uv run --locked python scripts/check_tree_size.py
       - run: uv run --locked python -m pytest -q
+  quickstart:
+    # Build the wheel, install it into a fresh venv outside the checkout (latest
+    # in-range dependencies, no lockfile) and execute the README quickstart.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.13.3'
+      - run: uv build
+      - name: Install the wheel in a fresh venv and run the quickstart
+        run: |
+          uv venv --python 3.11 "$RUNNER_TEMP/fresh"
+          wheel="$(ls "$PWD"/dist/*.whl)"
+          uv pip install --python "$RUNNER_TEMP/fresh/bin/python" "lintel-api[build,serve,experimental] @ file://$wheel"
+          "$RUNNER_TEMP/fresh/bin/python" -I scripts/smoke_installed.py

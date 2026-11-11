@@ -10,11 +10,10 @@ from typing import cast
 
 from graphql import build_schema, lexicographic_sort_schema, print_schema
 
-from lintel.node_id import PROFILE as NODE_ID_PROFILE
-from lintel_build.errors import PreparationError
-from lintel_build.generated_roots import verify_generated_roots
-from lintel_build.model import project_records
-from lintel_build.prepare import (
+from lintel.build.errors import PreparationError
+from lintel.build.generated_roots import verify_generated_roots
+from lintel.build.model import project_records
+from lintel.build.prepare import (
     canonical_json,
     check_capabilities,
     check_exposure_shape,
@@ -23,7 +22,8 @@ from lintel_build.prepare import (
     read_umf,
     record_json,
 )
-from lintel_build.prepare import render_sdl as build_sdl
+from lintel.build.prepare import render_sdl as build_sdl
+from lintel.node_id import PROFILE as NODE_ID_PROFILE
 
 
 def prepare_api_v2(

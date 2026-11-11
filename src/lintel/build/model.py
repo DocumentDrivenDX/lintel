@@ -7,8 +7,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Literal, cast
 
+from lintel.build.errors import PreparationError
 from lintel.ports.values import ElementRef, OperationRef
-from lintel_build.errors import PreparationError
 
 _NAME = re.compile(r"^(?!__)[_A-Za-z][_0-9A-Za-z]*$")
 _SCALARS = {"string", "boolean", "decimal"}
