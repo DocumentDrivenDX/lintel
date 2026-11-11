@@ -1,4 +1,4 @@
-"""Canonical digest framing for prepared API versions one through four."""
+"""Canonical digest framing for prepared API versions one through five."""
 
 from __future__ import annotations
 
@@ -26,8 +26,8 @@ def api_digest(
         "3" if generated_connections is not None else "2" if generated_roots is not None else "1"
     )
     version = inferred if api_version is None else api_version
-    if version not in {"1", "2", "3", "4"} or (
-        version == "4" and (generated_roots is None or generated_connections is None)
+    if version not in {"1", "2", "3", "4", "5"} or (
+        version in {"4", "5"} and (generated_roots is None or generated_connections is None)
     ):
         raise ValueError("unsupported prepared API digest version")
     frames = [f"lintel.api/{version}".encode("ascii"), exposure]

@@ -22,8 +22,10 @@ if TYPE_CHECKING:
 READ_PROFILE = "weft.generated-read-algebra/7"
 
 
-def generated_connections_from_json(value: object) -> tuple[PreparedConnection, ...]:
-    return _generated_connections_from_json(value, expected_read_profile=READ_PROFILE)
+def generated_connections_from_json(
+    value: object, *, expected_read_profile: str = READ_PROFILE
+) -> tuple[PreparedConnection, ...]:
+    return _generated_connections_from_json(value, expected_read_profile=expected_read_profile)
 
 
 def join_generated_connections(
@@ -32,6 +34,8 @@ def join_generated_connections(
     connections: Sequence[PreparedConnection],
     sources: Sequence[tuple[str, str]],
     scalar_codec_profile: str,
+    *,
+    expected_read_profile: str = READ_PROFILE,
 ) -> None:
     _join_generated_connections(
         records,
@@ -39,5 +43,5 @@ def join_generated_connections(
         connections,
         sources,
         scalar_codec_profile,
-        expected_read_profile=READ_PROFILE,
+        expected_read_profile=expected_read_profile,
     )
