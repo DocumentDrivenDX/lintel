@@ -1,0 +1,38 @@
+"""Public strict prepared API five issuer."""
+
+from __future__ import annotations
+
+from collections.abc import Mapping, Sequence
+
+from lintel_build.prepare_generated_connection import prepare_api_generated_connection
+
+JOINED_CONNECTION_PROFILE = "weft.generated-read-algebra/8"
+
+
+def prepare_api_v5(
+    umf_source: bytes,
+    dependencies: Sequence[tuple[str, bytes]],
+    exposure: bytes,
+    capabilities: Mapping[str, str],
+    host_profile: Mapping[str, object],
+    scalar_codec_profile: str,
+    generated_manifest: object,
+    generated_files: object,
+    generated_trust: object,
+    generated_target: object,
+) -> bytes:
+    """Issue strict API `/5` using only Weft read algebra `/8`."""
+    return prepare_api_generated_connection(
+        umf_source,
+        dependencies,
+        exposure,
+        capabilities,
+        host_profile,
+        scalar_codec_profile,
+        generated_manifest,
+        generated_files,
+        generated_trust,
+        generated_target,
+        api_version="5",
+        expected_profile=JOINED_CONNECTION_PROFILE,
+    )

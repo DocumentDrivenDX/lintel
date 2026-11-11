@@ -83,6 +83,7 @@ class StringKeyNodeCodec:
             "lintel.prepared-api/2",
             "lintel.prepared-api/3",
             "lintel.prepared-api/4",
+            "lintel.prepared-api/5",
         }:
             raise ValueError("API_MISMATCH")
         expected = _prepared_root_proofs(prepared)
@@ -100,6 +101,7 @@ class StringKeyNodeCodec:
             "lintel.prepared-api/2",
             "lintel.prepared-api/3",
             "lintel.prepared-api/4",
+            "lintel.prepared-api/5",
         }:
             return False
         try:

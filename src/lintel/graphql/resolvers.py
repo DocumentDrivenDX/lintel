@@ -18,6 +18,8 @@ from graphql.execution.collect_fields import FieldDetails, FragmentDetails, coll
 from graphql.execution.values import VariableValues
 from graphql.language import FieldNode
 
+from lintel.graphql.commands import CommandBinding, CommandParameter, install_command_resolvers
+from lintel.graphql.relationships import install_relationships
 from lintel.ports.protocols import NodeCodec, PlannedRequestSession, RequestSession
 from lintel.ports.values import ConnectionIntent, ConnectionPage, ElementRef, NodeKey, NodeValue
 from lintel.projection.prepared import AdmittedPreparedApi, PreparedField, PreparedRecord
@@ -39,13 +41,40 @@ def install_resolvers(
     query.fields["node"].resolve = get_one
     query.fields["nodes"].resolve = get_many
     _install_record_resolvers(schema, prepared, records, fields, codec)
-    if prepared.version in {"lintel.prepared-api/3", "lintel.prepared-api/4"}:
+    _install_commands(schema, prepared, codec)
+    if prepared.version == "lintel.prepared-api/5" and prepared.relationships:
+        install_relationships(
+            schema, prepared, records, _selected_fields, limit(prepared, "relationshipBatch")
+        )
+    if prepared.version in {
+        "lintel.prepared-api/3",
+        "lintel.prepared-api/4",
+        "lintel.prepared-api/5",
+    }:
         records_by_lookup = {record.lookup: record for record in records.values()}
         for route in prepared.generated_connections:
             record = records_by_lookup.get(route.lookup)
             if record is None or route.name not in query.fields:
                 raise ValueError("API_MISMATCH")
             query.fields[route.name].resolve = _connection_resolver(prepared, route, record)
+
+
+def _install_commands(
+    schema: GraphQLSchema, prepared: AdmittedPreparedApi, codec: NodeCodec
+) -> None:
+    if prepared.version != "lintel.prepared-api/5":
+        return
+    for command in prepared.commands:
+        install_command_resolvers(
+            schema,
+            CommandBinding(
+                command.name,
+                command.operation,
+                tuple(CommandParameter(param.name, param.scalar) for param in command.parameters),
+            ),
+            lambda _value: None,
+            lambda key: _encode(codec, prepared, key),
+        )
 
 
 def _connection_resolver(

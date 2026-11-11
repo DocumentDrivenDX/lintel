@@ -44,9 +44,11 @@ def create_router(
     if type(prepared) is not AdmittedPreparedApi:
         raise ValueError("API_MISMATCH")
     _check_runtime_profiles(prepared, executor, node_codec)
-    if prepared.version in {"lintel.prepared-api/3", "lintel.prepared-api/4"} and not callable(
-        getattr(executor, "session_planned", None)
-    ):
+    if prepared.version in {
+        "lintel.prepared-api/3",
+        "lintel.prepared-api/4",
+        "lintel.prepared-api/5",
+    } and not callable(getattr(executor, "session_planned", None)):
         raise ValueError("API_MISMATCH")
     router = APIRouter()
     records = {record.source: record for record in prepared.records}
@@ -72,6 +74,7 @@ def _check_runtime_profiles(
         "lintel.prepared-api/2",
         "lintel.prepared-api/3",
         "lintel.prepared-api/4",
+        "lintel.prepared-api/5",
     } and (type(codec) is not StringKeyNodeCodec or not codec.registry_matches(prepared)):
         raise ValueError("API_MISMATCH")
     if dict(executor.capabilities()) != dict(prepared.capabilities):

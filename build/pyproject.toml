@@ -1,13 +1,13 @@
 [project]
 name = "lintel-api-build"
-version = "0.1.0a4"
+version = "0.1.0a5"
 description = "Build-time UMF admission and prepared API artifact issuer"
 requires-python = ">=3.11"
 dependencies = [
-  "lintel-api==0.1.0a5",
+  "lintel-api==0.1.0a6",
   "umf-core==0.10.0",
   "graphql-core==3.3.1",
-  "umf-access-generated-executor==0.1.0a9",
+  "umf-access-generated-executor==0.1.0a11",
 ]
 
 [build-system]

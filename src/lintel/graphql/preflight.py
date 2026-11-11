@@ -83,7 +83,8 @@ def collect_connection_intents(
 ) -> tuple[ConnectionIntent, ...]:
     """Freeze active root connection calls after GraphQL coercion and validation."""
     if (
-        prepared.version not in {"lintel.prepared-api/3", "lintel.prepared-api/4"}
+        prepared.version
+        not in {"lintel.prepared-api/3", "lintel.prepared-api/4", "lintel.prepared-api/5"}
         or operation.operation.value != "query"
     ):
         return ()
@@ -143,6 +144,10 @@ def _root_connection_intent(
     selected_names = _connection_selected_field_names(
         schema, fragments, variables, operation, details
     )
+    if prepared.version == "lintel.prepared-api/5":
+        selected_names -= {
+            route.name for route in prepared.relationships if route.source == record.source
+        }
     names_by_field = {item.name: item.source for item in record.fields}
     if not selected_names <= set(names_by_field):
         raise BudgetFailure("API_MISMATCH")

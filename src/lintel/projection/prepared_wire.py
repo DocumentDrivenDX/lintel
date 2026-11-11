@@ -39,6 +39,7 @@ def decode_exposure(artifact: Mapping[str, object]) -> bytes:
         "lintel.prepared-api/2": "lintel.exposure/2",
         "lintel.prepared-api/3": "lintel.exposure/3",
         "lintel.prepared-api/4": "lintel.exposure/3",
+        "lintel.prepared-api/5": "lintel.exposure/3",
     }.get(cast(str, artifact.get("version")), "lintel.exposure/1")
     if exposure.get("format") != expected_format:
         raise ValueError("API_MISMATCH")
