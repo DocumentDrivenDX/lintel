@@ -45,7 +45,7 @@ adapter. The embedding composition root wires both sides explicitly.
 ## Normative Surface
 
 Authoritative configuration: [host-profile.schema.json](../schemas/host-profile.schema.json).
-The [example](../examples/host-profile.json) defines explicit initial engineering
+The [example](../../../../src/lintel/examples/task-board/host-profile.json) defines explicit initial engineering
 ceilings, not measured service capacity. Host policy may tighten any ceiling,
 including disabling introspection; widening requires a new qualified profile.
 All members are explicit. JSON Schema defaults are annotations, not an instruction

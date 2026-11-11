@@ -1,4 +1,4 @@
-"""AST checks for bounded interoperability spikes; not a sandbox for untrusted code."""
+"""AST import-boundary checks for lintel.ports and lintel.experimental; not a sandbox."""
 
 from __future__ import annotations
 
@@ -11,25 +11,8 @@ ALLOWED: dict[str, set[str]] = {
     "ports_values": set(),
     "ports_errors": set(),
     "ports_protocols": {"lintel.ports.values"},
-    "request_qualify": {"spikes.native_reads.fixture", "umf_access.unified", "psycopg"},
-    "native_fixture": {
-        "umf_codegen",
-        "umf_access.lifecycle",
-        "umf_access.unified",
-        "psycopg",
-        "pgserver",
-    },
-    "native_probes": {"spikes.native_reads.fixture", "umf_access.unified", "psycopg"},
-    "native_run": {"spikes.native_reads.fixture", "spikes.native_reads.probes"},
     "projection": {"umf"},
     "schema": {"strawberry", "graphql", "lintel.experimental.projection"},
-    "run": {
-        "fastapi",
-        "httpx",
-        "strawberry.fastapi",
-        "lintel.experimental.schema",
-        "lintel.experimental.projection",
-    },
 }
 STDLIB = {
     "__future__",
@@ -90,11 +73,8 @@ def _dynamic_calls(node: ast.AST) -> list[str]:
 def check(root: Path) -> list[str]:
     errors = violations((root / "src/lintel/__init__.py").read_text(), "root")
     for folder, prefix in (
-        ("spikes/direct_umf", ""),
         ("src/lintel/experimental", ""),
         ("src/lintel/ports", "ports_"),
-        ("spikes/native_reads", "native_"),
-        ("spikes/request_reads", "request_"),
     ):
         for file in sorted((root / folder).glob("*.py")):
             module = prefix + file.stem
@@ -112,5 +92,5 @@ def check(root: Path) -> list[str]:
 
 if __name__ == "__main__":
     failures = check(Path(__file__).resolve().parents[1])
-    print("\n".join(failures) if failures else "Spike import boundaries: PASS")
+    print("\n".join(failures) if failures else "Import boundaries: PASS")
     raise SystemExit(bool(failures))

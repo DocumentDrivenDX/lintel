@@ -80,7 +80,7 @@ than infer it from mocks. No throughput/latency SLO is claimed for this unbuilt 
 
 ## Testing
 
-[STP-004](../../03-test/test-plans/STP-004-typescript-clients.md) allocates all four criteria:
+STP-004 allocates all four criteria:
 - US-004-AC1: `relay_artifacts_compile` at `tests/client/build.test.ts`; asserted behavior is owned by the STP.
 - US-004-AC2: `client_drift_refuses` at `tests/client/build.test.ts`; asserted behavior is owned by the STP.
 - US-004-AC3: `browser_uses_generated_relay_artifacts` at `tests/client/journey.spec.ts`; asserted behavior is owned by the STP.

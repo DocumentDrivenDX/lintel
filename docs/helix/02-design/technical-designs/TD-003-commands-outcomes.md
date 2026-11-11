@@ -82,7 +82,7 @@ than infer it from mocks. No throughput/latency SLO is claimed for this unbuilt 
 
 ## Testing
 
-[STP-003](../../03-test/test-plans/STP-003-commands-outcomes.md) allocates all four criteria:
+STP-003 allocates all four criteria:
 - US-003-AC1: `mutation_respects_host_gates` at `tests/native/test_commands.py`; asserted behavior is owned by the STP.
 - US-003-AC2: `lost_response_does_not_repeat_mutation` at `tests/native/test_commands.py`; asserted behavior is owned by the STP.
 - US-003-AC3: `exact_values_and_presence_survive` at `tests/native/test_commands.py`; asserted behavior is owned by the STP.

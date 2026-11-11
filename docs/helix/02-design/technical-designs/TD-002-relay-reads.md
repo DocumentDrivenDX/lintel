@@ -79,7 +79,7 @@ than infer it from mocks. No throughput/latency SLO is claimed for this unbuilt 
 
 ## Testing
 
-[STP-002](../../03-test/test-plans/STP-002-relay-reads.md) allocates all four criteria:
+STP-002 allocates all four criteria:
 - US-002-AC1: `connection_resumes_from_any_edge` at `tests/native/test_relay_reads.py`; asserted behavior is owned by the STP.
 - US-002-AC2: `node_and_store_scopes_are_isolated` at `tests/client/isolation.spec.ts`; asserted behavior is owned by the STP.
 - US-002-AC3: `relationships_are_batched` at `tests/native/test_relay_reads.py`; asserted behavior is owned by the STP.

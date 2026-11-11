@@ -3,7 +3,7 @@
 These are original fabricated design inputs. They specify an intended journey;
 no executable API, native table install or Relay compiler result is supplied.
 
-- `task-board.umf.json` is the logical core 0.10 model. It has no table/action
+- `task-board.umf.json` (moved to `src/lintel/examples/task-board/`) is the logical core 0.10 model. It has no table/action
   vocabulary and cannot by itself execute any operation.
 - `task-board.exposure.json` explicitly selects API names and required host
   operation identities. Field `note` is hidden from reads; its optional command
@@ -15,7 +15,7 @@ no executable API, native table install or Relay compiler result is supplied.
   compiler; those documents must not be sent unchanged as wire queries.
 - `task-board.cases.json` is fixture planning data, not a UMF data instance or a
   domain-pack/native binding. Values have the meanings described here, not an
-  invented interoperable data format. `host-profile.json` is bounded configuration.
+  invented interoperable data format. `host-profile.json` (also in `src/lintel/examples/task-board/`) is bounded configuration.
 
 ## Required host operations
 

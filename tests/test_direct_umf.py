@@ -9,7 +9,7 @@ import pytest
 from lintel.experimental.projection import ProjectionError, project
 from lintel.experimental.schema import build_probe_schema, export_sdl
 
-SOURCE = Path(__file__).resolve().parents[1] / "docs/helix/02-design/examples/task-board.umf.json"
+SOURCE = Path(__file__).resolve().parents[1] / "src/lintel/examples/task-board/task-board.umf.json"
 FIELDS = {("board", "title"): "title", ("board", "estimate"): "estimate", ("board", "note"): "note"}
 
 

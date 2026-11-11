@@ -79,7 +79,7 @@ than infer it from mocks. No throughput/latency SLO is claimed for this unbuilt 
 
 ## Testing
 
-[STP-005](../../03-test/test-plans/STP-005-batten-embedding.md) allocates all four criteria:
+STP-005 allocates all four criteria:
 - US-005-AC1: `batten_admission_is_not_bypassed` at `tests/hosting/test_batten_embedding.py`; asserted behavior is owned by the STP.
 - US-005-AC2: `shutdown_preserves_borrowed_provider` at `tests/hosting/test_batten_embedding.py`; asserted behavior is owned by the STP.
 - US-005-AC3: `startup_is_effect_free_and_fails_closed` at `tests/installed/test_embedding.py`; asserted behavior is owned by the STP.

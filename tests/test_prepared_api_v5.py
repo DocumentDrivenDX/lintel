@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import json
 from pathlib import Path
+from typing import Any, cast
 
 import pytest
 from jsonschema import Draft202012Validator
@@ -28,14 +29,15 @@ def test_prepared_api_v5_schema_requires_exact_api_and_weft_eight_profiles() -> 
         (ROOT / "docs/helix/02-design/schemas/prepared-api-v5.schema.json").read_bytes()
     )
     Draft202012Validator.check_schema(schema)
-    Draft202012Validator(schema).validate(raw)
+    validator = cast(Any, Draft202012Validator(schema))
+    validator.validate(raw)
     wrong_version = dict(raw, version="lintel.prepared-api/4")
-    assert list(Draft202012Validator(schema).iter_errors(wrong_version))
+    assert list(validator.iter_errors(wrong_version))
     wrong_profile = json.loads(json.dumps(raw))
     wrong_profile["generatedConnections"][0]["profile"]["readProfile"] = (
         "weft.generated-read-algebra/7"
     )
-    assert list(Draft202012Validator(schema).iter_errors(wrong_profile))
+    assert list(validator.iter_errors(wrong_profile))
 
 
 def test_prepared_api_v5_connection_codec_refuses_v7_metadata() -> None:

@@ -6,16 +6,16 @@ from typing import Any
 
 import pytest
 from graphql import GraphQLInputObjectType, build_schema
-from lintel_build.errors import PreparationError
-from lintel_build.prepare import read_umf
-from lintel_build.prepare_commands import prepare_table_commands
 
+from lintel.build.errors import PreparationError
+from lintel.build.prepare import read_umf
+from lintel.build.prepare_commands import prepare_table_commands
 from lintel.projection.prepared_commands import admitted_commands, command_sdl
 
 
 def test_selected_command_uses_declared_parameters_and_requires_observation_capability() -> None:
     root = Path(__file__).resolve().parents[1]
-    path = root / "docs/helix/02-design/examples/task-board.umf.json"
+    path = root / "src/lintel/examples/task-board/task-board.umf.json"
     document: dict[str, Any] = json.loads(path.read_bytes())
     _, fields = read_umf(path.read_bytes())
     declaration: dict[str, object] = {

@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import cast
 
-from lintel_build.prepare_generated_connection import _api_digest_for_version
+from lintel.build.prepare_generated_connection import api_digest_for_version
 
 ROOT = Path(__file__).parents[1]
 
@@ -16,7 +16,7 @@ def test_shared_build_issuer_preserves_api4_digest_frame() -> None:
     )
     sources = tuple((row["identity"], row["sha256"]) for row in artifact["sources"])
     capabilities = tuple(tuple(pair) for pair in artifact["capabilities"])
-    digest = _api_digest_for_version(
+    digest = api_digest_for_version(
         base64.b64decode(artifact["exposureBase64"], validate=True),
         sources,
         capabilities,
