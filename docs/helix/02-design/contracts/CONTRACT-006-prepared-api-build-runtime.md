@@ -41,7 +41,7 @@ not a second UMF model or a native execution program.
 
 ## Boundary
 
-`lintel-api-build` owns `lintel_build.prepare_api`. Its dependency closure may
+`lintel.build` (extra `build` of `lintel-api`) owns `lintel.build.prepare_api`. Its dependency closure may
 contain `umf-core` and source validators. It takes exact original UMF source and
 dependency bytes, explicit exposure bytes, and host-qualified capability,
 binding, scalar codec and limit facts. It validates the selected meaning through
@@ -94,7 +94,7 @@ GraphQL test proves schema mechanics, not a Batten/native capability. The Lintel
 router refuses an absent or unknown selected profile before serving traffic.
 
 The runtime wheel and build wheel have disjoint file ownership. The build
-distribution uses its own `lintel_build` import namespace and depends on the
+distribution uses its own `lintel.build` import namespace and depends on the
 exact runtime candidate. Building both wheel and sdist, installing the runtime
 wheel alone in an isolated interpreter, and blocking `umf`/build imports during
 router construction and a real ASGI request are required packaging gates. No
@@ -297,7 +297,7 @@ Prepared API `/3` records the outer Weft algebra profile in
 `generatedConnections[].profile.readProfile`; its closed schema and runtime
 require exactly `weft.generated-read-algebra/5`. An unchanged forward descriptor
 inside a `/7` root does not make that outer artifact `/5`. A new explicit
-`lintel_build.prepare_api_v4` accepts the existing `lintel.exposure/3` authored
+`lintel.build.prepare_api_v4` accepts the existing `lintel.exposure/3` authored
 selection, verifies one trusted combined `/7` UMF artifact and its eligible
 forward descriptors, and emits `lintel.prepared-api/4`. The exposure format
 needs no new version because it carries no Weft profile. Existing
@@ -342,3 +342,6 @@ codec registry, and installed compiler-free GraphQL/Relay first=0 and interior
 connection proof over the same `/7` artifact and Host as ordinary SDK Page.
 This is a proposed compatibility target until build/runtime/native evidence is
 accepted; it is not a claim about the installed API `/3` cohort.
+
+> Note (0.1.0a6): the build tool is no longer a separate distribution. It ships in the
+> `lintel-api` wheel as `lintel.build` (extra `build`); the "disjoint wheel" wording above is historical.

@@ -48,7 +48,7 @@ exhaustion fail explicitly. The command path preserves possible commitment.
 
 ## Test Scenarios
 
-[STP-002](../../03-test/test-plans/STP-002-relay-reads.md) owns the detailed
+STP-002 owns the detailed
 AC/test/assertion/citation mapping. Concrete fabricated inputs are in the
 [task-board cases](../../02-design/examples/task-board.cases.json).
 All product tests remain planned, absent and unrun.

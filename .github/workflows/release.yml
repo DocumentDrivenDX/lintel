@@ -1,0 +1,121 @@
+name: Release
+# Runs on a version tag (vX.Y.Z...). The manual dispatch is a dry run that builds and
+# smoke-tests but never publishes.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Build and smoke-test only; never publish
+        type: boolean
+        default: true
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+  build:
+    needs: test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.13.3'
+      - name: Check release identity
+        if: github.ref_type == 'tag'
+        run: |
+          python3 - <<'PY'
+          import os, tomllib
+          p = tomllib.load(open('pyproject.toml', 'rb'))['project']
+          assert p['name'] == 'lintel-api', p['name']
+          assert os.environ['GITHUB_REF_NAME'] == 'v' + p['version'], (os.environ['GITHUB_REF_NAME'], p['version'])
+          PY
+      - run: uv build
+      - run: uvx --from twine==7.0.0 twine check --strict dist/*
+      - name: Fresh-venv smoke of the built wheel (runs the README quickstart)
+        run: |
+          uv venv --python 3.11 "$RUNNER_TEMP/fresh"
+          wheel="$(ls "$PWD"/dist/*.whl)"
+          uv pip install --python "$RUNNER_TEMP/fresh/bin/python" "lintel-api[build,serve,experimental] @ file://$wheel"
+          if [ "${GITHUB_REF_TYPE}" = tag ]; then expect="--version ${GITHUB_REF_NAME}"; fi
+          "$RUNNER_TEMP/fresh/bin/python" -I scripts/smoke_installed.py ${expect:-}
+      - run: cd dist && sha256sum * > SHA256SUMS
+      - uses: actions/attest-build-provenance@v2
+        if: github.ref_type == 'tag'
+        with:
+          subject-path: dist/*.whl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lintel-distributions
+          path: dist/*
+          if-no-files-found: error
+  publish:
+    needs: build
+    if: github.ref_type == 'tag' && !(github.event_name == 'workflow_dispatch' && inputs.dry_run)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: lintel-distributions
+          path: dist
+      - run: rm dist/SHA256SUMS
+      - uses: pypa/gh-action-pypi-publish@release/v1
+  github-release:
+    needs: publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: lintel-distributions
+          path: dist
+      - name: Create the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v v="$version" '$0 ~ "^## " v {f=1; next} /^## /{f=0} f' CHANGELOG.md > notes.md
+          [ -s notes.md ] || echo "Release $version" > notes.md
+          gh release create "$GITHUB_REF_NAME" dist/* --title "lintel-api $version" --notes-file notes.md --verify-tag
+  public-consumer:
+    needs: publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.13.3'
+      - name: Install from PyPI in a fresh venv and run the quickstart
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          uv venv --python 3.11 "$RUNNER_TEMP/public"
+          for attempt in 1 2 3 4 5 6; do
+            uv pip install --no-cache --python "$RUNNER_TEMP/public/bin/python" \
+              "lintel-api[build,serve,experimental]==$version" && break
+            sleep 20
+          done
+          "$RUNNER_TEMP/public/bin/python" -I scripts/smoke_installed.py --version "$GITHUB_REF_NAME"

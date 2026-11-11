@@ -1,5 +1,7 @@
 """Lintel GraphQL projection and neutral host-owned execution ports."""
 
+from importlib.metadata import PackageNotFoundError, version
+
 from lintel import ports
 from lintel.node_id import StringKeyNodeCodec
 from lintel.ports import (
@@ -23,7 +25,10 @@ from lintel.ports import (
     RequestSession,
 )
 
-__version__ = "0.1.0a5"
+try:
+    __version__ = version("lintel-api")
+except PackageNotFoundError:  # source tree without installed metadata
+    __version__ = "0+unknown"
 
 __all__ = [
     "Arguments",

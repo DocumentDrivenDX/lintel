@@ -48,7 +48,7 @@ exhaustion fail explicitly. The command path preserves possible commitment.
 
 ## Test Scenarios
 
-[STP-006](../../03-test/test-plans/STP-006-delivery-family.md) owns the detailed
+STP-006 owns the detailed
 AC/test/assertion/citation mapping. Concrete fabricated inputs are in the
 [task-board cases](../../02-design/examples/task-board.cases.json).
 All product tests remain planned, absent and unrun.

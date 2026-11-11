@@ -78,7 +78,7 @@ than infer it from mocks. No throughput/latency SLO is claimed for this unbuilt 
 
 ## Testing
 
-[STP-001](../../03-test/test-plans/STP-001-model-projection.md) allocates all four criteria:
+STP-001 allocates all four criteria:
 - US-001-AC1: `schema_is_deterministic` at `tests/model_projection/test_model_projection.py`; asserted behavior is owned by the STP.
 - US-001-AC2: `unknown_selected_meaning_refuses` at `tests/model_projection/test_model_projection.py`; asserted behavior is owned by the STP.
 - US-001-AC3: `dependency_type_grants_no_access` at `tests/model_projection/test_model_projection.py`; asserted behavior is owned by the STP.
@@ -127,6 +127,6 @@ code; environments, cached bytecode and generated evidence are excluded from
 source lint/shape checks. This bounded probe installs no developer git hooks or
 application runtime instrumentation. Product source/client gates remain separate.
 
-[Observed quality controls](../../04-build/evidence/s01-quality-controls.json)
+Observed quality controls
 include valid-source acceptance, over-complexity, oversize and ceiling-change
-refusal. [SPIKE-001](../spikes/SPIKE-001-direct-umf.md) owns its qualification limits.
+refusal. SPIKE-001 owns its qualification limits.

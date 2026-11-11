@@ -19,7 +19,7 @@ ddx:
     - id: lintel.task-board
       version: "0.10.0"
       title: Fabricated task-board logical model
-      path: docs/helix/02-design/examples/task-board.umf.json
+      path: src/lintel/examples/task-board/task-board.umf.json
       schemaFormat: umf
 ---
 

@@ -8,9 +8,9 @@ import json
 from collections.abc import Mapping, Sequence
 from typing import Protocol, cast
 
+from lintel.build.errors import PreparationError
+from lintel.build.model import PreparedRecord
 from lintel.ports.values import ElementRef
-from lintel_build.errors import PreparationError
-from lintel_build.model import PreparedRecord
 
 _PROFILE = "weft.generated-read-algebra/4"
 _CONNECTION_PROFILE = "weft.generated-read-algebra/5"

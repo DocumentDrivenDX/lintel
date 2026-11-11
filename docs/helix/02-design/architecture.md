@@ -102,7 +102,7 @@ the optional adapter. No process-global schema registry or implicit provider con
 **Boundary Check**: `uv run --group spike python scripts/check_boundaries.py`
 checks the bounded spike module graph with allowed, forbidden, reverse-import
 and private-import controls. The spike module map and limitations are in
-[the execution record](../04-build/direct-umf-spike.md). Product source and the
+the execution record. Product source and the
 planned `bun run check:client-boundaries` require their own checks before handoff.
 
 ## Deployment

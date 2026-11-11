@@ -112,9 +112,9 @@ no unsupported performance budget is claimed.
 
 ## Story proof plans
 
-- [STP-001](test-plans/STP-001-model-projection.md): projection and admission.
-- [STP-002](test-plans/STP-002-relay-reads.md): Node/cursor/relationship consistency.
-- [STP-003](test-plans/STP-003-commands-outcomes.md): authoritative commands and uncertainty.
-- [STP-004](test-plans/STP-004-typescript-clients.md): Relay build and browser isolation.
-- [STP-005](test-plans/STP-005-batten-embedding.md): host lifecycle and custody.
-- [STP-006](test-plans/STP-006-delivery-family.md): installed cohort and publication boundaries.
+- STP-001: projection and admission.
+- STP-002: Node/cursor/relationship consistency.
+- STP-003: authoritative commands and uncertainty.
+- STP-004: Relay build and browser isolation.
+- STP-005: host lifecycle and custody.
+- STP-006: installed cohort and publication boundaries.

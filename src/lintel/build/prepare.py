@@ -16,8 +16,8 @@ from typing import Any, cast
 from graphql import build_schema, lexicographic_sort_schema, print_schema
 from umf import read_document, validate_document  # pyright: ignore[reportUnknownVariableType]
 
-from lintel_build.errors import PreparationError
-from lintel_build.model import PreparedRecord, project_records
+from lintel.build.errors import PreparationError
+from lintel.build.model import PreparedRecord, project_records
 
 _NAME = re.compile(r"^(?!__)[_A-Za-z][_0-9A-Za-z]*$")
 NAME_PATTERN = _NAME
