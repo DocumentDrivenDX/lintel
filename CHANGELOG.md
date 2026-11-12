@@ -12,6 +12,10 @@ Versions 0.1.0a2 to 0.1.0a5 were never published; their changes ship here.
 - Prepared APIs v1 to v5 (v5 adds task-board commands and relationships) with runtime admission, Relay-style Node IDs and
   connection preflight (v2 to v4 builders need the unpublished
   `umf_access_generated_executor` and raise `UNSUPPORTED` without it).
+- The build extra can derive OpenAPI 3.1 and named-operation contracts from an
+  admitted prepared API v5 for scalar Record reads, forward pages and declared
+  commands. The projection refuses selected relationships and supplies contracts
+  for client generation. The served runtime remains GraphQL.
 - `lintel.experimental` is now shipped in the wheel (extra `experimental`).
 - Example inputs ship inside the package.
 - Dependencies: `umf-core>=0.10.0,<0.11` (tested on 0.10.10), `fastapi>=0.135,<1`,

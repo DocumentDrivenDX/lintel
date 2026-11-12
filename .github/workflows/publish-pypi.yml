@@ -74,7 +74,9 @@ jobs:
         with:
           name: lintel-distributions
           path: dist
-      - run: rm dist/SHA256SUMS
+      - name: Verify publication archives
+        working-directory: dist
+        run: sha256sum --check SHA256SUMS && rm SHA256SUMS
       - uses: pypa/gh-action-pypi-publish@release/v1
   github-release:
     needs: publish
@@ -97,7 +99,9 @@ jobs:
           version="${GITHUB_REF_NAME#v}"
           awk -v v="$version" '$0 ~ "^## " v {f=1; next} /^## /{f=0} f' CHANGELOG.md > notes.md
           [ -s notes.md ] || echo "Release $version" > notes.md
-          gh release create "$GITHUB_REF_NAME" dist/* --title "lintel-api $version" --notes-file notes.md --verify-tag
+          options=(--verify-tag)
+          if [[ "$version" =~ (a|b|rc)[0-9]+$ ]]; then options+=(--prerelease); fi
+          gh release create "$GITHUB_REF_NAME" dist/* --title "lintel-api $version" --notes-file notes.md "${options[@]}"
   public-consumer:
     needs: publish
     runs-on: ubuntu-24.04

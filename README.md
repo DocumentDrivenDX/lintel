@@ -60,6 +60,15 @@ router = create_router(prepared, my_execution_port, my_node_codec, resolve_scope
 reference implementation. See [architecture](docs/helix/02-design/architecture.md) and the
 [contracts](docs/helix/02-design/contracts/README.md).
 
+## Prepared API v5 HTTP contracts
+
+`lintel.build.http_projection.project_http(prepared)` returns an OpenAPI 3.1
+document and named operation definitions from an admitted prepared API v5.
+It covers JSON:API resource refetch and forward pages and separate invocation
+and observation descriptions for declared commands. The projection rejects
+prepared artifacts with selected relationships. These build outputs describe
+interfaces for client generation. The served API uses GraphQL.
+
 ## Experimental
 
 `lintel.experimental` (install `lintel-api[experimental]`) is a laboratory projection with
