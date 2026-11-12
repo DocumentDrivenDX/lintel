@@ -73,7 +73,7 @@ def _install_commands(
                 tuple(CommandParameter(param.name, param.scalar) for param in command.parameters),
             ),
             lambda _value: None,
-            lambda key: _encode(codec, prepared, key),
+            lambda key: encode_node_key(codec, prepared, key),
         )
 
 
@@ -167,7 +167,7 @@ class _NodeQueryResolvers:
 
     async def get_one(self, _root: object, info: ResolveInfo, id: str) -> NodeValue | None:
         prepared, records, codec = self.prepared, self.records, self.codec
-        key = _decode(codec, prepared, id, records)
+        key = decode_node_key(codec, prepared, id, records)
         if key is None:
             return None
         record = records[key.record]
@@ -188,7 +188,7 @@ class _NodeQueryResolvers:
         grouped: dict[ElementRef, list[tuple[int, NodeKey]]] = {}
         result: list[NodeValue | None] = [None] * len(ids)
         for index, opaque in enumerate(ids):
-            key = _decode(codec, prepared, opaque, records)
+            key = decode_node_key(codec, prepared, opaque, records)
             if key is not None:
                 grouped.setdefault(key.record, []).append((index, key))
         for record_ref, entries in grouped.items():
@@ -237,14 +237,14 @@ def _resolve_id(prepared: AdmittedPreparedApi, codec: NodeCodec) -> Callable[...
     def resolve(value: object, _info: ResolveInfo) -> str:
         if type(value) is not NodeValue:
             raise GraphQLError("UNSUPPORTED", extensions={"code": "UNSUPPORTED"})
-        return _encode(codec, prepared, value.key)
+        return encode_node_key(codec, prepared, value.key)
 
     return resolve
 
 
 def _resolve_projected_field(source: ElementRef, scalar: str) -> Callable[..., object]:
     def resolve(value: object, _info: ResolveInfo) -> object:
-        return _field_value(value, source, scalar)
+        return scalar_value(value, source, scalar)
 
     return resolve
 
@@ -282,7 +282,7 @@ def resolve_record_type(value: object, records: Mapping[ElementRef, PreparedReco
     )
 
 
-def _field_value(value: object, source: ElementRef, scalar: str) -> object:
+def scalar_value(value: object, source: ElementRef, scalar: str) -> object:
     if type(value) is not NodeValue:
         return None
     literal = value.fields.get(source)
@@ -303,7 +303,7 @@ def _field_value(value: object, source: ElementRef, scalar: str) -> object:
     raise GraphQLError("UNSUPPORTED", extensions={"code": "UNSUPPORTED"})
 
 
-def _decode(
+def decode_node_key(
     codec: NodeCodec,
     prepared: AdmittedPreparedApi,
     opaque: str,
@@ -335,7 +335,7 @@ def _valid_node(value: NodeValue, key: NodeKey, fields: tuple[ElementRef, ...]) 
     return value.key == key and set(value.fields) == set(fields)
 
 
-def _encode(codec: NodeCodec, prepared: AdmittedPreparedApi, key: NodeKey) -> str:
+def encode_node_key(codec: NodeCodec, prepared: AdmittedPreparedApi, key: NodeKey) -> str:
     if not _valid_key_shape(key):
         raise GraphQLError("UNSUPPORTED", extensions={"code": "UNSUPPORTED"})
     try:

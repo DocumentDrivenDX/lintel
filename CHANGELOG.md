@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0a7 - 2026-11-11
+
+- Adds JSON:API reads and named command and observation routes for the bounded
+  Batten task-board profile. Both use the admitted prepared API v5 and the same
+  Batten execution scopes as GraphQL.
+- Generates OpenAPI 3.1 and named operation descriptions for forward paging,
+  resource refetch, one-hop assignee expansion, and declared commands.
+- Qualifies the local task-board profile on one Batten host with PostgreSQL 18.6
+  and Chromium, including exact Decimal values, actor switching, command
+  confirmation, and recovery after a lost response. Existing Relay clients can
+  continue using GraphQL.
+
 ## 0.1.0a6 - 2026-11-11
 
 First release that goes from a UMF document to a served GraphQL API.

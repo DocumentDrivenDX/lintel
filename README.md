@@ -3,8 +3,8 @@
 Lintel turns a [UMF](https://github.com/DocumentDrivenDX/umf) document plus an
 exposure file into a prepared GraphQL API and serves it with FastAPI.
 
-**Status: alpha.** It works end to end against an in-memory data port. It has no
-database-backed port yet, so it is not integrated with Truss, UMF Access or PostgreSQL.
+**Status: alpha.** The standalone quickstart uses an in-memory data port.
+Batten supplies PostgreSQL access for the qualified local task-board profile.
 The PyPI project is `lintel-api` (the unrelated `lintel` project is a docstring checker).
 
 ## Quickstart
@@ -35,10 +35,10 @@ CI (Linux, Python 3.11) tests: preparing v1 prepared APIs from UMF (`umf-core` 0
 keyed `node` / `nodes` reads through the in-memory port, runtime admission and tamper
 checks, Node IDs, and the commands above from a built wheel in a fresh virtualenv.
 
-Not provided: a Truss/UMF Access/PostgreSQL port, mutations, Relay connections served by
-`lintel serve`, TypeScript clients, Batten embedding. Prepared-API v2 to v4 artifacts can be
-loaded by the runtime, but their builders need `umf_access_generated_executor`, which is not
-published, so they raise `UNSUPPORTED` without it.
+The standalone `lintel serve` command covers in-memory keyed reads. The local
+Batten comparison separately exercises prepared API v5 routes against PostgreSQL
+18.6 with generated TypeScript in Chromium. The v2 through v5 builders require
+`umf_access_generated_executor` and refuse when it is unavailable.
 
 ## Stack integration
 
@@ -60,14 +60,31 @@ router = create_router(prepared, my_execution_port, my_node_codec, resolve_scope
 reference implementation. See [architecture](docs/helix/02-design/architecture.md) and the
 [contracts](docs/helix/02-design/contracts/README.md).
 
-## Prepared API v5 HTTP contracts
+## Prepared API v5 HTTP routes
 
-`lintel.build.http_projection.project_http(prepared)` returns an OpenAPI 3.1
-document and named operation definitions from an admitted prepared API v5.
-It covers JSON:API resource refetch and forward pages and separate invocation
-and observation descriptions for declared commands. The projection rejects
-prepared artifacts with selected relationships. These build outputs describe
-interfaces for client generation. The served API uses GraphQL.
+`lintel.build.http_projection.project_http(prepared)` returns the OpenAPI 3.1
+document and named operation definitions. Generate the browser client against
+that document and configure its base URL to the deployed Lintel prefix. The
+HTTP profile includes resource refetch, forward pages, one selected to-one
+relationship per request, and separate command invocation and observation.
+
+For Batten, mount both Lintel routers under the same `HostScopeIngress` and
+pass its `resolve_context` to each. Give the HTTP router a dedicated prefix so
+its operations do not collide with Batten's own `/api/operations` routes.
+
+```python
+from lintel.graphql import create_router as graphql_router
+from lintel.http import create_router as http_router
+
+api.include_router(graphql_router(prepared, execution, codec, ingress.resolve_context))
+api.include_router(
+    http_router(prepared, execution, codec, ingress.resolve_context), prefix="/lintel"
+)
+# Batten mounts ingress.wrap(api) at /api.
+```
+
+Requests send the admitted digest in `x-lintel-api`. This is the local Batten
+task-board profile. The standalone quickstart continues to serve GraphQL.
 
 ## Experimental
 
