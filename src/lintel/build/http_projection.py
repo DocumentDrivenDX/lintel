@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-import re
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from typing import Protocol, cast
 
+from lintel.http import operation_name
 from lintel.projection.prepared import (
     AdmittedPreparedApi,
     PreparedField,
@@ -56,10 +56,6 @@ def _scalar(scalar: str, nullable: bool) -> Json:
     return {"anyOf": [schema, {"type": "null"}]} if nullable else schema
 
 
-def _name(value: str) -> str:
-    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", "_", value).lower()
-
-
 def _resource(record: PreparedRecord, fields: tuple[PreparedField, ...]) -> Json:
     attributes = {field.name: _scalar(field.scalar, field.nullable) for field in fields}
     if {"type", "id", "lid"} & attributes.keys():
@@ -76,7 +72,7 @@ def _resource(record: PreparedRecord, fields: tuple[PreparedField, ...]) -> Json
 
 def _get(record: PreparedRecord) -> Operation:
     return Operation(
-        "get_" + _name(record.type_name),
+        "get_" + operation_name(record.type_name),
         f"Refetch an authorized {record.type_name} by opaque identifier.",
         _object({"id": {"type": "string", "minLength": 1}}, ("id",)),
         _object({"data": _resource(record, record.fields)}, ("data",)),
@@ -86,7 +82,7 @@ def _get(record: PreparedRecord) -> Operation:
 def _list(record: PreparedRecord, connection: PreparedConnection, max_page: int) -> Operation:
     fields = tuple(field for field in record.fields if field.source in connection.field_refs)
     return Operation(
-        "list_" + _name(connection.name),
+        "list_" + operation_name(connection.name),
         f"Read one forward page of authorized {record.type_name} resources.",
         _object(
             {
@@ -105,6 +101,40 @@ def _list(record: PreparedRecord, connection: PreparedConnection, max_page: int)
     )
 
 
+def _with_relationships(
+    operation: Operation,
+    record: PreparedRecord,
+    records: tuple[PreparedRecord, ...],
+    relationships: tuple[PreparedRelationship, ...],
+) -> Operation:
+    routes = tuple(route for route in relationships if route.source == record.source)
+    if not routes:
+        return operation
+    source = cast(Json, operation.output_schema["properties"])
+    data = cast(Json, source["data"])
+    item = cast(Json, data.get("items", data))
+    properties = cast(Json, item["properties"])
+    required = cast(list[str], item["required"])
+    targets = {r.source: r for r in records}
+    linkage = _object({"type": {"type": "string"}, "id": {"type": "string"}}, ("type", "id"))
+    properties["relationships"] = _object(
+        {
+            route.name: _object({"data": {"anyOf": [linkage, {"type": "null"}]}}, ("data",))
+            for route in routes
+        },
+        (),
+    )
+    required.append("relationships")
+    included = [
+        _resource(targets[ref], targets[ref].fields)
+        for ref in dict.fromkeys(r.target for r in routes)
+    ]
+    source["included"] = {"type": "array", "items": {"anyOf": included}}
+    inputs = cast(Json, operation.input_schema["properties"])
+    inputs["include"] = {"type": "string", "enum": [route.name for route in routes]}
+    return operation
+
+
 def _command(command: PreparedTableCommand, *, observe: bool) -> Operation:
     fields: Json = {
         param.name: _scalar(param.scalar, not param.required) for param in command.parameters
@@ -115,7 +145,7 @@ def _command(command: PreparedTableCommand, *, observe: bool) -> Operation:
     required = ["invocationKey", *(p.name for p in command.parameters if p.required)]
     label = "Observe the original outcome of" if observe else "Invoke the declared command"
     return Operation(
-        ("observe_" if observe else "") + _name(command.name),
+        ("observe_" if observe else "") + operation_name(command.name),
         f"{label} {command.name}.",
         _object(fields, required),
         _outcome(observe=observe),
@@ -156,6 +186,13 @@ def _http(
             },
         },
     }
+    header = {
+        "name": "x-lintel-api",
+        "in": "header",
+        "required": True,
+        "schema": {"type": "string"},
+    }
+    spec["parameters"] = [header]
     if method == "post":
         spec["requestBody"] = {
             "required": True,
@@ -165,13 +202,16 @@ def _http(
         properties = cast(Mapping[str, object], operation.input_schema["properties"])
         required = cast(list[str], operation.input_schema["required"])
         spec["parameters"] = [
-            {
-                "name": key,
-                "in": parameter_location,
-                "required": key in required,
-                "schema": schema,
-            }
-            for key, schema in properties.items()
+            header,
+            *[
+                {
+                    "name": key,
+                    "in": "query" if key == "include" else parameter_location,
+                    "required": key in required,
+                    "schema": schema,
+                }
+                for key, schema in properties.items()
+            ],
         ]
     return {method: spec}
 
@@ -200,8 +240,6 @@ def project_http(prepared: AdmittedPreparedApi) -> tuple[Json, tuple[Json, ...]]
     inventory = cast(_Inventory, prepared)
     if inventory.version != "lintel.prepared-api/5":
         raise ValueError("HTTP projection requires an admitted prepared API /5")
-    if inventory.relationships:
-        raise ValueError("HTTP projection does not support selected relationships")
     limits = cast(Mapping[str, str], inventory.host_profile["limits"])
     return _project(
         inventory.records,
@@ -209,6 +247,7 @@ def project_http(prepared: AdmittedPreparedApi) -> tuple[Json, tuple[Json, ...]]
         inventory.commands,
         int(limits["maxPage"]),
         inventory.api_digest,
+        inventory.relationships,
     )
 
 
@@ -218,6 +257,7 @@ def _project(
     commands: tuple[PreparedTableCommand, ...],
     max_page: int,
     api_digest: str,
+    relationships: tuple[PreparedRelationship, ...] = (),
 ) -> tuple[Json, tuple[Json, ...]]:
     paths: dict[str, Json] = {}
     operations: dict[str, Operation] = {}
@@ -234,13 +274,19 @@ def _project(
             operation, method=method, media=media, parameter_location=parameter_location
         )
 
+    def read(operation: Operation, record: PreparedRecord) -> Operation:
+        return _with_relationships(operation, record, records, relationships)
+
     for record in records:
-        add(f"/records/{record.type_name}/{{id}}", "get", _get(record), "path")
+        add(f"/records/{record.type_name}/{{id}}", "get", read(_get(record), record), "path")
     for connection in connections:
         add(
             f"/collections/{connection.name}",
             "get",
-            _list(by_lookup[connection.lookup], connection, max_page),
+            read(
+                _list(by_lookup[connection.lookup], connection, max_page),
+                by_lookup[connection.lookup],
+            ),
         )
     for command in commands:
         for observe in (False, True):

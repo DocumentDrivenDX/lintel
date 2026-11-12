@@ -21,6 +21,8 @@ from pathlib import Path
 from typing import Any
 
 import lintel
+from lintel.build.http_projection import project_http
+from lintel.http import create_router as create_http_router
 from lintel.node_id import StringKeyNodeCodec
 from lintel.ports.values import ElementRef, NodeKey
 from lintel.projection import TrustedPreparedRef, load_prepared_api
@@ -119,6 +121,7 @@ def main() -> None:
     assert Path(lintel.__file__).is_relative_to(sysconfig.get_path("purelib"))
     assert importlib.util.find_spec("lintel.experimental") is not None
     assert importlib.util.find_spec("lintel.build") is not None
+    assert callable(project_http) and callable(create_http_router)
     run_quickstart()
 
     codec = StringKeyNodeCodec()

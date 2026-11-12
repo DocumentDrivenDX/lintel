@@ -72,12 +72,12 @@ def _resolver(
     async def resolve(_root: object, info: ResolveInfo, input: Mapping[str, object]) -> Outcome:
         invocation_key = cast(str, input["invocationKey"])
         try:
-            _check_control(invocation_key, 128)
+            check_control(invocation_key, 128)
             confirmation = cast(str | None, input.get("confirmation"))
             if confirmation is not None:
-                _check_control(confirmation, 2048)
+                check_control(confirmation, 2048)
             arguments = {
-                param.name: _parameter(param, input[param.name], decode_key)
+                param.name: command_argument(param, input[param.name], decode_key)
                 for param in command.parameters
                 if param.name in input
             }
@@ -92,16 +92,16 @@ def _resolver(
                     )
                 )
         except ExecutionError as error:
-            return _rejected(invocation_key, error)
+            return rejected_command(invocation_key, error)
         try:
-            return _outcome(result, invocation_key, encode_key, observe)
+            return command_outcome(result, invocation_key, encode_key, observe)
         except ExecutionError:
             return _unavailable(invocation_key, observe)
 
     return resolve
 
 
-def _check_control(value: str, max_bytes: int) -> None:
+def check_control(value: str, max_bytes: int) -> None:
     try:
         size = len(value.encode("utf-8"))
     except UnicodeEncodeError as error:
@@ -110,7 +110,7 @@ def _check_control(value: str, max_bytes: int) -> None:
         raise ExecutionError("INVALID")
 
 
-def _parameter(
+def command_argument(
     parameter: CommandParameter, value: object, decode_key: DecodeKey
 ) -> Mapping[str, object] | NodeKey | None:
     if value is None:
@@ -132,7 +132,7 @@ def _parameter(
     raise ExecutionError("INVALID")
 
 
-def _rejected(invocation_key: str, error: ExecutionError) -> Outcome:
+def rejected_command(invocation_key: str, error: ExecutionError) -> Outcome:
     return {
         "__typename": "CommandRejected",
         "invocationKey": invocation_key,
@@ -141,7 +141,7 @@ def _rejected(invocation_key: str, error: ExecutionError) -> Outcome:
     }
 
 
-def _outcome(
+def command_outcome(
     result: CommandResult, invocation_key: str, encode_key: EncodeKey, observe: bool
 ) -> Outcome:
     if type(result) is not CommandResult or result.invocation_key != invocation_key:
@@ -179,7 +179,7 @@ def _rejection_result(result: CommandResult, observe: bool) -> Outcome:
         error = ExecutionError(cast(ExecutionErrorCode, result.code), result.confirmation)
     except ValueError:
         return _unavailable(result.invocation_key, observe)
-    return _rejected(result.invocation_key, error)
+    return rejected_command(result.invocation_key, error)
 
 
 def _unavailable(invocation_key: str, observe: bool) -> Outcome:

@@ -43,7 +43,7 @@ def create_router(
     """Build a POST endpoint using only the host's authenticated request context."""
     if type(prepared) is not AdmittedPreparedApi:
         raise ValueError("API_MISMATCH")
-    _check_runtime_profiles(prepared, executor, node_codec)
+    check_runtime_profiles(prepared, executor, node_codec)
     if prepared.version in {
         "lintel.prepared-api/3",
         "lintel.prepared-api/4",
@@ -64,7 +64,7 @@ def create_router(
     return router
 
 
-def _check_runtime_profiles(
+def check_runtime_profiles(
     prepared: AdmittedPreparedApi, executor: ExecutionPort, codec: NodeCodec
 ) -> None:
     caps = dict(prepared.capabilities)
@@ -141,7 +141,7 @@ def _decode_request(raw: bytes) -> tuple[dict[str, Any], Response | None]:
         body = json.loads(
             raw.decode("utf-8", errors="strict"),
             object_pairs_hook=pairs_hook,
-            parse_constant=_reject_constant,
+            parse_constant=reject_constant,
         )
     except (UnicodeDecodeError, json.JSONDecodeError, ValueError):
         return {}, _json_response(_safe_error("INVALID"), 400)
@@ -180,7 +180,7 @@ async def _request_scope(
             scope = await resolve_scope(request, prepared.api_digest)
         except Exception:
             error = Response(status_code=403)
-    if error is None and (scope is None or not _valid_scope(scope, prepared)):
+    if error is None and (scope is None or not valid_scope(scope, prepared)):
         error = Response(status_code=403)
     if error is None and request.headers.get("x-lintel-api") != prepared.api_digest:
         error = _json_response(_safe_error("API_MISMATCH"), 412)
@@ -197,11 +197,11 @@ def _valid_request_metadata(body: Mapping[str, Any]) -> Response | None:
     return None
 
 
-def _reject_constant(value: str) -> object:
+def reject_constant(value: str) -> object:
     raise ValueError("invalid JSON constant: " + value)
 
 
-def _valid_scope(scope: RequestScope, prepared: AdmittedPreparedApi) -> bool:
+def valid_scope(scope: RequestScope, prepared: AdmittedPreparedApi) -> bool:
     return (
         scope.application == prepared.application
         and scope.api_digest == prepared.api_digest

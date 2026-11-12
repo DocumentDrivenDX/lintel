@@ -9,54 +9,59 @@ ddx:
     - id: lintel.prd
       kind: informed_by
 ---
-
-# ADR-002: Use GraphQL and Relay as the shared API/client surface
+# ADR-002 Use JSON:API reads and named commands for the bounded Batten profile
 
 ## Problem
 
-The owner wants standardized type descriptions, pagination and node expansion,
-plus TypeScript clients for the API included with Batten. Dual REST/GraphQL
-surfaces add protocol work without a stated need.
+Batten applications need typed browser reads, bounded relationship expansion,
+and command execution and recovery under host authority. Agents need named
+operations with explicit inputs and outcomes. The API must derive from UMF
+exposure and preserve the same admitted execution semantics across clients.
 
 ## Decision
 
-Build one GraphQL API with a bounded Relay server profile: stable Node refetch,
-forward connections, fragments, selected relationship expansion and declared
-mutations. Export its exact schema and use Relay's compiler for TypeScript
-operation/fragment artifacts and its runtime for normalized client access.
-REST/OpenAPI product API generation is outside the MVP.
+Default to JSON:API 1.1 resource documents and named command and observation
+operations for new Batten consumers of the qualified prepared API /5
+task-board profile. Generate OpenAPI 3.1 and named-operation descriptions
+from the admitted artifact. Mount the routes through Batten's authenticated
+scope ingress under a dedicated prefix. Retain GraphQL and Relay for existing
+consumers and applications that need Relay fragments or GraphQL selection.
 
 ## Why We Chose This
 
-### Over REST plus OpenAPI
+The task-board browser journey needs one bounded forward collection, resource
+refetch and one batched to-one relationship. JSON:API carries these through
+resource identifiers, continuation links, linkage and included resources.
+Named command operations expose invoke and observe separately while keeping
+confirmation, current authorization and outcome ownership in Batten.
 
-The owner selected GraphQL/Relay's shared conventions and client model. Keeping
-a second product protocol would add mappings and parity obligations without
-serving a named additional consumer.
-
-### Over a custom TypeScript query generator
-
-Relay already compiles selected operations/fragments. Lintel owns schema export,
-scalar mappings, network wiring and reproducible build/check integration rather
-than a second client compiler or normalized cache.
+GraphQL and Relay supplied a working comparison with the same prepared
+artifact and execution ports. Their selection and fragment composition
+remain relevant when a consumer needs more than the qualified HTTP profile.
 
 ## Consequences
 
-Node identity, per-edge cursor semantics, request-local consistency and fragment
-compilation are required behavior. Generic GraphQL schema validity does not
-establish Relay compatibility. No implicit subscriptions or federation are added.
-
-Drift signals: next-page tokens called edge cursors, source-hash-churned IDs,
-unauthorized refetch, unbounded in-memory connection slicing or hand-maintained
-TypeScript schema types.
+Both surfaces preserve the admitted identity namespace, native cursor scope,
+request snapshots, exact Decimal strings and operation authority. An opaque
+cursor remains provider-owned. A client must discard in-flight responses when
+the actor changes. Unsupported exposure fails during preparation or mounting.
 
 ## Assumptions
 
-Provisional risk: Strawberry's dynamic type construction and Relay compiler
-integration must pass the selected exact-value and async profile. Candidate
-libraries are reversible; GraphQL/Relay and TypeScript client outcomes are required.
+The initial HTTP profile covers scalar Record fields, forward collection
+paging, one selected to-one expansion per request and declared commands.
+Databricks Apps, broader query composition and packaged deployment are
+separate qualification targets.
 
 ## Validation
 
-Result: not tested. Official Relay identification/connections/type-emission
-references support the approach; no Lintel conformance or browser execution exists.
+Chromium 153.0.8010.12 exercised generated OpenAPI TypeScript and Relay 21.0.1
+against one local Batten host with PostgreSQL 18.6. The host used production
+prepared API /5 admission, Weft generated-read algebra /8, native RLS and
+a native recoverable command. The comparison observed matching identity and
+paging, exact Decimal, one batch for two parent rows, hidden linkage, required
+confirmation and recovery across transports after a lost HTTP response.
+Both clients discarded an in-flight response after an actor switch. All 55
+native leases closed. This result covers the local source-composed
+task-board fixture. Earlier build checks also rejected a breaking field rename
+in both the generated OpenAPI client and Relay operation.

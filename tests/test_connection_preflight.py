@@ -281,7 +281,7 @@ def test_router_stages_all_aliases_before_entering_planned_session(
     ) -> None:
         return None
 
-    monkeypatch.setattr(router_module, "_check_runtime_profiles", ignore_profiles)
+    monkeypatch.setattr(router_module, "check_runtime_profiles", ignore_profiles)
     port = _PlannedPort()
     key = NodeKey(source, "primary", ({"string": "note-1"},))
     port.pages["a"] = ConnectionPage(
